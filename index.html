@@ -266,21 +266,20 @@
 </div>
         </section>
 
-        <!-- AREA POSTINGAN -->
+       <!-- AREA POSTINGAN -->
         <main>
-            <div class='section-title'>Berita &amp; Pengumuman</div>
+            <div class='section-title'>Berita &amp; Pengumuman Terbaru</div>
             
-            <!-- Contoh Tampilan Artikel (Bisa otomatis jika di Blogger) -->
-            <div class='post-item'>
-                <h3 class='post-title'><a href='#'>Pemberitahuan Terkait Pelayanan Cuti Bersama</a></h3>
-                <div class='post-meta'>📅 28 Mei 2026 | Pengumuman</div>
-                <div class='post-snippet'>Sehubungan dengan hari libur nasional, pelayanan tatap muka di kantor KUA Kecamatan Panti akan dialihkan melalui...</div>
+            <!-- Tempat artikel Blogger akan muncul secara otomatis -->
+            <div id='blogger-posts'>
+                <p style="text-align: center; color: #64748b; padding: 20px;">Memuat berita terbaru...</p>
             </div>
             
-            <div class='post-item'>
-                <h3 class='post-title'><a href='#'>Bimbingan Perkawinan (Bimwin) Calon Pengantin Angkatan Ke-IV</a></h3>
-                <div class='post-meta'>📅 15 Mei 2026 | Kegiatan</div>
-                <div class='post-snippet'>KUA Panti sukses menyelenggarakan bimbingan perkawinan mandiri bagi para calon pengantin demi mewujudkan keluarga sakinah...</div>
+            <!-- Tombol untuk melihat semua postingan di Blog resmi -->
+            <div style="text-align: center; margin-top: 25px;">
+                <a href="https://kuakecamatanpanti.blogspot.com/" target="_blank" style="display: inline-block; background: #064e3b; color: white; padding: 10px 20px; border-radius: 6px; text-decoration: none; font-weight: bold; font-size: 0.9rem;">
+                    Lihat Semua Berita ➔
+                </a>
             </div>
         </main>
 
@@ -312,4 +311,62 @@
     </div>
 
 </body>
+ <script>
+    document.addEventListener("DOMContentLoaded", function() {
+        // Mengambil RSS Feed dari Blogger KUA Panti (Menampilkan 3 artikel terbaru)
+        const blogUrl = "https://kuakecamatanpanti.blogspot.com/feeds/posts/default?alt=json-in-script&max-results=3";
+        
+        // Membuat fungsi script callback untuk mengatasi masalah CORS Cross-Domain
+        const script = document.createElement("script");
+        script.src = blogUrl + "&callback=loadBloggerPosts";
+        document.body.appendChild(script);
+    });
+
+    // Fungsi untuk memproses data dari Blogger dan menampilkannya ke HTML GitHub
+    function loadBloggerPosts(data) {
+        const container = document.getElementById("blogger-posts");
+        container.innerHTML = ""; // Bersihkan tulisan "Memuat berita..."
+
+        if (!data.feed.entry || data.feed.entry.length === 0) {
+            container.innerHTML = "<p style='text-align:center; color:#64748b;'>Belum ada berita terbaru.</p>";
+            return;
+        }
+
+        // Loop untuk menyusun setiap artikel
+        data.feed.entry.forEach(entry => {
+            const title = entry.title.$t;
+            
+            // Mencari link artikel asli di blogger
+            let postUrl = "#";
+            for (let i = 0; i < entry.link.length; i++) {
+                if (entry.link[i].rel === "alternate") {
+                    postUrl = entry.link[i].href;
+                    break;
+                }
+            }
+
+            // Memformat Tanggal Posting
+            const published = new Date(entry.published.$t);
+            const options = { year: 'numeric', month: 'long', day: 'numeric' };
+            const formattedDate = published.toLocaleDateString('id-ID', options);
+
+            // Mengambil cuplikan teks artikel (Snippet)
+            let snippet = entry.summary ? entry.summary.$t : (entry.content ? entry.content.$t : "");
+            snippet = snippet.replace(/<\/?[^>]+(>|$)/g, ""); // Hapus tag HTML jika ada
+            if (snippet.length > 130) {
+                snippet = snippet.substring(0, 130) + "...";
+            }
+
+            // Membuat element HTML struktur artikel
+            const postItem = document.createElement("div");
+            postItem.className = "post-item";
+            postItem.innerHTML = `
+                <h3 class='post-title'><a href='${postUrl}' target='_blank'>${title}</a></h3>
+                <div class='post-meta'>📅 ${formattedDate} | Berita KUA</div>
+                <div class='post-snippet'>${snippet}</div>
+            `;
+            container.appendChild(postItem);
+        });
+    }
+</script>   
 </html>
