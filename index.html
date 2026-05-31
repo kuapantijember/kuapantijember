@@ -5,515 +5,366 @@
     <meta content='width=device-width,initial-scale=1' name='viewport'/>
     <title>KUA Kecamatan Panti</title>
 
+    <!-- Menyisipkan Font Awesome untuk memunculkan ikon menu -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
     <style>
         /* Palet Warna Elegan Instansi Kemenag */
         :root {
-            --bg-color: #f8fafc;        
             --panel-bg: #ffffff;        
-            --primary-color: #064e3b;    
-            --secondary-color: #b45309;  
+            --primary-color: #064e3b;    /* Hijau Botol Kemenag */
+            --secondary-color: #b45309;  /* Emas Gelap/Bronze */
             --text-color: #1e293b;       
             --text-muted: #64748b;       
             --border-color: #e2e8f0;     
-            --gradient-bg: linear-gradient(135deg, #043427 0%, #0c614b 100%);
+            --icon-bg: #f0fdf4;          /* Lingkaran hijau tipis untuk ikon */
         }
         
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-
         body {
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
             font-size: 16px;
             line-height: 1.6;
             color: var(--text-color);
-            background-color: var(--bg-color);
+            
+            /* Background Soft Gradient Pilihan 1 */
+            background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 50%, #e8f5e9 100%);
+            background-attachment: fixed;
+            
+            margin: 0;
+            padding: 40px 20px;
         }
 
-        /* BANNER ATAS DENGAN MAKLUMAT DI SEBELAH KANAN */
-        .hero-banner {
-            background: var(--gradient-bg);
-            color: white;
-            padding: 50px 20px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.08);
-        }
-
-        .hero-container {
-            max-width: 1200px;
+        .container {
+            max-width: 1000px;
             margin: 0 auto;
-            display: flex;
-            flex-wrap: wrap;
-            align-items: center;
-            justify-content: space-between;
-            gap: 40px;
         }
 
-        /* Sisi Kiri: Profil Identitas */
-        .profile-section {
-            display: flex;
-            align-items: center;
-            gap: 20px;
-            flex: 1;
-            min-width: 320px;
+        /* Desain Header Grid Kombinasi Kop & Maklumat */
+        .header-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 25px;
+            margin-bottom: 35px;
         }
 
-        /* Kotak Putih Transparan agar Logo Hitam Terlihat Jelas */
-        .profile-logo {
-            max-width: 130px;
+        @media (max-width: 768px) {
+            .header-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Sisi Kiri: Kop Nama Instansi */
+        .header-kop {
+            text-align: center;
+            background: linear-gradient(135deg, #064e3b 0%, #022c22 100%);
+            border-radius: 16px;
+            padding: 35px 20px;
+            box-shadow: 0 10px 15px -3px rgba(6, 78, 59, 0.1);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .logo-kemenag {
+            width: 85px;
             height: auto;
-            background: rgba(255, 255, 255, 0.95);
-            padding: 12px;
-            border-radius: 14px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-            border: 2px solid #fbbf24;
+            margin-bottom: 15px;
+            filter: drop-shadow(0px 4px 6px rgba(0,0,0,0.2));
         }
 
-        .profile-text .sub-1 {
-            color: #fbbf24;
-            font-weight: 700;
-            text-transform: uppercase;
-            font-size: 0.85rem;
-            letter-spacing: 1px;
-            margin-bottom: 4px;
-        }
-
-        .profile-text h1 {
-            font-size: 2.2rem;
-            color: white;
+        .header-kop h1 {
+            font-size: 22px;
             font-weight: 800;
-            letter-spacing: -0.5px;
-            line-height: 1.2;
-        }
-
-        .profile-text .sub-2 {
-            color: #cbd5e1;
-            font-size: 0.95rem;
-            margin-top: 5px;
-        }
-
-        .badge-status {
-            display: inline-block;
-            background: var(--secondary-color);
-            color: white;
-            padding: 5px 14px;
-            border-radius: 20px;
-            font-size: 0.75rem;
-            font-weight: bold;
-            margin-top: 12px;
+            color: #ffffff;
+            margin: 0 0 8px 0;
             letter-spacing: 0.5px;
-            text-transform: uppercase;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.15);
         }
 
-        /* Sisi Kanan: Box Maklumat Pelayanan */
-        .maklumat-box {
-            flex: 1.2;
-            min-width: 340px;
-            background: rgba(255, 255, 255, 0.06);
-            border: 1px solid rgba(255, 255, 255, 0.15);
-            border-radius: 14px;
-            padding: 22px;
-            backdrop-filter: blur(10px);
+        .header-kop p {
+            font-size: 13px;
+            color: #a7f3d0;
+            font-weight: 500;
+            margin: 0;
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
 
-        .maklumat-header {
-            font-size: 0.85rem;
-            font-weight: bold;
-            color: #fbbf24;
+        /* Sisi Kanan: Box Maklumat & Kompensasi Pelayanan (Sesuai image_a3de67.png) */
+        .panel-maklumat {
+            background-color: rgba(6, 78, 59, 0.03);
+            border: 2px dashed #0c614b;
+            border-radius: 16px;
+            padding: 20px;
+            font-size: 12px;
+            color: #334155;
+        }
+
+        .panel-maklumat h4 {
+            color: var(--primary-color);
+            font-size: 13px;
+            font-weight: 700;
+            margin-bottom: 6px;
             text-transform: uppercase;
-            letter-spacing: 0.5px;
-            margin-bottom: 12px;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-            padding-bottom: 6px;
             display: flex;
             align-items: center;
             gap: 6px;
         }
 
-        .maklumat-item {
+        .panel-maklumat p {
             margin-bottom: 12px;
-        }
-        .maklumat-item:last-child { margin-bottom: 0; }
-
-        .maklumat-item h4 {
-            font-size: 0.8rem;
-            color: #fbbf24;
-            text-transform: uppercase;
-            margin-bottom: 3px;
-            letter-spacing: 0.5px;
-        }
-
-        .maklumat-item p {
-            font-size: 0.85rem;
-            color: #f1f5f9;
-            line-height: 1.4;
+            line-height: 1.5;
             text-align: justify;
         }
 
-        .maklumat-signature {
-            font-size: 0.75rem;
-            color: #cbd5e1;
-            font-style: italic;
+        .panel-maklumat .footer-maklumat {
             text-align: right;
-            margin-top: 10px;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-            padding-top: 6px;
+            font-style: italic;
+            font-weight: 600;
+            color: var(--secondary-color);
+            margin-bottom: 0;
         }
 
-        /* AREA KONTEN UTAMA */
-        .main-container {
-            max-width: 1200px;
-            margin: 40px auto;
-            padding: 0 20px;
-        }
-
-        .section-title {
-            font-size: 1.2rem;
-            font-weight: 700;
-            color: var(--primary-color);
-            border-left: 4px solid var(--secondary-color);
-            padding-left: 12px;
-            margin-bottom: 25px;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-
-        /* LAYOUT DASHBOARD GRID */
-        .grid-layanan {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 16px;
-            margin-bottom: 50px;
-        }
-
-        .card-layanan {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 20px;
+        /* Desain Panel Konten Menu Utama */
+        .panel {
             background-color: var(--panel-bg);
             border: 1px solid var(--border-color);
-            border-radius: 12px;
-            color: var(--text-color);
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 0.98rem;
-            transition: all 0.2s ease-in-out;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.02);
+            border-radius: 16px;
+            padding: 30px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+            margin-bottom: 30px;
         }
 
-        .card-layanan:hover {
-            border-color: var(--primary-color);
+        .panel-title {
+            font-size: 18px;
+            font-weight: 700;
             color: var(--primary-color);
-            transform: translateY(-3px);
-            box-shadow: 0 10px 15px -3px rgba(6, 78, 59, 0.08);
+            margin-top: 0;
+            margin-bottom: 25px;
+            border-bottom: 2px solid var(--primary-color);
+            padding-bottom: 8px;
+            display: inline-block;
         }
 
-        .card-left {
+        /* SISTEM GRID 9 MENU UTAMA DENGAN IKON */
+        .menu-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .menu-card {
+            background-color: #ffffff;
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 20px;
             display: flex;
-            align-items: center;
-            gap: 15px;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: center; /* Ikon berada di tengah */
+            text-align: center;
+            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
-        .card-icon {
-            font-size: 1.4rem;
-            width: 42px;
-            height: 42px;
-            background: #f1f5f9;
-            border-radius: 8px;
+        .menu-card:hover {
+            border-color: var(--primary-color);
+            box-shadow: 0 12px 20px -5px rgba(6, 78, 59, 0.15);
+            transform: translateY(-3px);
+        }
+
+        /* Bulatan Wadah Tempat Ikon Berada */
+        .icon-box {
+            width: 60px;
+            height: 60px;
+            background-color: var(--icon-bg);
+            border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-        }
-        .card-layanan:hover .card-icon {
-            background: #f0fdf4;
-        }
-
-        .card-layanan .panah-teks {
-            font-size: 0.8rem;
-            font-weight: bold;
-            text-transform: uppercase;
-            background: #f1f5f9;
-            padding: 4px 10px;
-            border-radius: 6px;
-            color: var(--text-muted);
-            transition: all 0.2s;
-        }
-        .card-layanan:hover .panah-teks {
-            background: var(--primary-color);
-            color: white;
-        }
-
-        /* AREA ARTIKEL & BERITA */
-        .blog-section {
-            background: var(--panel-bg);
-            padding: 30px;
-            border-radius: 16px;
-            border: 1px solid var(--border-color);
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.02);
-            margin-bottom: 50px;
-        }
-
-        .post-item {
-            padding: 20px 0;
-            border-bottom: 1px dashed var(--border-color);
-        }
-        .post-item:last-child { border-bottom: none; }
-        .post-title { font-size: 1.15rem; margin: 0 0 6px 0; font-weight: 600; }
-        .post-title a { color: var(--text-color); text-decoration: none; transition: color 0.2s; }
-        .post-title a:hover { color: var(--primary-color); }
-        .post-meta { font-size: 0.85rem; color: var(--text-muted); margin-bottom: 8px; }
-        .post-snippet { font-size: 0.9rem; color: var(--text-muted); line-height: 1.5; }
-
-        /* FOOTER INFO OPERASIONAL & SOSMED */
-        .info-grid {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 25px;
-            background-color: #f1f5f9;
-            padding: 25px;
-            border-radius: 14px;
-            margin-top: 30px;
-            border: 1px solid var(--border-color);
-        }
-
-        @media (min-width: 768px) {
-            .info-grid { grid-template-columns: 1fr 1fr; }
-        }
-
-        .info-box strong {
+            margin-bottom: 15px;
             color: var(--primary-color);
-            display: block;
-            margin-bottom: 10px;
-            font-size: 0.95rem;
+            font-size: 24px;
+            transition: all 0.25s ease;
+        }
+
+        .menu-card:hover .icon-box {
+            background-color: var(--primary-color);
+            color: #ffffff;
+        }
+
+        .menu-card h3 {
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--text-color);
+            margin-top: 0;
+            margin-bottom: 8px;
             text-transform: uppercase;
-            letter-spacing: 0.5px;
+            letter-spacing: 0.3px;
         }
 
-        ul.kontak-list { list-style: none; }
-        ul.kontak-list li { margin-bottom: 8px; display: flex; align-items: flex-start; gap: 8px; font-size: 0.95rem; }
-        ul.kontak-list a { color: var(--primary-color); text-decoration: none; font-weight: 500; }
-        ul.kontak-list a:hover { text-decoration: underline; color: var(--secondary-color); }
-
-        .copyright {
-            margin-top: 40px;
-            text-align: center;
-            font-size: 0.8rem;
+        .menu-card p {
+            font-size: 12px;
             color: var(--text-muted);
-            padding-bottom: 20px;
+            margin-top: 0;
+            margin-bottom: 15px;
+            line-height: 1.4;
+            height: 36px; /* Menjaga ukuran box tetap simetris */
+            overflow: hidden;
         }
 
-        /* RESPONSIVITAS SMARTPHONE */
-        @media (max-width: 992px) {
-            .hero-container { flex-direction: column; text-align: center; justify-content: center; }
-            .profile-section { flex-direction: column; }
-            .maklumat-box { width: 100%; min-width: 100%; }
+        /* Desain Tombol Aksi */
+        .btn {
+            display: block;
+            width: 100%;
+            box-sizing: border-box;
+            text-align: center;
+            background-color: var(--primary-color);
+            color: #ffffff;
+            text-decoration: none;
+            font-size: 12px;
+            font-weight: 700;
+            padding: 10px 16px;
+            border-radius: 8px;
+            transition: all 0.15s ease;
+        }
+
+        .btn:hover {
+            background-color: var(--secondary-color);
+            box-shadow: 0 4px 6px -1px rgba(180, 83, 9, 0.2);
+        }
+
+        .btn-wa {
+            background-color: #16a34a;
+        }
+        .btn-wa:hover {
+            background-color: #15803d;
+            box-shadow: 0 4px 6px -1px rgba(22, 163, 74, 0.2);
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            font-size: 13px;
+            color: var(--text-muted);
+            margin-top: 40px;
+            padding: 20px 0;
         }
     </style>
 </head>
+
 <body>
-
-    <!-- HERO BANNER ATAS (Identitas KUA & Maklumat Pelayanan) -->
-    <div class="hero-banner">
-        <div class="hero-container">
-            <!-- Sisi Kiri: Profil & Logo KUA -->
-            <div class="profile-section">
-                <img src='1000609402-removebg-preview.png' alt='Logo KUA Panti' class="profile-logo"/>
-                <div class="profile-text">
-                    <p class='sub-1'>Kementerian Agama Republik Indonesia</p>
-                    <h1>KUA Kecamatan Panti</h1>
-                    <p class='sub-2'>Kantor Urusan Agama Kecamatan Panti, Kabupaten Jember</p>
-                    <span class="badge-status">⭐ Portal Layanan Resmi</span>
-                </div>
-            </div>
-
-            <!-- Sisi Kanan: Maklumat Pelayanan Sesuai Data Terbaru -->
-            <div class="maklumat-box">
-                <div class="maklumat-header">📄 Maklumat &amp; Kompensasi Pelayanan</div>
-                
-                <div class="maklumat-item">
-                    <h4>Maklumat Pelayanan</h4>
-                    <p>Kami sanggup menyelenggarakan pelayanan sesuai standar yang ditetapkan; cepat, mudah, transparan, ramah, dan inklusif bagi seluruh masyarakat termasuk Kelompok Rentan. Bila kami tidak menepati janji ini, kami siap menerima sanksi sesuai peraturan perundang-undangan.</p>
-                </div>
-                
-                <div class="maklumat-item">
-                    <h4>Kompensasi Pelayanan</h4>
-                    <p>Apabila layanan yang diberikan tidak sesuai, pemberi layanan siap menerima sanksi sesuai peraturan yang berlaku dan pengguna layanan berhak menerima souvenir.</p>
-                </div>
-
-                <div class="maklumat-signature">
-                    — Ikmal Muntadhor, SHI. M.Sy · Kepala KUA Panti Jember
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- WADAH KONTEN UTAMA -->
-    <div class="main-container">
+    <div class="container">
         
-        <!-- BAGIAN LAYANAN (DASHBOARD GRID) -->
-        <section>
-            <div class='section-title'>Layanan &amp; Informasi</div>
-            <div class='grid-layanan'>
+        <!-- SEKSI BAGIAN ATAS: KOP KANTOR & MAKLUMAT PELAYANAN -->
+        <div class="header-grid">
+            
+            <!-- Sisi Kiri: Kop Banner Utama -->
+            <div class="header-kop">
+                <img class="logo-kemenag" src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEisKscVdE5S0t_wU7Z3hS60_XgZ_iZ7pXv3jOWhh2XwX9m-pWv4p0KexR_rN9B8_tXNlQcI8qS_VwzV6M-wGgS9wXG8n6VvR5_z3W-0V3wG4n5V/s1600/logo-kemenag.png" alt="Logo Kemenag">
+                <h1>KUA KECAMATAN PANTI</h1>
+                <p>Kabupaten Jember — Provinsi Jawa Timur</p>
+            </div>
+
+            <!-- Sisi Kanan: Teks Maklumat & Kompensasi Pelayanan Resmi -->
+            <div class="panel-maklumat">
+                <h4><i class="fa-solid to fa-gavel"></i> MAKLUMAT PELAYANAN</h4>
+                <p>Kami sanggup menyelenggarakan pelayanan sesuai standar yang ditetapkan; cepat, mudah, transparan, ramah, dan inklusif bagi seluruh masyarakat termasuk Kelompok Rentan. Bila kami tidak menepati janji ini, kami siap menerima sanksi sesuai peraturan perundang-undangan.</p>
                 
-                <!-- Tombol 1: Syarat Panduan Lengkap -->
-                <a class='card-layanan' href='alur-layanan.html' style='background: #fff7ed; border-color: #fbd38d;'>
-                    <div class="card-left">
-                        <div class="card-icon">📖</div>
-                        <span style="color: var(--secondary-color);">Formulir, Alur &amp; Syarat Lengkap KUA Panti</span>
-                    </div>
-                    <span class='panah-teks' style="background: var(--secondary-color); color: white;">Buka</span>
-                </a>
+                <h4><i class="fa-solid to fa-award"></i> KOMPENSASI PELAYANAN</h4>
+                <p>Apabila layanan yang diberikan tidak sesuai, pemberi layanan siap menerima sanksi sesuai peraturan yang berlaku dan pengguna layanan berhak menerima kompensasi/souvenir.</p>
+                
+                <p class="footer-maklumat">— Kepala Kantor Urusan Agama Kecamatan Panti</p>
+            </div>
 
-                <!-- Tombol 2: Pernikahan -->
-                <a class='card-layanan' href='https://wa.me/6285138009524?text=NIKAH' target='_blank'>
-                    <div class="card-left">
-                        <div class="card-icon">💬</div>
-                        <span>Layanan &amp; Informasi Pernikahan</span>
-                    </div>
-                    <span class='panah-teks'>Chat WA</span>
-                </a>
+        </div>
 
-                <!-- Tombol 3: Bimwin -->
-                <a class='card-layanan' href='https://wa.me/6285138009524?text=BIMBINGAN' target='_blank'>
-                    <div class="card-left">
-                        <div class="card-icon">💬</div>
-                        <span>Bimbingan Perkawinan (Bimwin)</span>
-                    </div>
-                    <span class='panah-teks'>Chat WA</span>
-                </a>
+        <!-- PANEL MENU UTAMA (9 MENU UTAMA + IKON MODERN) -->
+        <section class="panel">
+            <h2 class="panel-title">Layanan &amp; Informasi Utama</h2>
+            <div class="menu-grid">
+                
+                <!-- 1. PROFIL -->
+                <div class="menu-card">
+                    <div class="icon-box"><i class="fa-solid fa-building-columns"></i></div>
+                    <h3>1. Profil KUA</h3>
+                    <p>Sekilas sejarah berdirinya Kantor KUA Kecamatan Panti.</p>
+                    <a class="btn" href="https://kuakecamatanpanti.blogspot.com/2025/10/sekilas-sejarah-berdirinya-kantor.html" target="_blank">Buka Profil</a>
+                </div>
 
-                <!-- Tombol 4: Kemasjidan -->
-                <a class='card-layanan' href='https://wa.me/6285138009524?text=KEMASJIDAN' target='_blank'>
-                    <div class="card-left">
-                        <div class="card-icon">💬</div>
-                        <span>Ukur Kiblat &amp; ID Masjid/Mushola</span>
-                    </div>
-                    <span class='panah-teks'>Chat WA</span>
-                </a>
+                <!-- 2. LAYANAN KUA -->
+                <div class="menu-card">
+                    <div class="icon-box"><i class="fa-solid fa-file-invoice"></i></div>
+                    <h3>2. Layanan KUA</h3>
+                    <p>Formulir pendaftaran, alur pelayanan, &amp; syarat lengkap.</p>
+                    <a class="btn" href="layanan.html">Buka Layanan</a>
+                </div>
 
-                <!-- Tombol 5: Haji -->
-                <a class='card-layanan' href='https://wa.me/6285138009524?text=HAJI' target='_blank'>
-                    <div class="card-left">
-                        <div class="card-icon">💬</div>
-                        <span>Informasi Pendaftaran &amp; Pelimpahan Haji</span>
-                    </div>
-                    <span class='panah-teks'>Chat WA</span>
-                </a>
+                <!-- 3. KONTAK LAYANAN -->
+                <div class="menu-card">
+                    <div class="icon-box"><i class="fa-solid fa-comments"></i></div>
+                    <h3>3. Kontak Layanan</h3>
+                    <p>Konsultasi Nikah, Bimwin, Kiblat, Haji, &amp; Wakaf.</p>
+                    <!-- Silakan ganti nomor di bawah ini dengan nomor WA resmi KUA Panti -->
+                    <a class="btn btn-wa" href="https://wa.me/6281234567890" target="_blank"><i class="fa-brands fa-whatsapp"></i> Chat WA</a>
+                </div>
 
-                <!-- Tombol 6: Wakaf dll -->
-                <a class='card-layanan' href='https://wa.me/6285138009524?text=LAINNYA' target='_blank'>
-                    <div class="card-left">
-                        <div class="card-icon">💬</div>
-                        <span>Layanan Wakaf, Muallaf &amp; Majlis Taklim</span>
-                    </div>
-                    <span class='panah-teks'>Chat WA</span>
-                </a>
+                <!-- 4. BUKU TAMU -->
+                <div class="menu-card">
+                    <div class="icon-box"><i class="fa-solid fa-book-open"></i></div>
+                    <h3>4. Buku Tamu Digital</h3>
+                    <p>Isi buku tamu kunjungan resmi instansi KUA Panti.</p>
+                    <a class="btn" href="https://docs.google.com/forms/d/e/1FAIpQLSfA--P67Ji0DS8uGCVlgsvbiRVVANyXT6Q574bBwp29DMvK8Q/viewform" target="_blank">Isi Buku Tamu</a>
+                </div>
 
-                <!-- Tombol 7: Survei IKM -->
-                <a class='card-layanan' href='https://docs.google.com/forms/d/1s8SqQOV9ohDKxKGm8Bxe_J9Iz7tvSQYij7w5qgBrAjc/viewform?pli=1&edit_requested=true' target='_blank'>
-                    <div class="card-left">
-                        <div class="card-icon">📝</div>
-                        <span>Isi Survei Kepuasan Masyarakat (IKM)</span>
-                    </div>
-                    <span class='panah-teks'>Survei</span>
-                </a>
+                <!-- 5. PENGADUAN -->
+                <div class="menu-card">
+                    <div class="icon-box"><i class="fa-solid fa-bullhorn"></i></div>
+                    <h3>5. Pusat Pengaduan</h3>
+                    <p>Aduan kendala pelayanan langsung masuk ke WhatsApp.</p>
+                    <!-- Silakan ganti nomor di bawah ini dengan nomor WA resmi KUA Panti -->
+                    <a class="btn btn-wa" href="https://wa.me/6281234567890" target="_blank"><i class="fa-brands fa-whatsapp"></i> Hubungi WA</a>
+                </div>
+
+                <!-- 6. SURVEI (IKM) -->
+                <div class="menu-card">
+                    <div class="icon-box"><i class="fa-solid fa-square-poll-vertical"></i></div>
+                    <h3>6. Survei IKM</h3>
+                    <p>Isi Indeks Kepuasan Masyarakat terhadap aparatur KUA.</p>
+                    <a class="btn" href="survei.html">Mulai Survei</a>
+                </div>
+
+                <!-- 7. DATA -->
+                <div class="menu-card">
+                    <div class="icon-box"><i class="fa-solid fa-database"></i></div>
+                    <h3>7. Hub Data KUA</h3>
+                    <p>Pusat integrasi kearsipan data internal KUA Panti.</p>
+                    <a class="btn" href="data.html">Lihat Data</a>
+                </div>
+
+                <!-- 8. BERITA -->
+                <div class="menu-card">
+                    <div class="icon-box"><i class="fa-solid fa-newspaper"></i></div>
+                    <h3>8. Berita &amp; Artikel</h3>
+                    <p>Edukasi bimbingan masyarakat dan kabar kegiatan terkini.</p>
+                    <a class="btn" href="https://kuakecamatanpanti.blogspot.com/" target="_blank">Lihat Berita</a>
+                </div>
+
+                <!-- 9. PENGUMUMAN NIKAH -->
+                <div class="menu-card">
+                    <div class="icon-box"><i class="fa-solid fa-heart-calendar"></i></div>
+                    <h3>9. Pengumuman Nikah</h3>
+                    <p>Manifes jadwal kehendak perkawinan resmi (NC) terkini.</p>
+                    <a class="btn" href="pengumuman.html">Cek Jadwal Nikah</a>
+                </div>
 
             </div>
         </section>
 
-        <!-- AREA BERITA OTOMATIS BLOGGER -->
-        <main class="blog-section">
-            <div class='section-title'>Berita &amp; Pengumuman Terbaru</div>
-            
-            <div id='blogger-posts'>
-                <p style="text-align: center; color: #64748b; padding: 20px;">Memuat berita terbaru...</p>
-            </div>
-            
-            <div style="text-align: center; margin-top: 25px;">
-                <a href="https://kuakecamatanpanti.blogspot.com/" target="_blank" style="display: inline-block; background: var(--primary-color); color: white; padding: 10px 20px; border-radius: 6px; text-decoration: none; font-weight: bold; font-size: 0.9rem;">
-                    Lihat Semua Berita ➔
-                </a>
-            </div>
-        </main>
-
-        <!-- JAM OPERASIONAL & KONTAK -->
+        <!-- Bagian Kaki Bawah Website -->
         <footer>
-            <div class='info-grid'>
-                <div class='info-box'>
-                    <strong>Jam Operasional Layanan</strong>
-                    • Senin - Kamis: 07.30 - 16.00 WIB<br/>
-                    • Jumat: 07.30 - 16.30 WIB<br/>
-                    <small style="color: #ef4444; display:block; margin-top:5px;">* Sabtu, Minggu &amp; Hari Besar Libur</small>
-                </div>
-                <div class='info-box'>
-                    <strong>Kontak &amp; Sosial Media</strong>
-                    <ul class='kontak-list'>
-                        <li>📍 Jl. WR Supratman No 08 Glagahwero Panti, Jember, Jawa Timur</li>
-                        <li>📞 WhatsApp: <a href='https://wa.me/6285138009524' target='_blank'>Hubungi Kami</a></li>
-                        <li>📸 Instagram: <a href='https://www.instagram.com/kuapanti_jbr/' target='_blank'>@kuapanti_jbr</a></li>
-                        <li>🌐 Blog: <a href='https://kuakecamatanpanti.blogspot.com' target='_blank'>kuakecamatanpanti.blogspot.com</a></li>
-                    </ul>
-                </div>
-            </div>
-            
-            <div class='copyright'>
-                &copy; 2026 KUA Kecamatan Panti. Semua Hak Dilindungi.
-            </div>
+            <p>&copy; 2026 KUA Kecamatan Panti Jember. Hak Cipta Dilindungi Undang-Undang.</p>
         </footer>
-
     </div>
-
 </body>
-
-<!-- SCRIPT PINTAR PENARIK ARTIKEL BLOGGER -->
-<script>
-    document.addEventListener("DOMContentLoaded", function() {
-        const blogUrl = "https://kuakecamatanpanti.blogspot.com/feeds/posts/default?alt=json-in-script&max-results=3";
-        const script = document.createElement("script");
-        script.src = blogUrl + "&callback=loadBloggerPosts";
-        document.body.appendChild(script);
-    });
-
-    function loadBloggerPosts(data) {
-        const container = document.getElementById("blogger-posts");
-        container.innerHTML = ""; 
-
-        if (!data.feed.entry || data.feed.entry.length === 0) {
-            container.innerHTML = "<p style='text-align:center; color:#64748b;'>Belum ada berita terbaru.</p>";
-            return;
-        }
-
-        data.feed.entry.forEach(entry => {
-            const title = entry.title.$t;
-            let postUrl = "#";
-            for (let i = 0; i < entry.link.length; i++) {
-                if (entry.link[i].rel === "alternate") {
-                    postUrl = entry.link[i].href;
-                    break;
-                }
-            }
-
-            const published = new Date(entry.published.$t);
-            const options = { year: 'numeric', month: 'long', day: 'numeric' };
-            const formattedDate = published.toLocaleDateString('id-ID', options);
-
-            let snippet = entry.summary ? entry.summary.$t : (entry.content ? entry.content.$t : "");
-            snippet = snippet.replace(/<\/?[^>]+(>|$)/g, ""); 
-            if (snippet.length > 130) {
-                snippet = snippet.substring(0, 130) + "...";
-            }
-
-            const postItem = document.createElement("div");
-            postItem.className = "post-item";
-            postItem.innerHTML = `
-                <h3 class='post-title'><a href='${postUrl}' target='_blank'>${title}</a></h3>
-                <div class='post-meta'>📅 ${formattedDate} | Berita KUA</div>
-                <div class='post-snippet'>${snippet}</div>
-            `;
-            container.appendChild(postItem);
-        });
-    }
-</script>   
 </html>
