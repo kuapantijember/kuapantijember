@@ -26,7 +26,7 @@
             line-height: 1.6;
             color: var(--text-color);
             
-            /* Background Soft Gradient Pilihan 1 */
+            /* Background Soft Gradient */
             background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 50%, #e8f5e9 100%);
             background-attachment: fixed;
             
@@ -67,7 +67,7 @@
         }
 
         .logo-kemenag {
-            width: 85px;
+            width: 90px;
             height: auto;
             margin-bottom: 15px;
             filter: drop-shadow(0px 4px 6px rgba(0,0,0,0.2));
@@ -91,7 +91,7 @@
             letter-spacing: 1px;
         }
 
-        /* Sisi Kanan: Box Maklumat & Kompensasi Pelayanan (Sesuai image_a3de67.png) */
+        /* Sisi Kanan: Box Maklumat & Kompensasi Pelayanan */
         .panel-maklumat {
             background-color: rgba(6, 78, 59, 0.03);
             border: 2px dashed #0c614b;
@@ -99,12 +99,16 @@
             padding: 20px;
             font-size: 12px;
             color: #334155;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
         }
 
         .panel-maklumat h4 {
             color: var(--primary-color);
             font-size: 13px;
             font-weight: 700;
+            margin-top: 0;
             margin-bottom: 6px;
             text-transform: uppercase;
             display: flex;
@@ -113,6 +117,7 @@
         }
 
         .panel-maklumat p {
+            margin-top: 0;
             margin-bottom: 12px;
             line-height: 1.5;
             text-align: justify;
@@ -162,7 +167,7 @@
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            align-items: center; /* Ikon berada di tengah */
+            align-items: center; 
             text-align: center;
             transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
         }
@@ -209,7 +214,7 @@
             margin-top: 0;
             margin-bottom: 15px;
             line-height: 1.4;
-            height: 36px; /* Menjaga ukuran box tetap simetris */
+            height: 36px; 
             overflow: hidden;
         }
 
@@ -261,17 +266,18 @@
             
             <!-- Sisi Kiri: Kop Banner Utama -->
             <div class="header-kop">
-                <img class="logo-kemenag" src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEisKscVdE5S0t_wU7Z3hS60_XgZ_iZ7pXv3jOWhh2XwX9m-pWv4p0KexR_rN9B8_tXNlQcI8qS_VwzV6M-wGgS9wXG8n6VvR5_z3W-0V3wG4n5V/s1600/logo-kemenag.png" alt="Logo Kemenag">
+                <!-- LINK LOGO TERBARU (PASTI MUNCUL) -->
+                <img class="logo-kemenag" src="https://upload.wikimedia.org/wikipedia/commons/b/b2/Kementerian_Agama_Logo.png" alt="Logo Kemenag">
                 <h1>KUA KECAMATAN PANTI</h1>
                 <p>Kabupaten Jember — Provinsi Jawa Timur</p>
             </div>
 
             <!-- Sisi Kanan: Teks Maklumat & Kompensasi Pelayanan Resmi -->
             <div class="panel-maklumat">
-                <h4><i class="fa-solid to fa-gavel"></i> MAKLUMAT PELAYANAN</h4>
+                <h4><i class="fa-solid fa-gavel"></i> MAKLUMAT PELAYANAN</h4>
                 <p>Kami sanggup menyelenggarakan pelayanan sesuai standar yang ditetapkan; cepat, mudah, transparan, ramah, dan inklusif bagi seluruh masyarakat termasuk Kelompok Rentan. Bila kami tidak menepati janji ini, kami siap menerima sanksi sesuai peraturan perundang-undangan.</p>
                 
-                <h4><i class="fa-solid to fa-award"></i> KOMPENSASI PELAYANAN</h4>
+                <h4><i class="fa-solid fa-award"></i> KOMPENSASI PELAYANAN</h4>
                 <p>Apabila layanan yang diberikan tidak sesuai, pemberi layanan siap menerima sanksi sesuai peraturan yang berlaku dan pengguna layanan berhak menerima kompensasi/souvenir.</p>
                 
                 <p class="footer-maklumat">— Kepala Kantor Urusan Agama Kecamatan Panti</p>
@@ -289,7 +295,7 @@
                     <div class="icon-box"><i class="fa-solid fa-building-columns"></i></div>
                     <h3>1. Profil KUA</h3>
                     <p>Sekilas sejarah berdirinya Kantor KUA Kecamatan Panti.</p>
-                    <a class="btn" href="https://kuakecamatanpanti.blogspot.com/2025/10/sekilas-sejarah-berdirinya-kantor.html" target="_blank">Buka Profil</a>
+                    <a class="btn" href="profil.html">Buka Profil</a>
                 </div>
 
                 <!-- 2. LAYANAN KUA -->
@@ -297,7 +303,7 @@
                     <div class="icon-box"><i class="fa-solid fa-file-invoice"></i></div>
                     <h3>2. Layanan KUA</h3>
                     <p>Formulir pendaftaran, alur pelayanan, &amp; syarat lengkap.</p>
-                    <a class="btn" href="layanan.html">Buka Layanan</a>
+                    <a class="btn" href="alur-layanan.html">Buka Layanan</a>
                 </div>
 
                 <!-- 3. KONTAK LAYANAN -->
@@ -330,7 +336,7 @@
                 <div class="menu-card">
                     <div class="icon-box"><i class="fa-solid fa-square-poll-vertical"></i></div>
                     <h3>6. Survei IKM</h3>
-                    <p>Isi Indeks Kepuasan Masyarakat terhadap aparatur KUA.</p>
+                    <p>Isi Indeks Kepuasan Masyarakat terhadap pelayanan KUA.</p>
                     <a class="btn" href="survei.html">Mulai Survei</a>
                 </div>
 
@@ -352,7 +358,7 @@
 
                 <!-- 9. PENGUMUMAN NIKAH -->
                 <div class="menu-card">
-                    <div class="icon-box"><i class="fa-solid fa-heart-calendar"></i></div>
+                    <div class="icon-box"><i class="fa-solid fa-calendar-check"></i></div>
                     <h3>9. Pengumuman Nikah</h3>
                     <p>Manifes jadwal kehendak perkawinan resmi (NC) terkini.</p>
                     <a class="btn" href="pengumuman nikah.html">Cek Jadwal Nikah</a>
