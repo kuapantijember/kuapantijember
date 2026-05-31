@@ -12,275 +12,403 @@
             --panel-bg: #ffffff;        /* Putih bersih untuk kotak konten */
             --primary-color: #064e3b;    /* Hijau Botol Kemenag yang Berwibawa */
             --secondary-color: #b45309;  /* Emas Gelap/Bronze Elegan */
-            --text-color: #1e293b;       /* Hitam Arang, lebih lembut dari hitam pekat */
+            --text-color: #1e293b;       /* Hitam Arang */
             --text-muted: #64748b;       /* Abu-abu untuk teks keterangan */
             --border-color: #e2e8f0;     /* Garis tipis modern */
-            --hover-bg: #f0fdf4;         /* Hijau super muda saat tombol disentuh */
+            --gradient-bg: linear-gradient(135deg, #043427 0%, #0c614b 100%);
         }
         
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
         body {
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
             font-size: 16px;
             line-height: 1.6;
             color: var(--text-color);
             background-color: var(--bg-color);
-            margin: 0;
-            padding: 40px 20px;
         }
 
-        .container {
-            max-width: 680px;
+        /* BANNER ATAS MODEL PORTAL KEMENAG JEMBER */
+        .hero-banner {
+            background: var(--gradient-bg);
+            color: white;
+            padding: 50px 20px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+        }
+
+        .hero-container {
+            max-width: 1100px;
             margin: 0 auto;
-            background: var(--panel-bg);
-            padding: 40px;
-            border-radius: 16px;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
-            border: 1px solid var(--border-color);
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            gap: 30px;
         }
 
-        /* Header KUA Instansi */
-        header {
-            text-align: center;
-            border-bottom: 2px solid var(--primary-color);
-            padding-bottom: 25px;
-            margin-bottom: 35px;
+        .profile-section {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            flex: 1;
+            min-width: 300px;
         }
 
-        header h1 {
-            font-size: 2rem;
-            color: var(--primary-color);
-            margin: 0 0 8px 0;
+        .profile-logo {
+            max-width: 120px;
+            height: auto;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 10px;
+            border-radius: 12px;
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .profile-text .sub-1 {
+            color: #fbbf24;
             font-weight: 700;
-            letter-spacing: -0.5px;
-        }
-
-        header p.sub-1 {
-            color: var(--secondary-color);
-            font-weight: 600;
             text-transform: uppercase;
             font-size: 0.85rem;
             letter-spacing: 1px;
-            margin: 0 0 5px 0;
+            margin-bottom: 4px;
         }
 
-        header p.sub-2 {
-            color: var(--text-muted);
-            margin: 0;
+        .profile-text h1 {
+            font-size: 2.2rem;
+            color: white;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            line-height: 1.2;
+        }
+
+        .profile-text .sub-2 {
+            color: #e2e8f0;
             font-size: 0.95rem;
+            margin-top: 5px;
+            opacity: 0.9;
         }
 
-        /* Judul Bagian */
+        .badge-status {
+            display: inline-block;
+            background: var(--secondary-color);
+            color: white;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: bold;
+            margin-top: 10px;
+            letter-spacing: 0.5px;
+        }
+
+        /* KOTAK INDEKS IKM DI SEBELAH KANAN BANNER */
+        .stats-box {
+            display: flex;
+            gap: 25px;
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 16px;
+            padding: 20px;
+            backdrop-filter: blur(10px);
+        }
+
+        .stat-circle-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .circle-progress {
+            width: 55px;
+            height: 55px;
+            border-radius: 50%;
+            border: 4px solid #fbbf24;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 0.95rem;
+            background: rgba(0,0,0,0.2);
+        }
+        .circle-progress.blue { border-color: #0ea5e9; }
+
+        .stat-info h4 { font-size: 1.1rem; font-weight: 700; color: #fff; }
+        .stat-info p { font-size: 0.7rem; color: #cbd5e1; max-width: 100px; line-height: 1.2; }
+
+        /* AREA KONTEN UTAMA */
+        .main-container {
+            max-width: 1100px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
         .section-title {
-            font-size: 1.25rem;
+            font-size: 1.2rem;
             font-weight: 700;
             color: var(--primary-color);
             border-left: 4px solid var(--secondary-color);
             padding-left: 12px;
-            margin-top: 35px;
-            margin-bottom: 20px;
+            margin-bottom: 25px;
             text-transform: uppercase;
             letter-spacing: 0.5px;
         }
 
-        /* Tombol Menu Layanan yang Mewah */
-        .layanan-cepat {
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-            margin-bottom: 40px;
+        /* LAYOUT DASHBOARD GRID (KOTAK-KOTAK MERAPAT) */
+        .grid-layanan {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 16px;
+            margin-bottom: 50px;
         }
 
-        .btn-layanan {
+        .card-layanan {
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding: 16px 20px;
+            padding: 20px;
             background-color: var(--panel-bg);
             border: 1px solid var(--border-color);
-            border-radius: 10px;
+            border-radius: 12px;
             color: var(--text-color);
             text-decoration: none;
             font-weight: 600;
             font-size: 0.98rem;
             transition: all 0.2s ease-in-out;
-            box-shadow: 0 1px 2px rgba(0,0,0,0.02);
+            box-shadow: 0 1px 3px rgba(0,0,0,0.02);
         }
 
-        .btn-layanan:hover {
-            background-color: var(--hover-bg);
+        .card-layanan:hover {
             border-color: var(--primary-color);
             color: var(--primary-color);
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(6, 78, 59, 0.08);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 15px -3px rgba(6, 78, 59, 0.08);
         }
 
-        .btn-layanan .panah {
-            color: var(--secondary-color);
-            font-size: 1.1rem;
+        .card-left {
+            display: flex;
+            align-items: center;
+            gap: 15px;
         }
 
-        /* Area Berita/Artikel */
+        .card-icon {
+            font-size: 1.4rem;
+            width: 42px;
+            height: 42px;
+            background: #f1f5f9;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .card-layanan:hover .card-icon {
+            background: #f0fdf4;
+        }
+
+        .card-layanan .panah-teks {
+            font-size: 0.8rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            background: #f1f5f9;
+            padding: 4px 10px;
+            border-radius: 6px;
+            color: var(--text-muted);
+            transition: all 0.2s;
+        }
+        .card-layanan:hover .panah-teks {
+            background: var(--primary-color);
+            color: white;
+        }
+
+        /* AREA ARTIKEL & BERITA */
+        .blog-section {
+            background: var(--panel-bg);
+            padding: 30px;
+            border-radius: 16px;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.02);
+            margin-bottom: 50px;
+        }
+
         .post-item {
             padding: 20px 0;
             border-bottom: 1px dashed var(--border-color);
         }
-        .post-item:last-child {
-            border-bottom: none;
-        }
+        .post-item:last-child { border-bottom: none; }
+        .post-title { font-size: 1.15rem; margin: 0 0 6px 0; font-weight: 600; }
+        .post-title a { color: var(--text-color); text-decoration: none; transition: color 0.2s; }
+        .post-title a:hover { color: var(--primary-color); }
+        .post-meta { font-size: 0.85rem; color: var(--text-muted); margin-bottom: 8px; }
+        .post-snippet { font-size: 0.9rem; color: var(--text-muted); line-height: 1.5; }
 
-        .post-title {
-            font-size: 1.2rem;
-            margin: 0 0 6px 0;
-            font-weight: 600;
-        }
-
-        .post-title a {
-            color: var(--text-color);
-            text-decoration: none;
-            transition: color 0.2s;
-        }
-
-        .post-title a:hover {
-            color: var(--primary-color);
-        }
-
-        .post-meta {
-            font-size: 0.85rem;
-            color: var(--text-muted);
-            margin-bottom: 8px;
-        }
-
-        /* Bagian Informasi & Kontak bawah */
-        footer {
-            margin-top: 50px;
-            padding-top: 30px;
-            border-top: 1px solid var(--border-color);
-            font-size: 0.95rem;
-        }
-
+        /* FOOTER INFO OPERASIONAL & SOSMED */
         .info-grid {
             display: grid;
             grid-template-columns: 1fr;
             gap: 25px;
             background-color: #f1f5f9;
-            padding: 20px;
-            border-radius: 12px;
+            padding: 25px;
+            border-radius: 14px;
+            margin-top: 30px;
+            border: 1px solid var(--border-color);
         }
 
-        @media (min-width: 580px) {
+        @media (min-width: 768px) {
             .info-grid { grid-template-columns: 1fr 1fr; }
         }
 
         .info-box strong {
             color: var(--primary-color);
             display: block;
-            margin-bottom: 8px;
+            margin-bottom: 10px;
             font-size: 0.95rem;
             text-transform: uppercase;
             letter-spacing: 0.5px;
         }
 
-        ul.kontak-list {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-        }
-
-        ul.kontak-list li {
-            margin-bottom: 8px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        ul.kontak-list a {
-            color: var(--primary-color);
-            text-decoration: none;
-            font-weight: 500;
-        }
-
-        ul.kontak-list a:hover {
-            text-decoration: underline;
-            color: var(--secondary-color);
-        }
+        ul.kontak-list { list-style: none; }
+        ul.kontak-list li { margin-bottom: 8px; display: flex; align-items: flex-start; gap: 8px; font-size: 0.95rem; }
+        ul.kontak-list a { color: var(--primary-color); text-decoration: none; font-weight: 500; }
+        ul.kontak-list a:hover { text-decoration: underline; color: var(--secondary-color); }
 
         .copyright {
             margin-top: 40px;
             text-align: center;
             font-size: 0.8rem;
             color: var(--text-muted);
+            padding-bottom: 20px;
+        }
+
+        /* RESPONSIVITAS SMARTPHONE */
+        @media (max-width: 768px) {
+            .hero-container { flex-direction: column; text-align: center; justify-content: center; }
+            .profile-section { flex-direction: column; }
+            .stats-box { width: 100%; justify-content: center; }
         }
     </style>
 </head>
 <body>
 
-    <div class='container'>
+    <!-- HERO BANNER ATAS (Gaya Web Kemenag Jember) -->
+    <div class="hero-banner">
+        <div class="hero-container">
+            <!-- Sisi Kiri: Profil & Logo -->
+            <div class="profile-section">
+                <img src='1000609402-removebg-preview.png' alt='Logo KUA Panti' class="profile-logo"/>
+                <div class="profile-text">
+                    <p class='sub-1'>Kementerian Agama Republik Indonesia</p>
+                    <h1>KUA Kecamatan Panti</h1>
+                    <p class='sub-2'>Kantor Urusan Agama Kecamatan Panti, Kabupaten Jember</p>
+                    <span class="badge-status">⭐ PORTAL LAYANAN RESMI</span>
+                </div>
+            </div>
+
+            <!-- Sisi Kanan: Nilai Statistik Indeks IKM -->
+            <div class="stats-box">
+                <div class="stat-circle-item">
+                    <div class="circle-progress">3,98</div>
+                    <div class="stat-info">
+                        <h4>3,98</h4>
+                        <p>Indeks Persepsi Anti Korupsi</p>
+                    </div>
+                </div>
+                <div class="stat-circle-item">
+                    <div class="circle-progress blue">3,96</div>
+                    <div class="stat-info">
+                        <h4>3,96</h4>
+                        <p>Indeks Kepuasan Pelayanan</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- WADAH KONTEN UTAMA -->
+    <div class="main-container">
         
-       <!-- HEADER UTAMA -->
-<header>
-    <!-- SELIPKAN KODE LOGO DI SINI -->
-    <img src='1000609402-removebg-preview.png' alt='Logo KUA Panti' style='max-width: 140px; height: auto; margin-bottom: 15px;'/>
-
-    <p class='sub-1'>Kementerian Agama Republik Indonesia</p>
-    <h1>KUA Kecamatan Panti</h1>
-    <p class='sub-2'>Kantor Urusan Agama Kecamatan Panti, Kabupaten Jember</p>
-</header>
-
-        <!-- LAYANAN UTAMA -->
+        <!-- BAGIAN LAYANAN (SEKARANG BERBENTUK KOTAK DASHBOARD GRID) -->
         <section>
             <div class='section-title'>Layanan &amp; Informasi</div>
-            <div class='layanan-cepat'>
-    <!-- Tombol Khusus Panduan Internal Website (Cara 2 Sebelumnya) -->
-    <a class='btn-layanan' href='alur-layanan.html' style='background: #b45309; color: white;'>
-        <span>Formulir, Alur & Syarat Lengkap KUA Panti</span>
-        <span class='panah'>📖</span>
-    </a>
+            <div class='grid-layanan'>
+                
+                <!-- Tombol 1: Syarat Panduan Lengkap -->
+                <a class='card-layanan' href='alur-layanan.html' style='background: #fff7ed; border-color: #fbd38d;'>
+                    <div class="card-left">
+                        <div class="card-icon">📖</div>
+                        <span style="color: var(--secondary-color);">Formulir, Alur &amp; Syarat Lengkap KUA Panti</span>
+                    </div>
+                    <span class='panah-teks' style="background: var(--secondary-color); color: white;">Buka</span>
+                </a>
 
-    <!-- TOMBOL INTEGRASI WA AUTORESPONDER KUA PANTI -->
-    <a class='btn-layanan' href='https://wa.me/6285138009524?text=NIKAH' target='_blank'>
-        <span>Layanan & Informasi Pernikahan</span>
-        <span class='panah'>💬 Chat WA</span>
-    </a>
+                <!-- Tombol 2: Pernikahan -->
+                <a class='card-layanan' href='https://wa.me/6285138009524?text=NIKAH' target='_blank'>
+                    <div class="card-left">
+                        <div class="card-icon">💬</div>
+                        <span>Layanan &amp; Informasi Pernikahan</span>
+                    </div>
+                    <span class='panah-teks'>Chat WA</span>
+                </a>
 
-    <a class='btn-layanan' href='https://wa.me/6285138009524?text=BIMBINGAN' target='_blank'>
-        <span>Bimbingan Perkawinan (Bimwin)</span>
-        <span class='panah'>💬 Chat WA</span>
-    </a>
+                <!-- Tombol 3: Bimwin -->
+                <a class='card-layanan' href='https://wa.me/6285138009524?text=BIMBINGAN' target='_blank'>
+                    <div class="card-left">
+                        <div class="card-icon">💬</div>
+                        <span>Bimbingan Perkawinan (Bimwin)</span>
+                    </div>
+                    <span class='panah-teks'>Chat WA</span>
+                </a>
 
-    <a class='btn-layanan' href='https://wa.me/6285138009524?text=KEMASJIDAN' target='_blank'>
-        <span>Ukur Kiblat & ID Masjid/Mushola</span>
-        <span class='panah'>💬 Chat WA</span>
-    </a>
+                <!-- Tombol 4: Kemasjidan -->
+                <a class='card-layanan' href='https://wa.me/6285138009524?text=KEMASJIDAN' target='_blank'>
+                    <div class="card-left">
+                        <div class="card-icon">💬</div>
+                        <span>Ukur Kiblat &amp; ID Masjid/Mushola</span>
+                    </div>
+                    <span class='panah-teks'>Chat WA</span>
+                </a>
 
-    <a class='btn-layanan' href='https://wa.me/6285138009524?text=HAJI' target='_blank'>
-        <span>Informasi Pendaftaran & Pelimpahan Haji</span>
-        <span class='panah'>💬 Chat WA</span>
-    </a>
+                <!-- Tombol 5: Haji -->
+                <a class='card-layanan' href='https://wa.me/6285138009524?text=HAJI' target='_blank'>
+                    <div class="card-left">
+                        <div class="card-icon">💬</div>
+                        <span>Informasi Pendaftaran &amp; Pelimpahan Haji</span>
+                    </div>
+                    <span class='panah-teks'>Chat WA</span>
+                </a>
 
-    <a class='btn-layanan' href='https://wa.me/6285138009524?text=LAINNYA' target='_blank'>
-        <span>Layanan Wakaf, Muallaf & Majlis Taklim</span>
-        <span class='panah'>💬 Chat WA</span>
-    </a>
+                <!-- Tombol 6: Wakaf dll -->
+                <a class='card-layanan' href='https://wa.me/6285138009524?text=LAINNYA' target='_blank'>
+                    <div class="card-left">
+                        <div class="card-icon">💬</div>
+                        <span>Layanan Wakaf, Muallaf &amp; Majlis Taklim</span>
+                    </div>
+                    <span class='panah-teks'>Chat WA</span>
+                </a>
 
-    <a class='btn-layanan' href='https://docs.google.com/forms/d/1s8SqQOV9ohDKxKGm8Bxe_J9Iz7tvSQYij7w5qgBrAjc/viewform?pli=1&edit_requested=true' target='_blank'>
-    <span>Isi Survei Kepuasan Masyarakat (IKM)</span>
-    <span class='panah'>📝 Survei</span>
-</a>
-</div>
+                <!-- Tombol 7: Survei IKM -->
+                <a class='card-layanan' href='https://docs.google.com/forms/d/1s8SqQOV9ohDKxKGm8Bxe_J9Iz7tvSQYij7w5qgBrAjc/viewform?pli=1&edit_requested=true' target='_blank'>
+                    <div class="card-left">
+                        <div class="card-icon">📝</div>
+                        <span>Isi Survei Kepuasan Masyarakat (IKM)</span>
+                    </div>
+                    <span class='panah-teks'>Survei</span>
+                </a>
+
+            </div>
         </section>
 
-       <!-- AREA POSTINGAN -->
-        <main>
+        <!-- AREA BERITA OTOMATIS BLOGGER -->
+        <main class="blog-section">
             <div class='section-title'>Berita &amp; Pengumuman Terbaru</div>
             
-            <!-- Tempat artikel Blogger akan muncul secara otomatis -->
             <div id='blogger-posts'>
                 <p style="text-align: center; color: #64748b; padding: 20px;">Memuat berita terbaru...</p>
             </div>
             
-            <!-- Tombol untuk melihat semua postingan di Blog resmi -->
             <div style="text-align: center; margin-top: 25px;">
-                <a href="https://kuakecamatanpanti.blogspot.com/" target="_blank" style="display: inline-block; background: #064e3b; color: white; padding: 10px 20px; border-radius: 6px; text-decoration: none; font-weight: bold; font-size: 0.9rem;">
+                <a href="https://kuakecamatanpanti.blogspot.com/" target="_blank" style="display: inline-block; background: var(--primary-color); color: white; padding: 10px 20px; border-radius: 6px; text-decoration: none; font-weight: bold; font-size: 0.9rem;">
                     Lihat Semua Berita ➔
                 </a>
             </div>
@@ -301,7 +429,7 @@
                         <li>📍 Jl. WR Supratman No 08 Glagahwero Panti, Jember, Jawa Timur</li>
                         <li>📞 WhatsApp: <a href='https://wa.me/6285138009524' target='_blank'>Hubungi Kami</a></li>
                         <li>📸 Instagram: <a href='https://www.instagram.com/kuapanti_jbr/' target='_blank'>@kuapanti_jbr</a></li>
-                        <li>🌐 Blog: <a href='https://kuakecamatanpanti.blogspot.com'>kuakecamatanpanti.blogspot.com</a></li>
+                        <li>🌐 Blog: <a href='https://kuakecamatanpanti.blogspot.com' target='_blank'>kuakecamatanpanti.blogspot.com</a></li>
                     </ul>
                 </div>
             </div>
@@ -314,32 +442,27 @@
     </div>
 
 </body>
- <script>
+
+<!-- SCRIPT PINTAR PENARIK ARTIKEL BLOGGER (TIDAK BERUBAH) -->
+<script>
     document.addEventListener("DOMContentLoaded", function() {
-        // Mengambil RSS Feed dari Blogger KUA Panti (Menampilkan 3 artikel terbaru)
         const blogUrl = "https://kuakecamatanpanti.blogspot.com/feeds/posts/default?alt=json-in-script&max-results=3";
-        
-        // Membuat fungsi script callback untuk mengatasi masalah CORS Cross-Domain
         const script = document.createElement("script");
         script.src = blogUrl + "&callback=loadBloggerPosts";
         document.body.appendChild(script);
     });
 
-    // Fungsi untuk memproses data dari Blogger dan menampilkannya ke HTML GitHub
     function loadBloggerPosts(data) {
         const container = document.getElementById("blogger-posts");
-        container.innerHTML = ""; // Bersihkan tulisan "Memuat berita..."
+        container.innerHTML = ""; 
 
         if (!data.feed.entry || data.feed.entry.length === 0) {
             container.innerHTML = "<p style='text-align:center; color:#64748b;'>Belum ada berita terbaru.</p>";
             return;
         }
 
-        // Loop untuk menyusun setiap artikel
         data.feed.entry.forEach(entry => {
             const title = entry.title.$t;
-            
-            // Mencari link artikel asli di blogger
             let postUrl = "#";
             for (let i = 0; i < entry.link.length; i++) {
                 if (entry.link[i].rel === "alternate") {
@@ -348,19 +471,16 @@
                 }
             }
 
-            // Memformat Tanggal Posting
             const published = new Date(entry.published.$t);
             const options = { year: 'numeric', month: 'long', day: 'numeric' };
             const formattedDate = published.toLocaleDateString('id-ID', options);
 
-            // Mengambil cuplikan teks artikel (Snippet)
             let snippet = entry.summary ? entry.summary.$t : (entry.content ? entry.content.$t : "");
-            snippet = snippet.replace(/<\/?[^>]+(>|$)/g, ""); // Hapus tag HTML jika ada
+            snippet = snippet.replace(/<\/?[^>]+(>|$)/g, ""); 
             if (snippet.length > 130) {
                 snippet = snippet.substring(0, 130) + "...";
             }
 
-            // Membuat element HTML struktur artikel
             const postItem = document.createElement("div");
             postItem.className = "post-item";
             postItem.innerHTML = `
