@@ -3,26 +3,23 @@
 <head>
     <meta charset='utf-8'/>
     <meta content='width=device-width,initial-scale=1' name='viewport'/>
-    <title><data:blog.pageTitle/></title>
-    
-    <!-- Blogger Required Elements -->
-    <b:skin><![CDATA[
-    /* Hapus style bawaan blogger */
-    body { margin: 0; padding: 0; }
-    ]]></b:skin>
+    <title>KUA Kecamatan Panti</title>
 
     <style>
-        /* Desain Minimalis ala GitHub Pages */
+        /* Palet Warna Elegan Instansi Kemenag */
         :root {
-            --bg-color: #ffffff;
-            --text-color: #24292e;
-            --link-color: #0366d6;
-            --border-color: #e1e4e8;
-            --accent-bg: #f6f8fa;
+            --bg-color: #f8fafc;        /* Abu-abu sangat muda, mewah di mata */
+            --panel-bg: #ffffff;        /* Putih bersih untuk kotak konten */
+            --primary-color: #064e3b;    /* Hijau Botol Kemenag yang Berwibawa */
+            --secondary-color: #b45309;  /* Emas Gelap/Bronze Elegan */
+            --text-color: #1e293b;       /* Hitam Arang, lebih lembut dari hitam pekat */
+            --text-muted: #64748b;       /* Abu-abu untuk teks keterangan */
+            --border-color: #e2e8f0;     /* Garis tipis modern */
+            --hover-bg: #f0fdf4;         /* Hijau super muda saat tombol disentuh */
         }
         
         body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
             font-size: 16px;
             line-height: 1.6;
             color: var(--text-color);
@@ -32,110 +29,155 @@
         }
 
         .container {
-            max-width: 650px;
+            max-width: 680px;
             margin: 0 auto;
+            background: var(--panel-bg);
+            padding: 40px;
+            border-radius: 16px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+            border: 1px solid var(--border-color);
         }
 
-        /* Header KUA */
+        /* Header KUA Instansi */
         header {
-            border-bottom: 1px solid var(--border-color);
-            padding-bottom: 20px;
-            margin-bottom: 30px;
+            text-align: center;
+            border-bottom: 2px solid var(--primary-color);
+            padding-bottom: 25px;
+            margin-bottom: 35px;
         }
 
         header h1 {
-            font-size: 1.8rem;
-            margin: 0 0 10px 0;
-            font-weight: 600;
+            font-size: 2rem;
+            color: var(--primary-color);
+            margin: 0 0 8px 0;
+            font-weight: 700;
+            letter-spacing: -0.5px;
         }
 
-        header p {
-            color: #586069;
+        header p.sub-1 {
+            color: var(--secondary-color);
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 0.85rem;
+            letter-spacing: 1px;
+            margin: 0 0 5px 0;
+        }
+
+        header p.sub-2 {
+            color: var(--text-muted);
             margin: 0;
             font-size: 0.95rem;
         }
 
-        /* Tombol Menu / Layanan Cepat */
+        /* Judul Bagian */
+        .section-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            border-left: 4px solid var(--secondary-color);
+            padding-left: 12px;
+            margin-top: 35px;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        /* Tombol Menu Layanan yang Mewah */
         .layanan-cepat {
             display: flex;
             flex-direction: column;
-            gap: 10px;
+            gap: 12px;
             margin-bottom: 40px;
         }
 
         .btn-layanan {
-            display: block;
-            padding: 12px 15px;
-            background-color: var(--accent-bg);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 16px 20px;
+            background-color: var(--panel-bg);
             border: 1px solid var(--border-color);
-            border-radius: 6px;
-            color: var(--link-color);
+            border-radius: 10px;
+            color: var(--text-color);
             text-decoration: none;
-            font-weight: 500;
-            transition: all 0.2s ease;
+            font-weight: 600;
+            font-size: 0.98rem;
+            transition: all 0.2s ease-in-out;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.02);
         }
 
         .btn-layanan:hover {
-            background-color: #dbedf0;
-            border-color: #0366d6;
+            background-color: var(--hover-bg);
+            border-color: var(--primary-color);
+            color: var(--primary-color);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(6, 78, 59, 0.08);
         }
 
-        /* Area Artikel / Berita */
-        .section-title {
-            font-size: 1.3rem;
-            font-weight: 600;
-            border-bottom: 1px solid var(--border-color);
-            padding-bottom: 5px;
-            margin-top: 30px;
-            margin-bottom: 15px;
+        .btn-layanan .panah {
+            color: var(--secondary-color);
+            font-size: 1.1rem;
         }
 
+        /* Area Berita/Artikel */
         .post-item {
-            margin-bottom: 25px;
+            padding: 20px 0;
+            border-bottom: 1px dashed var(--border-color);
+        }
+        .post-item:last-child {
+            border-bottom: none;
         }
 
         .post-title {
-            font-size: 1.15rem;
-            margin: 0 0 5px 0;
+            font-size: 1.2rem;
+            margin: 0 0 6px 0;
+            font-weight: 600;
         }
 
         .post-title a {
-            color: var(--link-color);
+            color: var(--text-color);
             text-decoration: none;
+            transition: color 0.2s;
         }
 
         .post-title a:hover {
-            text-decoration: underline;
+            color: var(--primary-color);
         }
 
         .post-meta {
             font-size: 0.85rem;
-            color: #586069;
-            margin-bottom: 5px;
+            color: var(--text-muted);
+            margin-bottom: 8px;
         }
 
-        .post-snippet {
-            font-size: 0.95rem;
-            color: #24292e;
-        }
-
-        /* Jam Kerja & Kontak (Footer) */
+        /* Bagian Informasi & Kontak bawah */
         footer {
             margin-top: 50px;
-            padding-top: 20px;
+            padding-top: 30px;
             border-top: 1px solid var(--border-color);
-            font-size: 0.9rem;
-            color: #586069;
+            font-size: 0.95rem;
         }
 
         .info-grid {
             display: grid;
             grid-template-columns: 1fr;
-            gap: 20px;
+            gap: 25px;
+            background-color: #f1f5f9;
+            padding: 20px;
+            border-radius: 12px;
         }
 
-        @media (min-width: 480px) {
+        @media (min-width: 580px) {
             .info-grid { grid-template-columns: 1fr 1fr; }
+        }
+
+        .info-box strong {
+            color: var(--primary-color);
+            display: block;
+            margin-bottom: 8px;
+            font-size: 0.95rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
 
         ul.kontak-list {
@@ -145,12 +187,28 @@
         }
 
         ul.kontak-list li {
-            margin-bottom: 5px;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
 
         ul.kontak-list a {
-            color: var(--link-color);
+            color: var(--primary-color);
             text-decoration: none;
+            font-weight: 500;
+        }
+
+        ul.kontak-list a:hover {
+            text-decoration: underline;
+            color: var(--secondary-color);
+        }
+
+        .copyright {
+            margin-top: 40px;
+            text-align: center;
+            font-size: 0.8rem;
+            color: var(--text-muted);
         }
     </style>
 </head>
@@ -158,60 +216,65 @@
 
     <div class='container'>
         
-        <!-- HEADER KUA PANTI -->
+        <!-- HEADER UTAMA -->
         <header>
+            <p class='sub-1'>Kementerian Agama Republik Indonesia</p>
             <h1>KUA Kecamatan Panti</h1>
-            <p>Kantor Urusan Agama Kecamatan Panti, Kabupaten Jember</p>
-            <p>Kementerian Agama Republik Indonesia</p>
+            <p class='sub-2'>Kantor Urusan Agama Kecamatan Panti, Kabupaten Jember</p>
         </header>
 
-        <!-- LAYANAN UTAMA (Silakan ganti tanda # dengan link tujuan Anda) -->
+        <!-- LAYANAN UTAMA -->
         <section>
             <div class='section-title'>Layanan &amp; Informasi</div>
             <div class='layanan-cepat'>
-                <a class='btn-layanan' href='https://simkah4.kemenag.go.id/' target='_blank'>➔ Pendaftaran Nikah Online (SIMKAH)</a>
-                <a class='btn-layanan' href='#' target='_blank'>➔ Pengumuman Kehendak Nikah (NC)</a>
-                <a class='btn-layanan' href='#' target='_blank'>➔ Alur &amp; Syarat Percalonan</a>
-                <a class='btn-layanan' href='#' target='_blank'>➔ Survei Kepuasan Masyarakat</a>
+                <a class='btn-layanan' href='https://simkah4.kemenag.go.id/' target='_blank'>
+                    <span>Pendaftaran Nikah Online (SIMKAH)</span>
+                    <span class='panah'>➔</span>
+                </a>
+                <a class='btn-layanan' href='#' target='_blank'>
+                    <span>Pengumuman Kehendak Nikah (NC)</span>
+                    <span class='panah'>➔</span>
+                </a>
+                <a class='btn-layanan' href='#' target='_blank'>
+                    <span>Alur &amp; Syarat Percalonan</span>
+                    <span class='panah'>➔</span>
+                </a>
+                <a class='btn-layanan' href='#' target='_blank'>
+                    <span>Survei Kepuasan Masyarakat</span>
+                    <span class='panah'>➔</span>
+                </a>
             </div>
         </section>
 
-        <!-- AREA POSTINGAN / ARTIKEL OTOMATIS -->
+        <!-- AREA POSTINGAN -->
         <main>
-            <div class='section-title'>Berita &amp; Pengumuman Terbaru</div>
+            <div class='section-title'>Berita &amp; Pengumuman</div>
             
-            <b:section id='main-posts' showaddelement='yes'>
-                <b:widget id='Blog1' locked='true' title='Blog Posts' type='Blog'>
-                    <b:includable id='main' var='top'>
-                        <b:loop values='data:posts' var='post'>
-                            <div class='post-item'>
-                                <h3 class='post-title'>
-                                    <a expr:href='data:post.url'><data:post.title/></a>
-                                </h3>
-                                <div class='post-meta'>
-                                    <data:post.dateHeader/>
-                                </div>
-                                <div class='post-snippet'>
-                                    <data:post.snippet/>
-                                </div>
-                            </div>
-                        </b:loop>
-                    </b:includable>
-                </b:widget>
-            </b:section>
+            <!-- Contoh Tampilan Artikel (Bisa otomatis jika di Blogger) -->
+            <div class='post-item'>
+                <h3 class='post-title'><a href='#'>Pemberitahuan Terkait Pelayanan Cuti Bersama</a></h3>
+                <div class='post-meta'>📅 28 Mei 2026 | Pengumuman</div>
+                <div class='post-snippet'>Sehubungan dengan hari libur nasional, pelayanan tatap muka di kantor KUA Kecamatan Panti akan dialihkan melalui...</div>
+            </div>
+            
+            <div class='post-item'>
+                <h3 class='post-title'><a href='#'>Bimbingan Perkawinan (Bimwin) Calon Pengantin Angkatan Ke-IV</a></h3>
+                <div class='post-meta'>📅 15 Mei 2026 | Kegiatan</div>
+                <div class='post-snippet'>KUA Panti sukses menyelenggarakan bimbingan perkawinan mandiri bagi para calon pengantin demi mewujudkan keluarga sakinah...</div>
+            </div>
         </main>
 
         <!-- JAM OPERASIONAL & KONTAK -->
         <footer>
             <div class='info-grid'>
-                <div>
-                    <strong>Jam Operasional Layanan:</strong><br/>
+                <div class='info-box'>
+                    <strong>Jam Operasional Layanan</strong>
                     • Senin - Kamis: 07.30 - 16.00 WIB<br/>
                     • Jumat: 07.30 - 16.30 WIB<br/>
-                    <em>* Sabtu, Minggu &amp; Hari Besar Libur</em>
+                    <small style="color: #ef4444; display:block; margin-top:5px;">* Sabtu, Minggu &amp; Hari Besar Libur</small>
                 </div>
-                <div>
-                    <strong>Kontak &amp; Sosial Media:</strong>
+                <div class='info-box'>
+                    <strong>Kontak &amp; Sosial Media</strong>
                     <ul class='kontak-list'>
                         <li>📍 Jl. WR Supratman No 08 Glagahwero Panti, Jember, Jawa Timur</li>
                         <li>📞 WhatsApp: <a href='https://wa.me/6285138009524' target='_blank'>Hubungi Kami</a></li>
@@ -220,8 +283,9 @@
                     </ul>
                 </div>
             </div>
-            <div style='margin-top: 30px; text-align: center; font-size: 0.8rem; border-top: 1px dotted #e1e4e8; padding-top: 10px;'>
-                &copy; 2026 KUA Kecamatan Panti. All Rights Reserved.
+            
+            <div class='copyright'>
+                &copy; 2026 KUA Kecamatan Panti. Semua Hak Dilindungi.
             </div>
         </footer>
 
