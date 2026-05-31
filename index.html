@@ -1,14 +1,231 @@
 <!DOCTYPE html>
-<html>
+<html lang='id'>
 <head>
-    <title>KUA Kecamatan Panti</title>
+    <meta charset='utf-8'/>
+    <meta content='width=device-width,initial-scale=1' name='viewport'/>
+    <title><data:blog.pageTitle/></title>
+    
+    <!-- Blogger Required Elements -->
+    <b:skin><![CDATA[
+    /* Hapus style bawaan blogger */
+    body { margin: 0; padding: 0; }
+    ]]></b:skin>
+
     <style>
-        body { font-family: sans-serif; max-width: 600px; margin: 40px auto; padding: 20px; line-height: 1.6; }
-        h1 { border-bottom: 1px solid #ccc; padding-bottom: 10px; }
+        /* Desain Minimalis ala GitHub Pages */
+        :root {
+            --bg-color: #ffffff;
+            --text-color: #24292e;
+            --link-color: #0366d6;
+            --border-color: #e1e4e8;
+            --accent-bg: #f6f8fa;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+            font-size: 16px;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: var(--bg-color);
+            margin: 0;
+            padding: 40px 20px;
+        }
+
+        .container {
+            max-width: 650px;
+            margin: 0 auto;
+        }
+
+        /* Header KUA */
+        header {
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 20px;
+            margin-bottom: 30px;
+        }
+
+        header h1 {
+            font-size: 1.8rem;
+            margin: 0 0 10px 0;
+            font-weight: 600;
+        }
+
+        header p {
+            color: #586069;
+            margin: 0;
+            font-size: 0.95rem;
+        }
+
+        /* Tombol Menu / Layanan Cepat */
+        .layanan-cepat {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-bottom: 40px;
+        }
+
+        .btn-layanan {
+            display: block;
+            padding: 12px 15px;
+            background-color: var(--accent-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            color: var(--link-color);
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.2s ease;
+        }
+
+        .btn-layanan:hover {
+            background-color: #dbedf0;
+            border-color: #0366d6;
+        }
+
+        /* Area Artikel / Berita */
+        .section-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 5px;
+            margin-top: 30px;
+            margin-bottom: 15px;
+        }
+
+        .post-item {
+            margin-bottom: 25px;
+        }
+
+        .post-title {
+            font-size: 1.15rem;
+            margin: 0 0 5px 0;
+        }
+
+        .post-title a {
+            color: var(--link-color);
+            text-decoration: none;
+        }
+
+        .post-title a:hover {
+            text-decoration: underline;
+        }
+
+        .post-meta {
+            font-size: 0.85rem;
+            color: #586069;
+            margin-bottom: 5px;
+        }
+
+        .post-snippet {
+            font-size: 0.95rem;
+            color: #24292e;
+        }
+
+        /* Jam Kerja & Kontak (Footer) */
+        footer {
+            margin-top: 50px;
+            padding-top: 20px;
+            border-top: 1px solid var(--border-color);
+            font-size: 0.9rem;
+            color: #586069;
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 20px;
+        }
+
+        @media (min-width: 480px) {
+            .info-grid { grid-template-columns: 1fr 1fr; }
+        }
+
+        ul.kontak-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        ul.kontak-list li {
+            margin-bottom: 5px;
+        }
+
+        ul.kontak-list a {
+            color: var(--link-color);
+            text-decoration: none;
+        }
     </style>
 </head>
 <body>
-    <h1>Selamat Datang di Website KUA Panti</h1>
-    <p>Website ini sedang dalam masa pengembangan menggunakan GitHub Pages.</p>
+
+    <div class='container'>
+        
+        <!-- HEADER KUA PANTI -->
+        <header>
+            <h1>KUA Kecamatan Panti</h1>
+            <p>Kantor Urusan Agama Kecamatan Panti, Kabupaten Jember</p>
+            <p>Kementerian Agama Republik Indonesia</p>
+        </header>
+
+        <!-- LAYANAN UTAMA (Silakan ganti tanda # dengan link tujuan Anda) -->
+        <section>
+            <div class='section-title'>Layanan &amp; Informasi</div>
+            <div class='layanan-cepat'>
+                <a class='btn-layanan' href='https://simkah4.kemenag.go.id/' target='_blank'>➔ Pendaftaran Nikah Online (SIMKAH)</a>
+                <a class='btn-layanan' href='#' target='_blank'>➔ Pengumuman Kehendak Nikah (NC)</a>
+                <a class='btn-layanan' href='#' target='_blank'>➔ Alur &amp; Syarat Percalonan</a>
+                <a class='btn-layanan' href='#' target='_blank'>➔ Survei Kepuasan Masyarakat</a>
+            </div>
+        </section>
+
+        <!-- AREA POSTINGAN / ARTIKEL OTOMATIS -->
+        <main>
+            <div class='section-title'>Berita &amp; Pengumuman Terbaru</div>
+            
+            <b:section id='main-posts' showaddelement='yes'>
+                <b:widget id='Blog1' locked='true' title='Blog Posts' type='Blog'>
+                    <b:includable id='main' var='top'>
+                        <b:loop values='data:posts' var='post'>
+                            <div class='post-item'>
+                                <h3 class='post-title'>
+                                    <a expr:href='data:post.url'><data:post.title/></a>
+                                </h3>
+                                <div class='post-meta'>
+                                    <data:post.dateHeader/>
+                                </div>
+                                <div class='post-snippet'>
+                                    <data:post.snippet/>
+                                </div>
+                            </div>
+                        </b:loop>
+                    </b:includable>
+                </b:widget>
+            </b:section>
+        </main>
+
+        <!-- JAM OPERASIONAL & KONTAK -->
+        <footer>
+            <div class='info-grid'>
+                <div>
+                    <strong>Jam Operasional Layanan:</strong><br/>
+                    • Senin - Kamis: 07.30 - 16.00 WIB<br/>
+                    • Jumat: 07.30 - 16.30 WIB<br/>
+                    <em>* Sabtu, Minggu &amp; Hari Besar Libur</em>
+                </div>
+                <div>
+                    <strong>Kontak &amp; Sosial Media:</strong>
+                    <ul class='kontak-list'>
+                        <li>📍 Jl. WR Supratman No 08 Glagahwero Panti, Jember, Jawa Timur</li>
+                        <li>📞 WhatsApp: <a href='https://wa.me/6285138009524' target='_blank'>Hubungi Kami</a></li>
+                        <li>📸 Instagram: <a href='https://www.instagram.com/kuapanti_jbr/' target='_blank'>@kuapanti_jbr</a></li>
+                        <li>🌐 Blog: <a href='https://kuakecamatanpanti.blogspot.com'>kuakecamatanpanti.blogspot.com</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div style='margin-top: 30px; text-align: center; font-size: 0.8rem; border-top: 1px dotted #e1e4e8; padding-top: 10px;'>
+                &copy; 2026 KUA Kecamatan Panti. All Rights Reserved.
+            </div>
+        </footer>
+
+    </div>
+
 </body>
 </html>
