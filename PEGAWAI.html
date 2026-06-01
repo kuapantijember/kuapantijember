@@ -1,0 +1,938 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profil Pegawai KUA Panti</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --bg-body: #f4f6f9;
+            --bg-card: #ffffff;
+            --text-main: #2d3748;
+            --text-muted: #718096;
+            
+            /* Warna Identitas Berdasarkan image_44001b.jpg & image_44031b.png */
+            --kemenag-nav: #2d3a4b;       /* Abu-abu gelap/slate pada header navigasi */
+            --kemenag-teal: #115e59;      /* Hijau toska tua khas background portal */
+            --kemenag-teal-light: #134e4a;/* Variasi toska untuk gradasi lembut */
+            --kemenag-orange: #f57c00;    /* Oranye kontras untuk tombol / elemen penting */
+            --kemenag-orange-hover: #e66a00;
+            
+            --border-color: #e2e8f0;
+            --card-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+            --transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-body);
+            color: var(--text-main);
+            line-height: 1.5;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* Header - Meniru nuansa gelap & profesional dari navbar di image_44001b.jpg */
+        header {
+            background: linear-gradient(135deg, var(--kemenag-nav) 0%, #1a2332 100%);
+            border-bottom: 3px solid var(--kemenag-orange);
+            text-align: center;
+            padding: 45px 20px;
+            margin-bottom: 40px;
+            color: #ffffff;
+        }
+
+        header h1 {
+            font-size: 2rem;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+            margin-bottom: 6px;
+            color: #ffffff;
+        }
+
+        header p {
+            font-size: 1.05rem;
+            color: #cbd5e0;
+            font-weight: 400;
+        }
+
+        header .badge {
+            background-color: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: #ffffff;
+            padding: 5px 15px;
+            border-radius: 6px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            display: inline-block;
+            margin-top: 12px;
+        }
+
+        /* Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* Grid System - Padat & Hooked Layout */
+        .profile-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 24px;
+        }
+
+        /* Card Modern - Menggunakan Aksen Garis Atas Toska Keluar Saat Hover */
+        .profile-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: var(--card-shadow);
+            display: flex;
+            flex-direction: column;
+            transition: var(--transition);
+            position: relative;
+        }
+
+        .profile-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 4px;
+            background-color: transparent;
+            transition: var(--transition);
+            z-index: 10;
+        }
+
+        .profile-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 20px rgba(0, 0, 0, 0.08);
+            border-color: #cbd5e1;
+        }
+
+        .profile-card:hover::before {
+            background-color: var(--kemenag-teal);
+        }
+
+        /* Kontainer Foto Proporsional */
+        .card-image-container {
+            position: relative;
+            width: 100%;
+            height: 350px;
+            background-color: #edf2f7;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .card-image-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: top center;
+        }
+
+        /* Placeholder Foto Siluet Berwarna Slate */
+        .image-placeholder {
+            font-size: 4rem;
+            color: #a0aec0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .image-placeholder span {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            font-weight: 600;
+            letter-spacing: 0.5px;
+        }
+
+        /* Body Informasi */
+        .card-body {
+            padding: 20px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Badge Jabatan - Menggunakan warna toska dari portal */
+        .role-badge {
+            font-size: 0.72rem;
+            text-transform: uppercase;
+            font-weight: 600;
+            color: #ffffff;
+            background-color: var(--kemenag-teal);
+            padding: 3px 10px;
+            border-radius: 4px;
+            display: inline-block;
+            align-self: flex-start;
+            margin-bottom: 12px;
+        }
+
+        .full-name {
+            font-size: 1.15rem;
+            font-weight: 700;
+            color: var(--text-main);
+            line-height: 1.4;
+            margin-bottom: 12px;
+        }
+
+        /* Area Informasi Alamat Rumah */
+        .info-item {
+            display: flex;
+            gap: 10px;
+            font-size: 0.88rem;
+            border-top: 1px solid var(--border-color);
+            padding-top: 12px;
+            margin-top: auto; 
+        }
+
+        .info-item i {
+            color: var(--kemenag-teal);
+            font-size: 0.95rem;
+            margin-top: 3px;
+        }
+
+        .info-label {
+            font-size: 0.72rem;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            font-weight: 600;
+            display: block;
+            margin-bottom: 1px;
+        }
+
+        .info-value {
+            color: var(--text-main);
+            font-weight: 500;
+        }
+
+        /* Bagian Akordeon Menggunakan Aksen Oranye Kalem dari image_44031b.png */
+        .tasks-section {
+            border-top: 1px solid var(--border-color);
+            background-color: #f8fafc;
+        }
+
+        .tasks-toggle {
+            padding: 14px 20px;
+            width: 100%;
+            background: none;
+            border: none;
+            text-align: left;
+            font-family: inherit;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--kemenag-nav);
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: var(--transition);
+        }
+
+        .tasks-toggle:hover {
+            color: var(--kemenag-orange);
+            background-color: #edf2f7;
+        }
+
+        /* Saat Akordeon Terbuka, Tombol Mengubah Desain Sebagai Hook Efek */
+        .tasks-toggle.active-btn {
+            background-color: #edf2f7;
+            color: var(--kemenag-orange);
+        }
+
+        .tasks-content {
+            padding: 0 20px 20px 20px;
+            display: none;
+            border-top: 1px solid var(--border-color);
+            background-color: var(--bg-card);
+        }
+
+        .tasks-content.active {
+            display: block;
+        }
+
+        .task-block {
+            margin-top: 12px;
+        }
+
+        .task-block h5 {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            color: var(--kemenag-teal);
+            margin-bottom: 6px;
+            letter-spacing: 0.3px;
+            border-left: 3px solid var(--kemenag-orange);
+            padding-left: 6px;
+        }
+
+        .task-list {
+            list-style: none;
+        }
+
+        .task-list li {
+            font-size: 0.82rem;
+            color: #4a5568;
+            margin-bottom: 6px;
+            position: relative;
+            padding-left: 14px;
+            text-align: justify;
+        }
+
+        .task-list li::before {
+            content: '•';
+            color: var(--kemenag-orange);
+            font-weight: bold;
+            position: absolute;
+            left: 0;
+            top: 0;
+        }
+
+        /* Footer Mengikuti Desain Kalem Bottom */
+        footer {
+            background-color: var(--kemenag-nav);
+            color: #a0aec0;
+            text-align: center;
+            padding: 24px;
+            margin-top: 60px;
+            font-size: 0.85rem;
+            font-weight: 400;
+            border-top: 3px solid var(--kemenag-orange);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            header h1 { font-size: 1.6rem; }
+            .profile-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Kantor Urusan Agama (KUA)</h1>
+        <p>Kecamatan Panti, Kabupaten Jember</p>
+        <span class="badge"><i class="fa-solid fa-address-card"></i> Informasi Profil & Uraian Tugas Pegawai</span>
+    </header>
+
+    <div class="container">
+        <div class="profile-grid">
+
+            <!-- 1. IKMAL MUNTADHOR -->
+            <div class="profile-card">
+                <div class="card-image-container">
+                    <img src="ikmal.jpg" alt="IKMAL MUNTADHOR, S.HI,.M.Sy">
+                </div>
+                <div class="card-body">
+                    <span class="role-badge">Kepala KUA</span>
+                    <div class="full-name">IKMAL MUNTADHOR, S.HI,.M.Sy</div>
+                    <div class="info-item">
+                        <i class="fa-solid fa-map-marker-alt"></i>
+                        <div class="info-content">
+                            <span class="info-label">Alamat Rumah</span>
+                            <span class="info-value">Dusun Kidul Pasar RT.01 RW.15 Desa Rambipuji Kec. Rambipuji</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="tasks-section">
+                    <button class="tasks-toggle" onclick="toggleTasks(this)">
+                        <span>Uraian Tugas Pokok</span>
+                        <i class="fa-solid fa-chevron-down"></i>
+                    </button>
+                    <div class="tasks-content">
+                        <div class="task-block">
+                            <h5>Tugas Pokok</h5>
+                            <ul class="task-list">
+                                <li>Memimpin dan mengoordinasikan seluruh kegiatan di KUA.</li>
+                                <li>Merumuskan visi, misi, dan rencana strategis KUA.</li>
+                                <li>Melakukan pengawasan dan evaluasi terhadap pelaksanaan tugas pegawai.</li>
+                            </ul>
+                        </div>
+                        <div class="task-block">
+                            <h5>Uraian Tugas</h5>
+                            <ul class="task-list">
+                                <li>Seluruh Layanan KUA, termasuk: Pencatatan nikah (dalam dan luar negeri), rujuk, itsbat nikah, dan perjanjian perkawinan.</li>
+                                <li>Bimbingan perkawinan dan keluarga sakinah.</li>
+                                <li>Pelayanan masjid, zakat, wakaf, dan penyuluhan keagamaan.</li>
+                                <li>Administrasi umum dan pelaporan.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 2. MUHAMMAD MISBAKHUL ULUM -->
+            <div class="profile-card">
+                <div class="card-image-container">
+                    <img src="Misbhaul Ulum.jpg" alt="MUHAMMAD MISBAKHUL ULUM, S.H">
+                </div>
+                <div class="card-body">
+                    <span class="role-badge">Penghulu Ahli Pertama</span>
+                    <div class="full-name">MUHAMMAD MISBAKHUL ULUM, S.H</div>
+                    <div class="info-item">
+                        <i class="fa-solid fa-map-marker-alt"></i>
+                        <div class="info-content">
+                            <span class="info-label">Alamat Rumah</span>
+                            <span class="info-value">Dusun Langon RT 01 RW 30 Desa Ambulu Kec. Ambulu</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="tasks-section">
+                    <button class="tasks-toggle" onclick="toggleTasks(this)">
+                        <span>Uraian Tugas Pokok</span>
+                        <i class="fa-solid fa-chevron-down"></i>
+                    </button>
+                    <div class="tasks-content">
+                        <div class="task-block">
+                            <h5>Tugas Pokok</h5>
+                            <ul class="task-list">
+                                <li>Melaksanakan pelayanan dan bimbingan nikah atau rujuk.</li>
+                                <li>Melakukan pengembangan kepenghuluan dan bimbingan masyarakat Islam.</li>
+                            </ul>
+                        </div>
+                        <div class="task-block">
+                            <h5>Layanan Yang Ditangani</h5>
+                            <ul class="task-list">
+                                <li>Pencatatan nikah (dalam dan luar negeri), pernikahan campuran, rujuk, dan itsbat nikah.</li>
+                                <li>Rekomendasi nikah dan pencatatan perjanjian perkawinan.</li>
+                                <li>Legalisasi buku nikah dan penerbitan duplikat buku nikah.</li>
+                                <li>Pencatatan perubahan status nikah dan perubahan data perseorangan.</li>
+                                <li>Surat keterangan status pencatatan pernikahan.</li>
+                                <li>Bimbingan perkawinan bagi calon pengantin, usia nikah (BRUN), dan usia sekolah (BRUS).</li>
+                                <li>Layanan konseling dan mediasi keluarga, serta penanganan kasus pernikahan.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 3. TUTIK HIDAYATI -->
+            <div class="profile-card">
+                <div class="card-image-container">
+                    <img src="tutik.jpg" alt="TUTIK HIDAYATI, S.Ag">
+                </div>
+                <div class="card-body">
+                    <span class="role-badge">Penyuluh Agama Islam Ahli Muda</span>
+                    <div class="full-name">TUTIK HIDAYATI, S.Ag</div>
+                    <div class="info-item">
+                        <i class="fa-solid fa-map-marker-alt"></i>
+                        <div class="info-content">
+                            <span class="info-label">Alamat Rumah</span>
+                            <span class="info-value">Perumahan Kodam V Brawijaya Blok Ta No.83 Kel. Mangli Kec. Kaliwates</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="tasks-section">
+                    <button class="tasks-toggle" onclick="toggleTasks(this)">
+                        <span>Uraian Tugas Pokok</span>
+                        <i class="fa-solid fa-chevron-down"></i>
+                    </button>
+                    <div class="tasks-content">
+                        <div class="task-block">
+                            <h5>Tugas Pokok</h5>
+                            <ul class="task-list">
+                                <li>Memberikan bimbingan dan penyuluhan kepada masyarakat mengenai ajaran agama Islam.</li>
+                            </ul>
+                        </div>
+                        <div class="task-block">
+                            <h5>Uraian Tugas</h5>
+                            <ul class="task-list">
+                                <li>Bimbingan perkawinan bagi calon pengantin, usia nikah (BRUN), dan usia sekolah (BRUS).</li>
+                                <li>Layanan konseling dan mediasi keluarga.</li>
+                                <li>Layanan Administrasi dan Penyuluhan bidang haji, keluarga sakinah, dan pencegahan NAPZA dan HIV/AIDS.</li>
+                                <li>Layanan Administrasi pendataan dan pembinaan majelis taklim, dan Kelompok Binaan.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 4. AHMAD TEDY HARIYANTO -->
+            <div class="profile-card">
+                <div class="card-image-container">
+                    <img src="TEDY.jpeg" alt="AHMAD TEDY HARIYANTO S.Sos">
+                </div>
+                <div class="card-body">
+                    <span class="role-badge">Penghulu Ahli Pertama</span>
+                    <div class="full-name">AHMAD TEDY HARIYANTO S.Sos</div>
+                    <div class="info-item">
+                        <i class="fa-solid fa-map-marker-alt"></i>
+                        <div class="info-content">
+                            <span class="info-label">Alamat Rumah</span>
+                            <span class="info-value">Jubung Sukorambi Jember</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="tasks-section">
+                    <button class="tasks-toggle" onclick="toggleTasks(this)">
+                        <span>Uraian Tugas Pokok</span>
+                        <i class="fa-solid fa-chevron-down"></i>
+                    </button>
+                    <div class="tasks-content">
+                        <div class="task-block">
+                            <h5>Tugas Pokok</h5>
+                            <ul class="task-list">
+                                <li>Melaksanakan pelayanan dan bimbingan nikah atau rujuk.</li>
+                                <li>Melakukan pengembangan kepenghuluan dan bimbingan masyarakat Islam.</li>
+                            </ul>
+                        </div>
+                        <div class="task-block">
+                            <h5>Uraian Tugas</h5>
+                            <ul class="task-list">
+                                <li>Pencatatan nikah (dalam dan luar negeri), pernikahan campuran, rujuk, dan itsbat nikah.</li>
+                                <li>Rekomendasi nikah dan pencatatan perjanjian perkawinan.</li>
+                                <li>Legalisasi buku nikah dan penerbitan duplikat buku nikah.</li>
+                                <li>Pencatatan perubahan status nikah dan perubahan data perseorangan.</li>
+                                <li>Surat keterangan status pencatatan pernikahan.</li>
+                                <li>Bimbingan perkawinan bagi calon pengantin, usia nikah (BRUN), dan usia sekolah (BRUS).</li>
+                                <li>Layanan konseling dan mediasi keluarga, serta penanganan kasus pernikahan.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 5. M. SA'ID -->
+            <div class="profile-card">
+                <div class="card-image-container">
+                    <img src="Said.jpg" alt="M. SA’ID, S.Th.I">
+                </div>
+                <div class="card-body">
+                    <span class="role-badge">Penyuluh Agama Islam</span>
+                    <div class="full-name">M. SA’ID, S.Th.I</div>
+                    <div class="info-item">
+                        <i class="fa-solid fa-map-marker-alt"></i>
+                        <div class="info-content">
+                            <span class="info-label">Alamat Rumah</span>
+                            <span class="info-value">Dusun Rejosari Rt 02 Rw 11 Ds. Gumelat Kec. Balung Jember</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="tasks-section">
+                    <button class="tasks-toggle" onclick="toggleTasks(this)">
+                        <span>Uraian Tugas Pokok</span>
+                        <i class="fa-solid fa-chevron-down"></i>
+                    </button>
+                    <div class="tasks-content">
+                        <div class="task-block">
+                            <h5>Tugas Pokok</h5>
+                            <ul class="task-list">
+                                <li>Memberikan bimbingan dan penyuluhan kepada masyarakat mengenai ajaran agama Islam.</li>
+                            </ul>
+                        </div>
+                        <div class="task-block">
+                            <h5>Uraian Tugas</h5>
+                            <ul class="task-list">
+                                <li>Layanan Administrasi Wakaf dan Penyuluhan bidang pemberdayaan wakaf, anti korupsi.</li>
+                                <li>Layanan Administrasi pendataan dan pembinaan kemasjidan dan SIMAS.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 6. SAIFUL BAHRI -->
+            <div class="profile-card">
+                <div class="card-image-container">
+                    <img src="SAIFUL BAHRI.jpeg" alt="SAIFUL BAHRI S.Pd.I, M.Pd.I">
+                </div>
+                <div class="card-body">
+                    <span class="role-badge">Pengawas Madrasah</span>
+                    <div class="full-name">SAIFUL BAHRI S.Pd.I, M.Pd.I</div>
+                    <div class="info-item">
+                        <i class="fa-solid fa-map-marker-alt"></i>
+                        <div class="info-content">
+                            <span class="info-label">Alamat Rumah</span>
+                            <span class="info-value">Sukorambi Jember</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="tasks-section">
+                    <button class="tasks-toggle" onclick="toggleTasks(this)">
+                        <span>Uraian Tugas Pokok</span>
+                        <i class="fa-solid fa-chevron-down"></i>
+                    </button>
+                    <div class="tasks-content">
+                        <div class="task-block">
+                            <h5>Tugas Pokok</h5>
+                            <ul class="task-list">
+                                <li>Melaksanakan pengawasan terhadap Madrasah Ibtidaiyah (MI) di Wilayah Panti</li>
+                            </ul>
+                        </div>
+                        <div class="task-block">
+                            <h5>Uraian Tugas</h5>
+                            <ul class="task-list">
+                                <li>Memberikan masukan terhadap layanan pendidikan agama, khususnya kegiatan majelis taklim untuk anak usia sekolah.</li>
+                                <li>Terlibat dalam layanan Bimbingan Remaja Usia Sekolah (BRUS) serta koordinasi pembinaan madrasah diniyah takmiliyah.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 7. ITA NOVITARINI -->
+            <div class="profile-card">
+                <div class="card-image-container">
+                    <div class="image-placeholder">
+                        <i class="fa-solid fa-user-tie"></i>
+                        <span>BELUM ADA FOTO</span>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <span class="role-badge">Pengawas RA</span>
+                    <div class="full-name">ITA NOVITARINI S.Pd., M.Pd.</div>
+                    <div class="info-item">
+                        <i class="fa-solid fa-map-marker-alt"></i>
+                        <div class="info-content">
+                            <span class="info-label">Alamat Rumah</span>
+                            <span class="info-value">Kaliwates Jember</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="tasks-section">
+                    <button class="tasks-toggle" onclick="toggleTasks(this)">
+                        <span>Uraian Tugas Pokok</span>
+                        <i class="fa-solid fa-chevron-down"></i>
+                    </button>
+                    <div class="tasks-content">
+                        <div class="task-block">
+                            <h5>Tugas Pokok</h5>
+                            <ul class="task-list">
+                                <li>Melaksanakan pengawasan terhadap Raudhatul Athfal (RA) di wilayah kerja KUA Panti.</li>
+                            </ul>
+                        </div>
+                        <div class="task-block">
+                            <h5>Uraian Tugas</h5>
+                            <ul class="task-list">
+                                <li>Membantu pelaksanaan program bimbingan keagamaan usia dini.</li>
+                                <li>Berperan aktif dalam edukasi keagamaan di lembaga pendidikan nonformal yang menjadi binaan KUA.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 8. ANIS AFROKHIYAH -->
+            <div class="profile-card">
+                <div class="card-image-container">
+                    <img src="Anis.jpg" alt="ANIS AFROKHIYAH, S.Pd.I">
+                </div>
+                <div class="card-body">
+                    <span class="role-badge">Penyuluh Agama Islam</span>
+                    <div class="full-name">ANIS AFROKHIYAH, S.Pd.I</div>
+                    <div class="info-item">
+                        <i class="fa-solid fa-map-marker-alt"></i>
+                        <div class="info-content">
+                            <span class="info-label">Alamat Rumah</span>
+                            <span class="info-value">Dusun Karanganom RT 06 RW 10 Desa Serut Kec. Panti</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="tasks-section">
+                    <button class="tasks-toggle" onclick="toggleTasks(this)">
+                        <span>Uraian Tugas Pokok</span>
+                        <i class="fa-solid fa-chevron-down"></i>
+                    </button>
+                    <div class="tasks-content">
+                        <div class="task-block">
+                            <h5>Tugas Pokok</h5>
+                            <ul class="task-list">
+                                <li>Memberikan bimbingan dan penyuluhan kepada masyarakat mengenai ajaran agama Islam.</li>
+                            </ul>
+                        </div>
+                        <div class="task-block">
+                            <h5>Uraian Tugas</h5>
+                            <ul class="task-list">
+                                <li>Layanan Administrasi pendataan dan pembinaan Ponpes dan Madin.</li>
+                                <li>Petugas Pelayanan PTSP.</li>
+                                <li>Penyuluhan bidang moderasi beragama, kerukunan umat beragama, pencegahan gerakan keagamaan bermasalah.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 9. AHMAD SAHUD -->
+            <div class="profile-card">
+                <div class="card-image-container">
+                    <img src="Sahud.jpg" alt="AHMAD SAHUD SP.d I">
+                </div>
+                <div class="card-body">
+                    <span class="role-badge">Penyuluh Agama Islam</span>
+                    <div class="full-name">AHMAD SAHUD SP.d I</div>
+                    <div class="info-item">
+                        <i class="fa-solid fa-map-marker-alt"></i>
+                        <div class="info-content">
+                            <span class="info-label">Alamat Rumah</span>
+                            <span class="info-value">Badean Wetan Desa Serut Kec. Panti</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="tasks-section">
+                    <button class="tasks-toggle" onclick="toggleTasks(this)">
+                        <span>Uraian Tugas Pokok</span>
+                        <i class="fa-solid fa-chevron-down"></i>
+                    </button>
+                    <div class="tasks-content">
+                        <div class="task-block">
+                            <h5>Tugas Pokok</h5>
+                            <ul class="task-list">
+                                <li>Memberikan bimbingan dan penyuluhan kepada masyarakat mengenai ajaran Agama Islam.</li>
+                            </ul>
+                        </div>
+                        <div class="task-block">
+                            <h5>Uraian Tugas</h5>
+                            <ul class="task-list">
+                                <li>Penyuluhan bidang produk halal, zakat, dan ekonomi umat.</li>
+                                <li>Layanan Administrasi pendataan dan pembinaan TPQ.</li>
+                                <li>Petugas Pelayanan PTSP.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 10. FINA AGUSTIN -->
+            <div class="profile-card">
+                <div class="card-image-container">
+                    <img src="fina.jpg" alt="FINA AGUSTIN, SE">
+                </div>
+                <div class="card-body">
+                    <span class="role-badge">Penata Layanan Operasional</span>
+                    <div class="full-name">FINA AGUSTIN, SE</div>
+                    <div class="info-item">
+                        <i class="fa-solid fa-map-marker-alt"></i>
+                        <div class="info-content">
+                            <span class="info-label">Alamat Rumah</span>
+                            <span class="info-value">Dusun Krajan RT 02 RW 01 Desa Karang Pring Kec. Sukorambi</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="tasks-section">
+                    <button class="tasks-toggle" onclick="toggleTasks(this)">
+                        <span>Uraian Tugas Pokok</span>
+                        <i class="fa-solid fa-chevron-down"></i>
+                    </button>
+                    <div class="tasks-content">
+                        <div class="task-block">
+                            <h5>Tugas Pokok</h5>
+                            <ul class="task-list">
+                                <li>Melaksanakan tugas dalam lingkup tata kelola layanan teknis sesuai prosedur.</li>
+                            </ul>
+                        </div>
+                        <div class="task-block">
+                            <h5>Uraian Tugas</h5>
+                            <ul class="task-list">
+                                <li>Pengoperasian aplikasi SIMKAH dan input data pendaftaran Nikah.</li>
+                                <li>Pemeliharaan dan pembaruan data layanan KUA.</li>
+                                <li>Dukungan teknis dalam pelaksanaan layanan operasional.</li>
+                                <li>Penyusunan laporan bantuan operasional perkantoran dan SPJ Haji.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 11. AHMAD FAUZI -->
+            <div class="profile-card">
+                <div class="card-image-container">
+                    <img src="Ahmad Fauzi.jpg" alt="AHMAD FAUZI">
+                </div>
+                <div class="card-body">
+                    <span class="role-badge">Operator Layanan Operasional</span>
+                    <div class="full-name">AHMAD FAUZI</div>
+                    <div class="info-item">
+                        <i class="fa-solid fa-map-marker-alt"></i>
+                        <div class="info-content">
+                            <span class="info-label">Alamat Rumah</span>
+                            <span class="info-value">Dusun Krajan RT 01 RW 04 Desa Sukorejo Kec. Bangsalsari</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="tasks-section">
+                    <button class="tasks-toggle" onclick="toggleTasks(this)">
+                        <span>Uraian Tugas Pokok</span>
+                        <i class="fa-solid fa-chevron-down"></i>
+                    </button>
+                    <div class="tasks-content">
+                        <div class="task-block">
+                            <h5>Tugas Pokok</h5>
+                            <ul class="task-list">
+                                <li>Melaksanakan tugas dalam lingkup teknis layanan operasional.</li>
+                            </ul>
+                        </div>
+                        <div class="task-block">
+                            <h5>Uraian Tugas</h5>
+                            <ul class="task-list">
+                                <li>Administrasi surat menyurat dan kearsipan.</li>
+                                <li>Pengelolaan data dan dokumentasi layanan KUA.</li>
+                                <li>Koordinasi layanan operasional harian.</li>
+                                <li>Penyusunan statistik layanan dan bimbingan masyarakat Islam.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 12. BADRUS SOLEH -->
+            <div class="profile-card">
+                <div class="card-image-container">
+                    <div class="image-placeholder">
+                        <i class="fa-solid fa-user-tie"></i>
+                        <span>BELUM ADA FOTO</span>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <span class="role-badge">Pengawas Ahli Madya PAI</span>
+                    <div class="full-name">BADRUS SOLEH, S.Ag., M.Pd.</div>
+                    <div class="info-item">
+                        <i class="fa-solid fa-map-marker-alt"></i>
+                        <div class="info-content">
+                            <span class="info-label">Alamat Rumah</span>
+                            <span class="info-value">Perum Griya Panti Raya C. 11 Panti</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="tasks-section">
+                    <button class="tasks-toggle" onclick="toggleTasks(this)">
+                        <span>Uraian Tugas Pokok</span>
+                        <i class="fa-solid fa-chevron-down"></i>
+                    </button>
+                    <div class="tasks-content">
+                        <div class="task-block">
+                            <h5>Uraian Tugas</h5>
+                            <ul class="task-list">
+                                <li>Supervisi Akademik & Manajerial Pengembangan PAI.</li>
+                                <li>Pembinaan Profesional Guru PAI serta Pemantauan Kinerja.</li>
+                                <li>Fasilitasi Pengembangan Keprofesian Berkelanjutan (PKB).</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 13. WAHYU NUR INDAH -->
+            <div class="profile-card">
+                <div class="card-image-container">
+                    <div class="image-placeholder">
+                        <i class="fa-solid fa-user-tie"></i>
+                        <span>BELUM ADA FOTO</span>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <span class="role-badge">Pengawas PAI</span>
+                    <div class="full-name">WAHYU NUR INDAH, S.Pd.I.,M.Pd.I</div>
+                    <div class="info-item">
+                        <i class="fa-solid fa-map-marker-alt"></i>
+                        <div class="info-content">
+                            <span class="info-label">Alamat Rumah</span>
+                            <span class="info-value">Jl. Manyar GG Antrokan Kel. Slawu Kec. Patrang</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="tasks-section">
+                    <button class="tasks-toggle" onclick="toggleTasks(this)">
+                        <span>Uraian Tugas Pokok</span>
+                        <i class="fa-solid fa-chevron-down"></i>
+                    </button>
+                    <div class="tasks-content">
+                        <div class="task-block">
+                            <h5>Tugas Pokok</h5>
+                            <ul class="task-list">
+                                <li>Melaksanakan pengawasan Sekolah Ahli Madya TK/RA/SD/MI di Wilayah Panti.</li>
+                            </ul>
+                        </div>
+                        <div class="task-block">
+                            <h5>Uraian Tugas</h5>
+                            <ul class="task-list">
+                                <li>Memberikan masukan terhadap layanan pendidikan agama, khususnya kegiatan majelis taklim anak usia sekolah.</li>
+                                <li>Terlibat dalam layanan Bimbingan Remaja Usia Sekolah (BRUS).</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 14. MUHAMMAD YASIN YUSUF GHOZALI -->
+            <div class="profile-card">
+                <div class="card-image-container">
+                    <div class="image-placeholder">
+                        <i class="fa-solid fa-user-tie"></i>
+                        <span>BELUM ADA FOTO</span>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <span class="role-badge">Pengawas Sekolah Ahli Madya</span>
+                    <div class="full-name">MUHAMMAD YASIN YUSUF GHOZALI S.Pd.</div>
+                    <div class="info-item">
+                        <i class="fa-solid fa-map-marker-alt"></i>
+                        <div class="info-content">
+                            <span class="info-label">Alamat Rumah</span>
+                            <span class="info-value">Gumukmas Jember</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="tasks-section">
+                    <button class="tasks-toggle" onclick="toggleTasks(this)">
+                        <span>Uraian Tugas Pokok</span>
+                        <i class="fa-solid fa-chevron-down"></i>
+                    </button>
+                    <div class="tasks-content">
+                        <div class="task-block">
+                            <h5>Tugas Pokok</h5>
+                            <ul class="task-list">
+                                <li>Melaksanakan pengawasan Sekolah Ahli Madya Tingkat Menengah di Wilayah Panti.</li>
+                            </ul>
+                        </div>
+                        <div class="task-block">
+                            <h5>Uraian Tugas</h5>
+                            <ul class="task-list">
+                                <li>Memberikan masukan terhadap layanan pendidikan agama sekolah menengah.</li>
+                                <li>Terlibat dalam koordinasi pembinaan bimbingan remaja dan siswa.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2026 KUA Kecamatan Panti - Kabupaten Jember. Ditampilkan dengan Integritas.</p>
+    </footer>
+
+    <script>
+        function toggleTasks(button) {
+            const content = button.nextElementSibling;
+            const icon = button.querySelector('i');
+            
+            // Toggle active classes
+            if (content.classList.contains('active')) {
+                content.classList.remove('active');
+                button.classList.remove('active-btn');
+                icon.className = 'fa-solid fa-chevron-down';
+            } else {
+                content.classList.add('active');
+                button.classList.add('active-btn');
+                icon.className = 'fa-solid fa-chevron-up';
+            }
+        }
+    </script>
+</body>
+</html>
