@@ -373,125 +373,208 @@
             <p>&copy; 2026 KUA Kecamatan Panti Jember. Hak Cipta Dilindungi Undang-Undang.</p>
         </footer>
     </div>
-<!-- ================================================================= -->
-<!-- ================= MODAL WINDOW: PUSAT DATA KUA ================= -->
-<!-- ================================================================= -->
 <div id="dataKuaModal" class="modal-overlay">
     <div class="modal-content">
-        
-        <!-- Header Modal -->
         <div class="modal-header">
-            <h2>🗄️ Pusat Data Informasi KUA Panti</h2>
-            <button class="close-modal-btn" onclick="closeDataModal()">&times;</button>
+            <h2><i class="fas fa-database"></i> Pusat Data Informasi KUA Panti</h2>
+            <button class="close-btn" onclick="closeDataModal()">&times;</button>
         </div>
         
-        <!-- Grid Menu Data (9 Pilihan Sesuai Request) -->
-        <div class="modal-data-grid">
-            
-            <!-- 1. Data Pegawai -->
-            <a href="data-pegawai.html" class="data-menu-item">
-                <div class="data-icon-box">👥</div>
-                <div class="data-text-box">
-                    <h3>Data Pegawai</h3>
-                    <p>Profil struktural, penghulu, & staf KUA</p>
-                </div>
+        <div class="modal-grid">
+            <a href="data-pegawai.html" class="grid-item">
+                <div class="icon-box ib-pegawai">👥</div>
+                <h3>Data Pegawai</h3>
+                <p>Profil struktural & staf KUA Kecamatan Panti</p>
             </a>
 
-            <!-- 2. Data Wakaf -->
-            <a href="data-wakaf.html" class="data-menu-item">
-                <div class="data-icon-box">📜</div>
-                <div class="data-text-box">
-                    <h3>Data Wakaf</h3>
-                    <p>Sertifikasi tanah & administrasi wakaf</p>
-                </div>
+            <a href="data-wakaf.html" class="grid-item">
+                <div class="icon-box ib-wakaf">📜</div>
+                <h3>Data Wakaf</h3>
+                <p>Informasi tanah, sertifikasi & administrasi wakaf</p>
             </a>
 
-            <!-- 3. Data Pernikahan -->
-            <a href="data-pernikahan.html" class="data-menu-item">
-                <div class="data-icon-box">💍</div>
-                <div class="data-text-box">
-                    <h3>Data Pernikahan</h3>
-                    <p>Statistik pendaftaran & peristiwa nikah</p>
-                </div>
+            <a href="data-pernikahan.html" class="grid-item">
+                <div class="icon-box ib-nikah">💍</div>
+                <h3>Data Pernikahan</h3>
+                <p>Statistik pendaftaran dan peristiwa nikah</p>
             </a>
 
-            <!-- 4. Data Tempat Ibadah -->
-            <a href="data-tempat-ibadah.html" class="data-menu-item">
-                <div class="data-icon-box">🕌</div>
-                <div class="data-text-box">
-                    <h3>Tempat Ibadah</h3>
-                    <p>Data masjid & mushala wilayah Panti</p>
-                </div>
+            <a href="data-ibadah.html" class="grid-item">
+                <div class="icon-box ib-ibadah">🕌</div>
+                <h3>Tempat Ibadah</h3>
+                <p>Data masjid dan mushala di wilayah Panti</p>
             </a>
 
-            <!-- 5. LPQ & Majlis Taklim -->
-            <a href="data-lpq-majlistaklim.html" class="data-menu-item">
-                <div class="data-icon-box">📖</div>
-                <div class="data-text-box">
-                    <h3>LPQ & Majlis Taklim</h3>
-                    <p>Lembaga Quran & kelompok binaan</p>
-                </div>
+            <a href="data-lpq.html" class="grid-item">
+                <div class="icon-box ib-lpq">📖</div>
+                <h3>LPQ & Majlis Taklim</h3>
+                <p>Lembaga Pendidikan Al-Qur'an dan binaan</p>
             </a>
 
-            <!-- 6. Data Madrasah dan RA -->
-            <a href="data-madrasah-ra.html" class="data-menu-item">
-                <div class="data-icon-box">🏫</div>
-                <div class="data-text-box">
-                    <h3>Madrasah & RA</h3>
-                    <p>Data Raudhatul Athfal & Madrasah</p>
-                </div>
+            <a href="data-madrasah.html" class="grid-item">
+                <div class="icon-box ib-madrasah">🏫</div>
+                <h3>Madrasah & RA</h3>
+                <p>Data Raudhatul Athfal dan Madrasah formal</p>
             </a>
 
-            <!-- 7. Pondok Pesantren & Madin -->
-            <a href="data-ponpes-madin.html" class="data-menu-item">
-                <div class="data-icon-box">📚</div>
-                <div class="data-text-box">
-                    <h3>Ponpes & Madin</h3>
-                    <p>Pesantren & Madrasah Diniyah Takmiliyah</p>
-                </div>
+            <a href="data-ponpes.html" class="grid-item">
+                <div class="icon-box ib-ponpes">🕌</div>
+                <h3>Ponpes & Madin</h3>
+                <p>Pondok Pesantren dan Madrasah Diniyah</p>
             </a>
 
-            <!-- 8. Data Ormas -->
-            <a href="data-ormas.html" class="data-menu-item">
-                <div class="data-icon-box">🤝</div>
-                <div class="data-text-box">
-                    <h3>Data Ormas</h3>
-                    <p>Organisasi kemasyarakatan Islam lokal</p>
-                </div>
+            <a href="data-ormas.html" class="grid-item">
+                <div class="icon-box ib-ormas">🤝</div>
+                <h3>Data Ormas</h3>
+                <p>Organisasi Kemasyarakatan Islam tingkat kecamatan</p>
             </a>
 
-            <!-- 9. Data Seni Budaya -->
-            <a href="data-seni-budaya.html" class="data-menu-item">
-                <div class="data-icon-box">🎨</div>
-                <div class="data-text-box">
-                    <h3>Seni Budaya</h3>
-                    <p>Khazanah adat & seni budaya Islam</p>
-                </div>
+            <a href="data-budaya.html" class="grid-item">
+                <div class="icon-box ib-budaya">🎨</div>
+                <h3>Seni Budaya Islam</h3>
+                <p>Khazanah seni, adat, dan budaya lokal</p>
             </a>
-
         </div>
     </div>
 </div>
 
-<!-- ================= JAVASCRIPT LOGIC ================= -->
+<style>
+/* Overlay Latar Belakang (Gelap Transparan) */
+.modal-overlay {
+    display: none; /* Tersembunyi default */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 9999;
+    justify-content: center;
+    align-items: center;
+    backdrop-filter: blur(4px);
+    transition: all 0.3s ease;
+}
+
+/* Kotak Konten Utama */
+.modal-content {
+    background-color: #ffffff;
+    width: 90%;
+    max-width: 950px;
+    border-radius: 16px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    padding: 25px;
+    animation: slideDown 0.3s ease-out;
+    max-height: 90vh;
+    overflow-y: auto;
+}
+
+/* Header Pop-up */
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 2px solid #f0f0f0;
+    padding-bottom: 15px;
+    margin-bottom: 20px;
+}
+.modal-header h2 {
+    color: #0c3823; /* Hijau Tua senada web kamu */
+    margin: 0;
+    font-size: 22px;
+    font-weight: 700;
+}
+.close-btn {
+    background: none;
+    border: none;
+    font-size: 30px;
+    color: #999;
+    cursor: pointer;
+    transition: color 0.2s;
+}
+.close-btn:hover {
+    color: #cc0000;
+}
+
+/* Grid Layout 3 Kolom */
+.modal-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 16px;
+}
+
+/* Desain Kartu Menu Pilihan */
+.grid-item {
+    display: flex;
+    align-items: center;
+    background-color: #f8f9fa;
+    border: 1px solid #e9ecef;
+    border-radius: 12px;
+    padding: 15px;
+    text-decoration: none;
+    transition: all 0.2s ease;
+}
+.grid-item:hover {
+    background-color: #ffffff;
+    border-color: #2d6a4f;
+    box-shadow: 0 5px 15px rgba(45, 106, 79, 0.1);
+    transform: translateY(-2px);
+}
+
+/* Lingkaran Ikon */
+.icon-box {
+    width: 50px;
+    height: 50px;
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 24px;
+    margin-right: 15px;
+    flex-shrink: 0;
+    background-color: #e8f5e9; /* Warna dasar hijau lembut */
+}
+
+/* Detail Teks Menu */
+.grid-item h3 {
+    margin: 0 0 4px 0;
+    color: #1b4332;
+    font-size: 16px;
+    font-weight: 600;
+}
+.grid-item p {
+    margin: 0;
+    color: #6c757d;
+    font-size: 12px;
+    line-height: 1.4;
+}
+
+/* Animasi Muncul */
+@keyframes slideDown {
+    from { transform: translateY(-30px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
+</style>
+
 <script>
-    // Membuka modal pop-up
-    function openDataModal() {
-        document.getElementById('dataKuaModal').style.display = 'flex';
-    }
+// Fungsi membuka Pop-up
+function openDataModal() {
+    const modal = document.getElementById('dataKuaModal');
+    modal.style.display = 'flex';
+}
 
-    // Menutup modal pop-up
-    function closeDataModal() {
-        document.getElementById('dataKuaModal').style.display = 'none';
-    }
+// Fungsi menutup Pop-up
+function closeDataModal() {
+    const modal = document.getElementById('dataKuaModal');
+    modal.style.display = 'none';
+}
 
-    // Menutup otomatis jika user klik di luar kotak putih modal
-    window.onclick = function(event) {
-        const modal = document.getElementById('dataKuaModal');
-        if (event.target === modal) {
-            modal.style.display = 'none';
-        }
+// Menutup pop-up otomatis jika user mengklik area luar kotak putih
+window.onclick = function(event) {
+    const modal = document.getElementById('dataKuaModal');
+    if (event.target == modal) {
+        modal.style.display = 'none';
     }
+}
 </script>
 </body>
 </html>
