@@ -341,14 +341,16 @@
                 </div>
 
                <!-- DATA KUA (Sudah Diperbaiki Layout-nya) -->
-<div class="service-card">
-    <div class="service-icon">🗄️</div>
-    <h3>Data KUA</h3>
-    <p>Pusat integrasi data sektoral internal KUA Panti.</p>
-    <!-- Menggunakan tag button dengan class btn-action yang benar -->
-    <button class="btn-action" onclick="openDataModal()">Lihat Data</button>
+<!-- === POTONGAN KODE BARU DATA KUA (TEMPEL DI SINI) === -->
+<div style="background-color: #ffffff; border: 1px solid #edf2f7; border-radius: 12px; padding: 25px 20px; text-align: center; display: flex; flex-direction: column; align-items: center; box-shadow: 0 4px 6px rgba(0,0,0,0.02); justify-content: space-between;">
+    <div style="width: 55px; height: 55px; background-color: #e8f5e9; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 22px; color: #0c3823; margin-bottom: 15px;">🗄️</div>
+    <h3 style="font-size: 14px; color: #0c3823; font-weight: 700; margin-bottom: 8px; text-transform: uppercase; letter-spacing: 0.5px; font-family: 'Plus Jakarta Sans', sans-serif;">Data KUA</h3>
+    <p style="font-size: 11.5px; color: #718096; line-height: 1.5; margin-bottom: 18px; height: 36px; display: flex; align-items: center; justify-content: center; font-family: 'Plus Jakarta Sans', sans-serif;">Pusat integrasi data sektoral internal KUA Panti.</p>
+    
+    <!-- Tombol yang dipaksa serasi dengan tombol Berita & Nikah -->
+    <button onclick="openDataModal()" style="width: 100%; background-color: #0c3823; color: #ffffff; border: none; padding: 12px 15px; border-radius: 6px; font-size: 12px; font-weight: 600; cursor: pointer; display: block; text-align: center; font-family: 'Plus Jakarta Sans', sans-serif; transition: background-color 0.2s;" onmouseover="this.style.backgroundColor='#2d6a4f'" onmouseout="this.style.backgroundColor='#0c3823'">Lihat Data</button>
 </div>
-
+<!-- =================================================== -->
                 <!-- BERITA -->
                 <div class="menu-card">
                     <div class="icon-box"><i class="fa-solid fa-newspaper"></i></div>
