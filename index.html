@@ -340,13 +340,14 @@
                     <a class="btn" href="survei.html">Mulai Survei</a>
                 </div>
 
-                <!-- DATA -->
-                <div class="menu-card">
-                    <div class="icon-box"><i class="fa-solid fa-database"></i></div>
-                    <h3>Data KUA</h3>
-                    <p>Pusat integrasi kearsipan data internal KUA Panti.</p>
-                    <a class="btn" href="data.html">Lihat Data</a>
-                </div>
+                <!-- DATA KUA (Fitur Utama Pop-Up) -->
+            <div class="service-card">
+                <div class="service-icon">🗄️</div>
+                <h3>Data KUA</h3>
+                <p>Pusat integrasi data sektoral internal KUA Panti.</p>
+                <!-- Ketika diklik, menjalankan fungsi Javascript openDataModal() -->
+                <button class="btn-action" onclick="openDataModal()">Lihat Data</button>
+            </div>
 
                 <!-- BERITA -->
                 <div class="menu-card">
@@ -372,5 +373,125 @@
             <p>&copy; 2026 KUA Kecamatan Panti Jember. Hak Cipta Dilindungi Undang-Undang.</p>
         </footer>
     </div>
+<!-- ================================================================= -->
+<!-- ================= MODAL WINDOW: PUSAT DATA KUA ================= -->
+<!-- ================================================================= -->
+<div id="dataKuaModal" class="modal-overlay">
+    <div class="modal-content">
+        
+        <!-- Header Modal -->
+        <div class="modal-header">
+            <h2>🗄️ Pusat Data Informasi KUA Panti</h2>
+            <button class="close-modal-btn" onclick="closeDataModal()">&times;</button>
+        </div>
+        
+        <!-- Grid Menu Data (9 Pilihan Sesuai Request) -->
+        <div class="modal-data-grid">
+            
+            <!-- 1. Data Pegawai -->
+            <a href="data-pegawai.html" class="data-menu-item">
+                <div class="data-icon-box">👥</div>
+                <div class="data-text-box">
+                    <h3>Data Pegawai</h3>
+                    <p>Profil struktural, penghulu, & staf KUA</p>
+                </div>
+            </a>
+
+            <!-- 2. Data Wakaf -->
+            <a href="data-wakaf.html" class="data-menu-item">
+                <div class="data-icon-box">📜</div>
+                <div class="data-text-box">
+                    <h3>Data Wakaf</h3>
+                    <p>Sertifikasi tanah & administrasi wakaf</p>
+                </div>
+            </a>
+
+            <!-- 3. Data Pernikahan -->
+            <a href="data-pernikahan.html" class="data-menu-item">
+                <div class="data-icon-box">💍</div>
+                <div class="data-text-box">
+                    <h3>Data Pernikahan</h3>
+                    <p>Statistik pendaftaran & peristiwa nikah</p>
+                </div>
+            </a>
+
+            <!-- 4. Data Tempat Ibadah -->
+            <a href="data-tempat-ibadah.html" class="data-menu-item">
+                <div class="data-icon-box">🕌</div>
+                <div class="data-text-box">
+                    <h3>Tempat Ibadah</h3>
+                    <p>Data masjid & mushala wilayah Panti</p>
+                </div>
+            </a>
+
+            <!-- 5. LPQ & Majlis Taklim -->
+            <a href="data-lpq-majlistaklim.html" class="data-menu-item">
+                <div class="data-icon-box">📖</div>
+                <div class="data-text-box">
+                    <h3>LPQ & Majlis Taklim</h3>
+                    <p>Lembaga Quran & kelompok binaan</p>
+                </div>
+            </a>
+
+            <!-- 6. Data Madrasah dan RA -->
+            <a href="data-madrasah-ra.html" class="data-menu-item">
+                <div class="data-icon-box">🏫</div>
+                <div class="data-text-box">
+                    <h3>Madrasah & RA</h3>
+                    <p>Data Raudhatul Athfal & Madrasah</p>
+                </div>
+            </a>
+
+            <!-- 7. Pondok Pesantren & Madin -->
+            <a href="data-ponpes-madin.html" class="data-menu-item">
+                <div class="data-icon-box">📚</div>
+                <div class="data-text-box">
+                    <h3>Ponpes & Madin</h3>
+                    <p>Pesantren & Madrasah Diniyah Takmiliyah</p>
+                </div>
+            </a>
+
+            <!-- 8. Data Ormas -->
+            <a href="data-ormas.html" class="data-menu-item">
+                <div class="data-icon-box">🤝</div>
+                <div class="data-text-box">
+                    <h3>Data Ormas</h3>
+                    <p>Organisasi kemasyarakatan Islam lokal</p>
+                </div>
+            </a>
+
+            <!-- 9. Data Seni Budaya -->
+            <a href="data-seni-budaya.html" class="data-menu-item">
+                <div class="data-icon-box">🎨</div>
+                <div class="data-text-box">
+                    <h3>Seni Budaya</h3>
+                    <p>Khazanah adat & seni budaya Islam</p>
+                </div>
+            </a>
+
+        </div>
+    </div>
+</div>
+
+<!-- ================= JAVASCRIPT LOGIC ================= -->
+<script>
+    // Membuka modal pop-up
+    function openDataModal() {
+        document.getElementById('dataKuaModal').style.display = 'flex';
+    }
+
+    // Menutup modal pop-up
+    function closeDataModal() {
+        document.getElementById('dataKuaModal').style.display = 'none';
+    }
+
+    // Menutup otomatis jika user klik di luar kotak putih modal
+    window.onclick = function(event) {
+        const modal = document.getElementById('dataKuaModal');
+        if (event.target === modal) {
+            modal.style.display = 'none';
+        }
+    }
+</script>
 </body>
 </html>
