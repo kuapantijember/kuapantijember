@@ -1,0 +1,609 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Data Seni Budaya Islam Kecamatan Panti</title>
+<style>
+/* TEMA PREMIUM ISLAMI KEBUDAYAAN: Deep Emerald Green (#064E3B), Gold Brass Accent (#D97706), Soft Ivory Background (#F4F7F5) */
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;background:#F4F7F5;color:#1F2937}
+
+header {
+  background: linear-gradient(135deg, #064E3B 0%, #043927 100%);
+  color: #fff;
+  padding: 35px 40px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: relative;
+  overflow: hidden;
+  border-bottom: 5px solid #D97706;
+}
+
+/* Ornamen Islami Geometris pada Background Header */
+header::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  opacity: 0.08;
+  background-image: url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M20 0l20 20-20 20L0 20z' fill='%23ffffff' fill-opacity='1' fill-rule='evenodd'/%3E%3C/svg%3E");
+}
+
+.header-title-container {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  position: relative;
+  z-index: 2;
+}
+
+.header-logo {
+  background: #ffffff;
+  padding: 10px;
+  border-radius: 50%;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 70px;
+  height: 70px;
+  border: 3px solid #D97706;
+}
+
+.header-logo svg {
+  width: 38px;
+  height: 38px;
+  fill: #064E3B;
+}
+
+.header-text h1 {
+  font-size: 26px;
+  font-weight: 800;
+  letter-spacing: 1px;
+  color: #FFFFFF;
+  text-shadow: 1px 1px 4px rgba(0,0,0,0.4);
+}
+
+.header-text p {
+  font-size: 13px;
+  color: #A7F3D0;
+  margin-top: 5px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+}
+
+main {
+  max-width: 1200px;
+  margin: 35px auto;
+  padding: 0 20px;
+}
+
+/* KPI STATISTICS CARDS */
+.kpi-container {
+  display: flex;
+  gap: 20px;
+  margin-bottom: 30px;
+  flex-wrap: wrap;
+}
+
+.kpi-card {
+  flex: 1;
+  min-width: 220px;
+  background: #fff;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 4px 15px rgba(4,57,39,0.04);
+  border: 1px solid #E5E7EB;
+  border-top: 4px solid #064E3B;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: all 0.2s ease;
+}
+
+.kpi-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(4,57,39,0.08);
+}
+
+.kpi-card.accent { border-top-color: #D97706; }
+.kpi-card.blue { border-top-color: #2563EB; }
+.kpi-card.purple { border-top-color: #7C3AED; }
+
+.kpi-details h3 {
+  font-size: 11px;
+  color: #6B7280;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+}
+
+.kpi-value {
+  font-size: 32px;
+  font-weight: 800;
+  color: #064E3B;
+  margin: 4px 0;
+}
+.kpi-card.accent .kpi-value { color: #B45309; }
+.kpi-card.blue .kpi-value { color: #1D4ED8; }
+.kpi-card.purple .kpi-value { color: #6D28D9; }
+
+.kpi-desc { font-size: 11px; color: #9CA3AF; }
+
+.kpi-icon-wrapper {
+  padding: 12px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.kpi-card.default .kpi-icon-wrapper { background: #E6F4EA; }
+.kpi-card.accent .kpi-icon-wrapper { background: #FEF3C7; }
+.kpi-card.blue .kpi-icon-wrapper { background: #DBEAFE; }
+.kpi-card.purple .kpi-icon-wrapper { background: #F3E8FF; }
+
+.kpi-icon-wrapper svg { width: 28px; height: 28px; }
+.kpi-card.default .kpi-icon-wrapper svg { fill: #064E3B; }
+.kpi-card.accent .kpi-icon-wrapper svg { fill: #B45309; }
+.kpi-card.blue .kpi-icon-wrapper svg { fill: #1D4ED8; }
+.kpi-card.purple .kpi-icon-wrapper svg { fill: #6D28D9; }
+
+/* FILTERS & SEARCH INTERFACE */
+.filter-wrapper {
+  background: #fff;
+  border-radius: 12px;
+  padding: 22px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.02);
+  border: 1px solid #E5E7EB;
+  margin-bottom: 30px;
+}
+
+.search-row {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr;
+  gap: 15px;
+}
+
+@media(max-width: 768px) {
+  .search-row { grid-template-columns: 1fr; }
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.form-group label {
+  font-size: 12px;
+  font-weight: 600;
+  color: #4B5563;
+}
+
+.form-group input, .form-group select {
+  padding: 11px 14px;
+  border: 1px solid #D1D5DB;
+  border-radius: 8px;
+  font-size: 13.5px;
+  color: #1F2937;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.form-group input:focus, .form-group select:focus {
+  border-color: #064E3B;
+  box-shadow: 0 0 0 3px rgba(6,78,59,0.1);
+}
+
+/* INTERACTIVE RESPONSIVE DATA TABLE */
+.table-container {
+  background: #fff;
+  border-radius: 12px;
+  border: 1px solid #E5E7EB;
+  box-shadow: 0 4px 15px rgba(4,57,39,0.02);
+  overflow: hidden;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+  font-size: 14px;
+}
+
+th {
+  background: #F0FDF4;
+  color: #064E3B;
+  font-weight: 700;
+  padding: 18px 20px;
+  border-bottom: 2px solid #DCFCE7;
+  letter-spacing: 0.3px;
+}
+
+td {
+  padding: 16px 20px;
+  border-bottom: 1px solid #E5E7EB;
+  color: #374151;
+  vertical-align: middle;
+}
+
+tr:last-child td { border-bottom: none; }
+tr:hover td { background: #F9FAFB; }
+
+.org-cell {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.org-icon-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+/* Dinamis avatar warna berdasar kategori */
+.avatar-islamic { background: #D1FAE5; color: #065F46; }
+.avatar-traditional { background: #FEF3C7; color: #92400E; }
+.avatar-modern { background: #DBEAFE; color: #1E40AF; }
+
+.org-icon-avatar svg { width: 22px; height: 22px; fill: currentColor; }
+
+.badge-village {
+  display: inline-block;
+  padding: 5px 12px;
+  font-size: 11px;
+  font-weight: 700;
+  border-radius: 30px;
+  background: #F3F4F6;
+  color: #4B5563;
+  border: 1px solid #E5E7EB;
+  text-transform: uppercase;
+}
+
+.badge-cat {
+  display: inline-block;
+  padding: 5px 12px;
+  font-size: 11px;
+  font-weight: 700;
+  border-radius: 30px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  text-align: center;
+}
+.cat-islamic { background: #D1FAE5; color: #065F46; border: 1px solid #A7F3D0; }
+.cat-traditional { background: #FFEDD5; color: #9A3412; border: 1px solid #FED7AA; }
+.cat-modern { background: #EFF6FF; color: #1E40AF; border: 1px solid #BFDBFE; }
+
+.empty-row {
+  text-align: center;
+  padding: 40px;
+  color: #9CA3AF;
+  font-style: italic;
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-title-container">
+    <div class="header-logo">
+      <svg viewBox="0 0 24 24">
+        <path d="M12 2A10 10 0 0 0 2 12a10 10 0 0 0 10 10 10 10 0 0 0 10-10A10 10 0 0 0 12 2zm0 2c3.6 0 6.6 2.4 7.6 5.7L12 12 4.4 9.7C5.4 6.4 8.4 4 12 4zm-8 8c0-.4.1-.7.2-1.1l6.8 2.1v7c-3.9-.5-7-3.4-7-8zm9 8v-7l6.8-2.1c.1.4.2.7.2 1.1 0 4.6-3.1 7.5-7 8z"/>
+      </svg>
+    </div>
+    <div class="header-text">
+      <h1>DATA SENI BUDAYA ISLAM KECAMATAN PANTI</h1>
+      <p>Inventarisasi Group Hadrah, Sholawat, Musik Patrol & Seni Budaya Wilayah Kecamatan Panti</p>
+    </div>
+  </div>
+</header>
+
+<main>
+  <div class="kpi-container">
+    <div class="kpi-card default">
+      <div class="kpi-details">
+        <h3>Total Group Seni</h3>
+        <div class="kpi-value" id="kpi-total">0</div>
+        <div class="kpi-desc">Terdata di Seluruh Desa</div>
+      </div>
+      <div class="kpi-icon-wrapper">
+        <svg viewBox="0 0 24 24"><path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 1.34 5 3s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/></svg>
+      </div>
+    </div>
+    <div class="kpi-card accent">
+      <div class="kpi-details">
+        <h3>Hadrah & Sholawat</h3>
+        <div class="kpi-value" id="kpi-islamic">0</div>
+        <div class="kpi-desc">Seni Religi & Islami</div>
+      </div>
+      <div class="kpi-icon-wrapper">
+        <svg viewBox="0 0 24 24"><path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10zm1-17.93c3.95.49 7 3.85 7 7.93 0 4.08-3.05 7.44-7 7.93V4.07z"/></svg>
+      </div>
+    </div>
+    <div class="kpi-card blue">
+      <div class="kpi-details">
+        <h3>Seni Tradisional</h3>
+        <div class="kpi-value" id="kpi-traditional">0</div>
+        <div class="kpi-desc">Janger, Reog, Silat, Patrol</div>
+      </div>
+      <div class="kpi-icon-wrapper">
+        <svg viewBox="0 0 24 24"><path d="M12 2c-4.97 0-9 4.03-9 9 0 2.12.74 4.07 1.97 5.61L4.35 19.4c-.39.39-.39 1.02 0 1.41.39.39 1.02.39 1.41 0l2.79-2.79C10.09 18.64 11.03 18 12 18c4.97 0 9-4.03 9-9s-4.03-9-9-9zm0 14c-3.86 0-7-3.14-7-7s3.14-7 7-7 7 3.14 7 7-3.14 7-7 7z"/></svg>
+      </div>
+    </div>
+    <div class="kpi-card purple">
+      <div class="kpi-details">
+        <h3>Seni Modern / Musik</h3>
+        <div class="kpi-value" id="kpi-modern">0</div>
+        <div class="kpi-desc">Drumband & Musik Elekton</div>
+      </div>
+      <div class="kpi-icon-wrapper">
+        <svg viewBox="0 0 24 24"><path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/></svg>
+      </div>
+    </div>
+  </div>
+
+  <div class="filter-wrapper">
+    <div class="search-row">
+      <div class="form-group">
+        <label for="search-input">Pencarian Group / Pimpinan</label>
+        <input type="text" id="search-input" placeholder="Ketik nama grup seni atau pimpinan..." oninput="filterData()">
+      </div>
+      <div class="form-group">
+        <label for="filter-desa">Filter Wilayah Desa</label>
+        <select id="filter-desa" onchange="filterData()">
+          <option value="ALL">Semua Desa</option>
+          <option value="GLAGAHWERO">Glagahwero</option>
+          <option value="SERUT">Serut</option>
+          <option value="KEMIRI">Kemiri</option>
+          <option value="PAKIS">Pakis</option>
+          <option value="KEMUNINGSARI LOR">Kemuningsari Lor</option>
+          <option value="PANTI">Panti</option>
+          <option value="SUCI">Suci</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="filter-kategori">Filter Rumpun Seni</label>
+        <select id="filter-kategori" onchange="filterData()">
+          <option value="ALL">Semua Kategori</option>
+          <option value="ISLAMIC">Hadrah & Sholawat</option>
+          <option value="TRADITIONAL">Seni Tradisional</option>
+          <option value="MODERN">Seni Modern / Drumband</option>
+        </select>
+      </div>
+    </div>
+  </div>
+
+  <div class="table-container">
+    <table>
+      <thead>
+        <tr>
+          <th style="width: 70px; text-align:center;">No</th>
+          <th>Nama Kelompok Seni Budaya</th>
+          <th>Nama Pimpinan / Ketua</th>
+          <th style="width: 180px;">Wilayah Desa</th>
+          <th style="width: 200px; text-align:center;">Klasifikasi Kategori</th>
+        </tr>
+      </thead>
+      <tbody id="table-body">
+        </tbody>
+    </table>
+  </div>
+</main>
+
+<script>
+// Sumber Data Utama dari Dokumen Seni Budaya Kecamatan Panti Tahun 2025
+const rawData = [
+  {
+    "desa": "GLAGAHWERO",
+    "items": [
+      {"nama": "HADRAH BIDAYATUS SYUKUR AL JIDURI", "pimpinan": "ROBI"},
+      {"nama": "HADRAH MAHABATUR ROSUL AL HABSYI", "pimpinan": "P. ASAN"},
+      {"nama": "SHOLAWAT PP FATHUL MUIN PLALAMGAN", "pimpinan": "FATHUL"}
+    ]
+  },
+  {
+    "desa": "SERUT",
+    "items": [
+      {"nama": "MUSIK PATROL RADISTA", "pimpinan": "ANSHORI"},
+      {"nama": "JARANAN KRAJAN PANDEAN", "pimpinan": "SUGIONO"},
+      {"nama": "HADRAH NURUL HIKMAH BADEAN", "pimpinan": "UST TOSAN ANSORI"},
+      {"nama": "HADRAH DOUL MUSTOFA MENCEK", "pimpinan": "LORA BAIS"},
+      {"nama": "HADRAH TIBBIL QULUB KRAJAN SERUT", "pimpinan": "HOLIQINNUR"},
+      {"nama": "HADRAH BAITUR ROHMAN MENCEK", "pimpinan": "SOLIHIN"}
+    ]
+  },
+  {
+    "desa": "KEMIRI",
+    "items": [
+      {"nama": "SHOLAWAT HADROH AL JABBAR TENGGILING", "pimpinan": "MOH SAHID"},
+      {"nama": "SHOLAWAT HADROH SYUBBANUL MUSTOFA TENGGILING", "pimpinan": "HASAN"},
+      {"nama": "SHOLAWAT HADROH ASSABAB TENGGILING TIMUR", "pimpinan": "NADIR"},
+      {"nama": "SHOLAWAT HADROH DANCI TIMUR", "pimpinan": "NASRULLAH"},
+      {"nama": "SHOLAWAT HADROH DANCI UTARA", "pimpinan": "-"},
+      {"nama": "SHOLAWAT HADROH PP MIFTAHUL ULUM SODONG", "pimpinan": "K LUTFI"}
+    ]
+  },
+  {
+    "desa": "PAKIS",
+    "items": [
+      {"nama": "SHOLAWAT MUHIBBUR ROSUL DUSUN KEMUNDUNGAN", "pimpinan": "MJ FIKRI MUBAROK"},
+      {"nama": "SHOLAWAT BURDATUL FATAH DUSUN PAKIS UTARA", "pimpinan": "IMAM MURSADA"},
+      {"nama": "SHOLAWAT TIBBIL QULUB DUSUN KRAJAN", "pimpinan": "LORA ISMAIL HUSNI ASYARI"},
+      {"nama": "SHOLAWAT ASSIDDIQI DUSUN PERTELON", "pimpinan": "M. FUAD HASAN"},
+      {"nama": "JANGER EDI JAYA DUSUN CEMPAKA", "pimpinan": "MAS EDI"},
+      {"nama": "JARAN KENCAK DUSUN GLUDUG", "pimpinan": "PAK DA DAN PAK JAMAL"},
+      {"nama": "PANCAK SILAT CHIMANDEK DUSUN KEMUNDUNG", "pimpinan": "BAPAK QURDI (ALM)"}
+    ]
+  },
+  {
+    "desa": "KEMUNINGSARI LOR",
+    "items": [
+      {"nama": "HADROH ( PENDEKAR SHOLAWAT )", "pimpinan": "PONPES ALKAUSAR SUMBERSARI"},
+      {"nama": "HADROH ( REMAS BAITUL GUFRON ) KRAJAN", "pimpinan": "TAKMIR MASJID"},
+      {"nama": "DRUMBAND LOWO IJO KRAJAN", "pimpinan": "-"},
+      {"nama": "HADROH PP NADHOTUL ARIFIN KEMUNINGLOR", "pimpinan": "PP NADHOTUL ARIFIN"}
+    ]
+  },
+  {
+    "desa": "PANTI",
+    "items": [
+      {"nama": "REOG PONOROGO (PUTRA MERDEKA)", "pimpinan": "PAK TOSAN. GEBANG LANGKAP PANTI."},
+      {"nama": "HADROH MJJ", "pimpinan": "RA YAZID KHOBIR"},
+      {"nama": "JANGER CITRO BUDOYO", "pimpinan": "P. BASAR"},
+      {"nama": "PENCAK SILAT CIMANDE", "pimpinan": "P. SALAM KRAJAN SELATAN PANTI"},
+      {"nama": "DRAMBAND NURUL HUDA", "pimpinan": "MUHAMMAD JAHURI"},
+      {"nama": "PENCAK SILAT CIMANDE", "pimpinan": "PAK TI KUSNAN GEBANG PANTI"},
+      {"nama": "JARAN KEPANG TURONGGO SAKTI", "pimpinan": "CAK ROHMAN"},
+      {"nama": "HADROH AL SALAM DARUNGAN PANTI.", "pimpinan": "ARIFIN"},
+      {"nama": "HADROH AL MUSTHOFA", "pimpinan": "UST ABDUL LATIF"},
+      {"nama": "HADROH SUBBANUL MUHLISIN", "pimpinan": "SUHUD HUSAIN"},
+      {"nama": "PENCAK SILAT CIMANDE WONOLANGU PANTI.", "pimpinan": "ERFAN SUGIYANTO"},
+      {"nama": "JANGER TRISNO BUDOYO", "pimpinan": "SUTRISNO PRAPAH PANTI."}
+    ]
+  },
+  {
+    "desa": "SUCI",
+    "items": [
+      {"nama": "MUSIK PATROL BINTANG PANTURA", "pimpinan": "BPK.SUTRISNO"},
+      {"nama": "PENCAK SILAT CIMANDE", "pimpinan": "BPK. SUTRISNO"},
+      {"nama": "KUDA LUMPING KAHYANGAN", "pimpinan": "BPK. PIN"},
+      {"nama": "KUDA LUMPING MACAN PUTIH", "pimpinan": "BPK. SULIMAN"},
+      {"nama": "DRUMBAND PP RAUDLATUL ULUM", "pimpinan": "KH. ABD YAQIN"},
+      {"nama": "DRUMBAND PP ALFIRDAUS", "pimpinan": "BPK. ROFIQ"},
+      {"nama": "DRUMBAND DIPONEGORO", "pimpinan": "BPK. IBAR"},
+      {"nama": "HADRAH PP RAUDLATUL ULUM", "pimpinan": "KH. ABD YAQIN"},
+      {"nama": "HADRAH REMAS AL-HASAN", "pimpinan": "BPK. SAMUJIONO"},
+      {"nama": "HADRAH JAMSBON", "pimpinan": "UST. SUNDARI"},
+      {"nama": "HADRAH REPSOL 4444", "pimpinan": "LORA MUSLEH ADNAN"},
+      {"nama": "ELEKTON", "pimpinan": "MAS CONG DAN MAS WIN"},
+      {"nama": "JANGER", "pimpinan": "BPK. SATOHA"},
+      {"nama": "SEDEKAH BUMI SUROAN", "pimpinan": "PEMDES SUCI"},
+      {"nama": "MACOPAT", "pimpinan": "BPK. SUWADI"}
+    ]
+  }
+];
+
+// Meratakan data ke dalam bentuk array linear untuk kemudahan manipulasi data/fitur tabel
+let normalizedData = [];
+rawData.forEach(d => {
+  d.items.forEach(item => {
+    let kategori = "TRADITIONAL"; // default fallback
+    const namaUpper = item.nama.toUpperCase();
+    
+    if (namaUpper.includes("HADRAH") || namaUpper.includes("HADROH") || namaUpper.includes("SHOLAWAT") || namaUpper.includes("BURDATUL")) {
+      kategori = "ISLAMIC";
+    } else if (namaUpper.includes("DRUMBAND") || namaUpper.includes("DRAMBAND") || namaUpper.includes("ELEKTON")) {
+      kategori = "MODERN";
+    }
+    
+    normalizedData.push({
+      nama: item.nama,
+      pimpinan: item.pimpinan,
+      desa: d.desa,
+      kategori: kategori
+    });
+  });
+});
+
+// Jalankan saat dokumen siap
+window.onload = function() {
+  renderTable(normalizedData);
+  calculateKPI(normalizedData);
+};
+
+// Fungsi menghitung nilai ringkasan statistik
+function calculateKPI(dataList) {
+  document.getElementById('kpi-total').innerText = dataList.length;
+  document.getElementById('kpi-islamic').innerText = dataList.filter(d => d.kategori === 'ISLAMIC').length;
+  document.getElementById('kpi-traditional').innerText = dataList.filter(d => d.kategori === 'TRADITIONAL').length;
+  document.getElementById('kpi-modern').innerText = dataList.filter(d => d.kategori === 'MODERN').length;
+}
+
+// Menghasilkan icon SVG yang relevan berdasarkan klasifikasi kategori seni
+function getIconSVG(kategori) {
+  if (kategori === "ISLAMIC") {
+    return `<svg viewBox="0 0 24 24"><path d="M12 2c-5.52 0-10 4.48-10 10s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/></svg>`;
+  } else if (kategori === "MODERN") {
+    return `<svg viewBox="0 0 24 24"><path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/></svg>`;
+  } else {
+    return `<svg viewBox="0 0 24 24"><path d="M12 11.55C9.64 9.28 5.47 7.07 2 6v13c3.47 1.07 7.64 3.28 10 5.55 2.36-2.27 6.53-4.48 10-5.55V6c-3.47 1.07-7.64 3.28-10 5.55z"/></svg>`;
+  }
+}
+
+// Fungsi utama Rendering / Pembuatan Baris Tabel HTML
+function renderTable(dataList) {
+  const tbody = document.getElementById('table-body');
+  tbody.innerHTML = '';
+  
+  if (dataList.length === 0) {
+    tbody.innerHTML = `<tr><td colspan="5" class="empty-row">⚠️ Tidak ada data seni budaya yang cocok dengan kriteria filter pencarian.</td></tr>`;
+    return;
+  }
+  
+  dataList.forEach((item, index) => {
+    let catLabel = "Tradisional";
+    let catClass = "cat-traditional";
+    let avatarClass = "avatar-traditional";
+    
+    if (item.kategori === "ISLAMIC") {
+      catLabel = "Hadrah & Sholawat";
+      catClass = "cat-islamic";
+      avatarClass = "avatar-islamic";
+    } else if (item.kategori === "MODERN") {
+      catLabel = "Seni Modern / Musik";
+      catClass = "cat-modern";
+      avatarClass = "avatar-modern";
+    }
+    
+    const tr = document.createElement('tr');
+    tr.innerHTML = `
+      <td style="text-align:center; font-weight: 600; color: #6B7280;">${index + 1}</td>
+      <td>
+        <div class="org-cell">
+          <div class="org-icon-avatar ${avatarClass}">
+            ${getIconSVG(item.kategori)}
+          </div>
+          <div>
+            <span style="font-weight: 600; color: #1F2937; letter-spacing:0.2px;">${item.nama}</span>
+          </div>
+        </div>
+      </td>
+      <td style="font-weight: 500; color: #374151;">${item.pimpinan}</td>
+      <td><span class="badge-village">${item.desa}</span></td>
+      <td style="text-align:center;"><span class="badge-cat ${catClass}">${catLabel}</span></td>
+    `;
+    tbody.appendChild(tr);
+  });
+}
+
+// Fitur Interaktif Multi-Filter Otomatis (Search, Desa & Rumpun Kategori)
+function filterData() {
+  const searchVal = document.getElementById('search-input').value.toLowerCase().trim();
+  const desaVal = document.getElementById('filter-desa').value;
+  const katVal = document.getElementById('filter-kategori').value;
+  
+  let filtered = normalizedData.filter(item => {
+    // 1. Filter Pencarian Teks
+    const matchSearch = item.nama.toLowerCase().includes(searchVal) || item.pimpinan.toLowerCase().includes(searchVal);
+    // 2. Filter Dropdown Wilayah Desa
+    const matchDesa = (desaVal === "ALL" || item.desa === desaVal);
+    // 3. Filter Rumpun Klasifikasi Kategori
+    const matchKat = (katVal === "ALL" || item.kategori === katVal);
+    
+    return matchSearch && matchDesa && matchKat;
+  });
+  
+  renderTable(filtered);
+  calculateKPI(filtered); // Memperbarui ringkasan kartu statistik secara real-time berdasarkan data terfilter
+}
+</script>
+
+</body>
+</html>
