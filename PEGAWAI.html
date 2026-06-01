@@ -42,7 +42,7 @@
             -webkit-font-smoothing: antialiased;
         }
 
-        /* Header - Meniru nuansa gelap & profesional dari navbar di image_44001b.jpg */
+        /* Header - Meniru nuansa gelap & profesional dari navbar */
         header {
             background: linear-gradient(135deg, var(--kemenag-nav) 0%, #1a2332 100%);
             border-bottom: 3px solid var(--kemenag-orange);
@@ -92,7 +92,7 @@
             gap: 24px;
         }
 
-        /* Card Modern - Menggunakan Aksen Garis Atas Toska Keluar Saat Hover */
+        /* Card Modern */
         .profile-card {
             background: var(--bg-card);
             border: 1px solid var(--border-color);
@@ -125,11 +125,11 @@
             background-color: var(--kemenag-teal);
         }
 
-        /* Kontainer Foto Proporsional */
+        /* Kontainer Foto Proporsional - Menghindari Layout Geser */
         .card-image-container {
             position: relative;
             width: 100%;
-            height: 350px;
+            height: 360px; /* Dikunci rata agar baris presisi */
             background-color: #edf2f7;
             overflow: hidden;
             display: flex;
@@ -141,36 +141,20 @@
         .card-image-container img {
             width: 100%;
             height: 100%;
-            object-fit: cover;
+            object-fit: cover; /* Foto otomatis memotong rapi, tidak gepeng */
             object-position: top center;
         }
 
-        /* Placeholder Foto Siluet Berwarna Slate */
-        .image-placeholder {
-            font-size: 4rem;
-            color: #a0aec0;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .image-placeholder span {
-            font-size: 0.75rem;
-            color: var(--text-muted);
-            font-weight: 600;
-            letter-spacing: 0.5px;
-        }
-
-        /* Body Informasi */
+        /* Body Informasi dengan tinggi minimum yang seragam */
         .card-body {
             padding: 20px;
             flex-grow: 1;
             display: flex;
             flex-direction: column;
+            min-height: 180px; /* Menjaga keseragaman area teks */
         }
 
-        /* Badge Jabatan - Menggunakan warna toska dari portal */
+        /* Badge Jabatan */
         .role-badge {
             font-size: 0.72rem;
             text-transform: uppercase;
@@ -190,6 +174,7 @@
             color: var(--text-main);
             line-height: 1.4;
             margin-bottom: 12px;
+            min-height: 50px; /* Mengunci ruang nama 1 atau 2 baris */
         }
 
         /* Area Informasi Alamat Rumah */
@@ -222,7 +207,7 @@
             font-weight: 500;
         }
 
-        /* Bagian Akordeon Menggunakan Aksen Oranye Kalem dari image_44031b.png */
+        /* Bagian Akordeon */
         .tasks-section {
             border-top: 1px solid var(--border-color);
             background-color: #f8fafc;
@@ -250,7 +235,6 @@
             background-color: #edf2f7;
         }
 
-        /* Saat Akordeon Terbuka, Tombol Mengubah Desain Sebagai Hook Efek */
         .tasks-toggle.active-btn {
             background-color: #edf2f7;
             color: var(--kemenag-orange);
@@ -303,7 +287,7 @@
             top: 0;
         }
 
-        /* Footer Mengikuti Desain Kalem Bottom */
+        /* Footer */
         footer {
             background-color: var(--kemenag-nav);
             color: #a0aec0;
@@ -549,7 +533,8 @@
             <!-- 6. SAIFUL BAHRI -->
             <div class="profile-card">
                 <div class="card-image-container">
-                    <img src="SAIFUL BAHRI.jpeg" alt="SAIFUL BAHRI S.Pd.I, M.Pd.I">
+                    <!-- PEMBENAHAN: Menggunakan file SAIFUL BAHRI_2.jpeg -->
+                    <img src="SAIFUL BAHRI_2.jpeg" alt="SAIFUL BAHRI S.Pd.I, M.Pd.I">
                 </div>
                 <div class="card-body">
                     <span class="role-badge">Pengawas Madrasah</span>
@@ -588,10 +573,8 @@
             <!-- 7. ITA NOVITARINI -->
             <div class="profile-card">
                 <div class="card-image-container">
-                    <div class="image-placeholder">
-                        <i class="fa-solid fa-user-tie"></i>
-                        <span>BELUM ADA FOTO</span>
-                    </div>
+                    <!-- PEMBENAHAN: Menggunakan file ITA NOVITA.jpeg -->
+                    <img src="ITA NOVITA.jpeg" alt="ITA NOVITARINI S.Pd., M.Pd.">
                 </div>
                 <div class="card-body">
                     <span class="role-badge">Pengawas RA</span>
@@ -670,7 +653,7 @@
             <!-- 9. AHMAD SAHUD -->
             <div class="profile-card">
                 <div class="card-image-container">
-                    <img src="Sahud.jpg" alt="AHMAD SAHUD S.Pd I">
+                    <img src="Sahud.jpg" alt="AHMAD SAHUD SP.d I">
                 </div>
                 <div class="card-body">
                     <span class="role-badge">Penyuluh Agama Islam</span>
@@ -792,8 +775,8 @@
             <!-- 12. BADRUS SOLEH -->
             <div class="profile-card">
                 <div class="card-image-container">
-                    <img src="BADRUS.png" alt="BADRUS SOLEH, S.Ag., M.Pd.">           
-                    </div>
+                    <!-- PEMBENAHAN: Menggunakan file BADRUS.png -->
+                    <img src="BADRUS.png" alt="BADRUS SOLEH, S.Ag., M.Pd.">
                 </div>
                 <div class="card-body">
                     <span class="role-badge">Pengawas Ahli Madya PAI</span>
@@ -815,7 +798,7 @@
                         <div class="task-block">
                             <h5>Uraian Tugas</h5>
                             <ul class="task-list">
-                                <li>Supervisi Akademik & Manajerial Pengembangan PAI.</li>
+                                <li>Supervisi Academic & Manajerial Pengembangan PAI.</li>
                                 <li>Pembinaan Profesional Guru PAI serta Pemantauan Kinerja.</li>
                                 <li>Fasilitasi Pengembangan Keprofesian Berkelanjutan (PKB).</li>
                             </ul>
@@ -827,8 +810,8 @@
             <!-- 13. WAHYU NUR INDAH -->
             <div class="profile-card">
                 <div class="card-image-container">
-                     <img src="WAHYU.png" alt="WAHYU NUR INDAH, S.Pd.I.,M.Pd.I">
-                   </div>
+                    <!-- PEMBENAHAN: Menggunakan file WAHYU.png -->
+                    <img src="WAHYU.png" alt="WAHYU NUR INDAH, S.Pd.I.,M.Pd.I">
                 </div>
                 <div class="card-body">
                     <span class="role-badge">Pengawas PAI</span>
@@ -867,8 +850,8 @@
             <!-- 14. MUHAMMAD YASIN YUSUF GHOZALI -->
             <div class="profile-card">
                 <div class="card-image-container">
+                    <!-- PEMBENAHAN: Menggunakan file M YASIN YUSUF GHOZALI.jpeg -->
                     <img src="M YASIN YUSUF GHOZALI.jpeg" alt="MUHAMMAD YASIN YUSUF GHOZALI S.Pd.">
-                    </div>
                 </div>
                 <div class="card-body">
                     <span class="role-badge">Pengawas Sekolah Ahli Madya</span>
@@ -916,7 +899,6 @@
             const content = button.nextElementSibling;
             const icon = button.querySelector('i');
             
-            // Toggle active classes
             if (content.classList.contains('active')) {
                 content.classList.remove('active');
                 button.classList.remove('active-btn');
