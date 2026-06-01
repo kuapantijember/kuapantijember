@@ -1,0 +1,249 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>DARMA PANTI — Kecamatan Panti, Jember</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',sans-serif;background:#f0fdf4;color:#1e293b;min-height:100vh}
+header{background:linear-gradient(135deg,#059669 0%,#10b981 100%);color:white;padding:16px 36px;display:flex;align-items:center;gap:14px;box-shadow:0 2px 10px rgba(5,150,105,.3)}
+.logo-box{width:50px;height:50px;background:rgba(255,255,255,.2);border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:26px;flex-shrink:0}
+header h1{font-size:18px;font-weight:700;line-height:1.3}
+header p{font-size:12px;opacity:.85;margin-top:2px}
+nav{background:#065f46;display:flex;gap:0;padding:0 32px;overflow-x:auto;box-shadow:0 2px 6px rgba(0,0,0,.15)}
+nav button{background:none;border:none;color:rgba(255,255,255,.7);padding:13px 22px;cursor:pointer;font-size:13.5px;font-weight:500;border-bottom:3px solid transparent;transition:.2s;white-space:nowrap}
+nav button:hover{color:white;background:rgba(255,255,255,.07)}
+nav button.active{color:white;border-bottom-color:#a7f3d0;background:rgba(255,255,255,.07)}
+.page{display:none;padding:24px 34px}
+.page.active{display:block}
+.stats{display:flex;gap:13px;margin-bottom:20px;flex-wrap:wrap}
+.stat{background:white;border-radius:14px;padding:16px 20px;flex:1;min-width:145px;box-shadow:0 1px 5px rgba(5,150,105,.1);border-top:4px solid #10b981;text-align:center}
+.stat .icon{font-size:28px;margin-bottom:4px}
+.stat h3{font-size:28px;font-weight:700;color:#059669}
+.stat p{font-size:12.5px;color:#64748b;margin-top:3px}
+.card{background:white;border-radius:14px;padding:20px;margin-bottom:18px;box-shadow:0 1px 5px rgba(5,150,105,.08)}
+.card h2{font-size:15.5px;font-weight:700;margin-bottom:13px;color:#059669;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.badge{background:#059669;color:white;font-size:11.5px;padding:3px 10px;border-radius:20px;font-weight:500}
+.search-wrap{position:relative;margin-bottom:12px}
+.search-wrap input{width:100%;padding:9px 13px 9px 36px;border:1.5px solid #a7f3d0;border-radius:8px;font-size:13.5px;outline:none;transition:.2s}
+.search-wrap input:focus{border-color:#10b981;box-shadow:0 0 0 3px rgba(16,185,129,.12)}
+.si{position:absolute;left:11px;top:50%;transform:translateY(-50%);opacity:.4;font-size:14px}
+.tab-btns{display:flex;gap:7px;margin-bottom:12px;flex-wrap:wrap}
+.tab-btn{padding:6px 14px;border-radius:8px;border:1.5px solid #a7f3d0;background:white;cursor:pointer;font-size:12.5px;font-weight:500;color:#059669;transition:.2s}
+.tab-btn.on{background:#059669;color:white;border-color:#059669}
+.tbl-wrap{overflow-x:auto;border-radius:9px;border:1px solid #e2e8f0}
+table{width:100%;border-collapse:collapse;font-size:13px}
+thead th{background:#e6f4ea;padding:10px 12px;text-align:left;font-weight:600;white-space:nowrap;border-bottom:2px solid #a7f3d0;color:#065f46;position:sticky;top:0;z-index:1}
+tbody td{padding:8px 12px;border-bottom:1px solid #f0fdf4;vertical-align:middle}
+tbody tr:hover td{background:#f0fdf4}
+tbody tr:last-child td{border-bottom:none}
+.row-count{font-size:12px;color:#64748b;margin-top:7px;text-align:right}
+.ql{display:flex;gap:10px;flex-wrap:wrap;margin-top:10px}
+.ql button{padding:9px 18px;border-radius:10px;border:none;cursor:pointer;font-size:13px;font-weight:600;transition:.2s}
+.ql .b1{background:#e6f4ea;color:#059669}.ql .b1:hover{background:#d1fae5}
+.ql .b2{background:#eff6ff;color:#1d4ed8}.ql .b2:hover{background:#dbeafe}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo-box">🏫</div>
+  <div>
+    <h1>DARMA PANTI — Data RA dan Madrasah Panti</h1>
+    <p>Kecamatan Panti &nbsp;·&nbsp; Kabupaten Jember &nbsp;·&nbsp; Jawa Timur &nbsp;·&nbsp; Tahun 2026</p>
+  </div>
+</header>
+
+<!-- BERANDA -->
+<div id="page-beranda" class="page active">
+  <div class="stats">
+    <div class="stat"><div class="icon">🧸</div><h3>18</h3><p>Raudhatul Athfal (RA)</p></div>
+    <div class="stat"><div class="icon">🌱</div><h3>16</h3><p>Madrasah Ibtidaiyah (MI)</p></div>
+    <div class="stat"><div class="icon">👔</div><h3>10</h3><p>Madrasah Tsanawiyah (MTs)</p></div>
+    <div class="stat"><div class="icon">🎓</div><h3>2</h3><p>Madrasah Aliyah (MA)</p></div>
+    <div class="stat"><div class="icon">🏫</div><h3>46</h3><p>Total Lembaga Terdata</p></div>
+  </div>
+  <div class="card">
+    <h2>📋 Tentang DARMA PANTI</h2>
+    <p style="font-size:14px;color:#475569;line-height:1.8">
+      <strong>DARMA PANTI</strong> (Data RA dan Madrasah Panti) adalah platform pemetaan informasi resmi 
+      untuk lembaga pendidikan formal berciri khas Islam di bawah naungan Kementerian Agama RI yang berada di wilayah 
+      <strong>Kecamatan Panti, Kabupaten Jember</strong>. Sistem terpadu ini menyajikan basis data spasial dan administratif 
+      mengenai <strong>18 Raudhatul Athfal (RA)</strong> dan <strong>28 Madrasah (MI, MTs, MA)</strong> yang aktif melayani masyarakat se-Kecamatan Panti.
+    </p>
+    <p style="font-size:13.5px;color:#64748b;margin-top:10px">
+      📌 Sumber data: Olah Data Terpadu Seksi Pendidikan Madrasah / Emis Kemenag Kabupaten Jember.
+    </p>
+  </div>
+  <div class="card">
+    <h2>⚡ Akses Cepat</h2>
+    <div class="ql">
+      <button class="b1" onclick="showPage('ra',document.querySelectorAll('nav button')[1])">🧸 Lihat Data Raudhatul Athfal</button>
+      <button class="b2" onclick="showPage('madrasah',document.querySelectorAll('nav button')[2])">📚 Lihat Data Madrasah Formal</button>
+    </div>
+  </div>
+</div>
+
+<nav>
+  <button class="active" onclick="showPage('beranda',this)">🏠 Beranda</button>
+  <button onclick="showPage('ra',this)">🧸 Raudhatul Athfal (18)</button>
+  <button onclick="showPage('madrasah',this)">📚 Madrasah MI/MTs/MA (28)</button>
+</nav>
+
+<!-- RAUDHATUL ATHFAL -->
+<div id="page-ra" class="page">
+  <div class="card">
+    <h2>🧸 Raudhatul Athfal (RA) <span class="badge">18 Lembaga</span></h2>
+    <div class="search-wrap">
+      <span class="si">🔍</span>
+      <input id="cariRA" placeholder="Cari nama RA, NSM, alamat, desa..." oninput="filterTable('cariRA','tblRA','cntRA')">
+    </div>
+    <div class="tbl-wrap">
+      <table id="tblRA">
+        <thead>
+          <tr>
+            <th>No</th>
+            <th>NSM</th>
+            <th>Nama Lembaga</th>
+            <th>Status</th>
+            <th>Alamat</th>
+            <th>Desa</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td style="color:#94a3b8">1</td><td>101235090123</td><td><strong>RA AL-ISLAH KHAS</strong></td><td>Swasta</td><td>Sodong</td><td><span style="background:#e6f4ea;color:#065f46;padding:2px 8px;border-radius:10px;font-size:11px">Suci</span></td></tr>
+          <tr><td style="color:#94a3b8">2</td><td>101235090124</td><td><strong>RA AR-ROUDHOH</strong></td><td>Swasta</td><td>Dsn. Payung</td><td><span style="background:#e6f4ea;color:#065f46;padding:2px 8px;border-radius:10px;font-size:11px">Suci</span></td></tr>
+          <tr><td style="color:#94a3b8">3</td><td>101235090125</td><td><strong>RA SUNAN KALIJAGA</strong></td><td>Swasta</td><td>Gaplek Barat</td><td><span style="background:#e6f4ea;color:#065f46;padding:2px 8px;border-radius:10px;font-size:11px">Suci</span></td></tr>
+          <tr><td style="color:#94a3b8">4</td><td>101235090126</td><td><strong>RA AL-HASAN 01</strong></td><td>Swasta</td><td>Delima Timur</td><td><span style="background:#e6f4ea;color:#065f46;padding:2px 8px;border-radius:10px;font-size:11px">Kemiri</span></td></tr>
+          <tr><td style="color:#94a3b8">5</td><td>101235090127</td><td><strong>RA MIFTAHUL ULUM 02</strong></td><td>Swasta</td><td>Jl. KH Yasin 02</td><td><span style="background:#e6f4ea;color:#065f46;padding:2px 8px;border-radius:10px;font-size:11px">Kemiri</span></td></tr>
+          <tr><td style="color:#94a3b8">6</td><td>101235090128</td><td><strong>RA PERWANIDA PANTI</strong></td><td>Swasta</td><td>Dsn. Krajan</td><td><span style="background:#e6f4ea;color:#065f46;padding:2px 8px;border-radius:10px;font-size:11px">Panti</span></td></tr>
+          <tr><td style="color:#94a3b8">7</td><td>101235090129</td><td><strong>RA BAHRUL ULUM</strong></td><td>Swasta</td><td>Badean Wetan</td><td><span style="background:#e6f4ea;color:#065f46;padding:2px 8px;border-radius:10px;font-size:11px">Serut</span></td></tr>
+          <tr><td style="color:#94a3b8">8</td><td>101235090130</td><td><strong>RA MIFTAHUL ULUM 01</strong></td><td>Swasta</td><td>Karanganom</td><td><span style="background:#e6f4ea;color:#065f46;padding:2px 8px;border-radius:10px;font-size:11px">Serut</span></td></tr>
+          <tr><td style="color:#94a3b8">9</td><td>101235090131</td><td><strong>RA AL-KAWTSAR</strong></td><td>Swasta</td><td>Jl. Persil 52</td><td><span style="background:#e6f4ea;color:#065f46;padding:2px 8px;border-radius:10px;font-size:11px">Kemuningsari Lor</span></td></tr>
+          <tr><td style="color:#94a3b8">10</td><td>101235090132</td><td><strong>RA BINTANG SEMBILAN</strong></td><td>Swasta</td><td>Dsn. Krajan</td><td><span style="background:#e6f4ea;color:#065f46;padding:2px 8px;border-radius:10px;font-size:11px">Kemuningsari Lor</span></td></tr>
+          <tr><td style="color:#94a3b8">11</td><td>101235090133</td><td><strong>RA HIKMATUL ULUM</strong></td><td>Swasta</td><td>Gluduk</td><td><span style="background:#e6f4ea;color:#065f46;padding:2px 8px;border-radius:10px;font-size:11px">Pakis</span></td></tr>
+          <tr><td style="color:#94a3b8">12</td><td>101235090134</td><td><strong>RA NURUL FATAA</strong></td><td>Swasta</td><td>Krajan Pakis</td><td><span style="background:#e6f4ea;color:#065f46;padding:2px 8px;border-radius:10px;font-size:11px">Pakis</span></td></tr>
+          <tr><td style="color:#94a3b8">13</td><td>101235090135</td><td><strong>RA FATHUL MU'IEN</strong></td><td>Swasta</td><td>Plalangan</td><td><span style="background:#e6f4ea;color:#065f46;padding:2px 8px;border-radius:10px;font-size:11px">Glagahwero</span></td></tr>
+          <tr><td style="color:#94a3b8">14</td><td>101235090136</td><td><strong>RA NURUL ULUM</strong></td><td>Swasta</td><td>Jl. Rajawali 110</td><td><span style="background:#e6f4ea;color:#065f46;padding:2px 8px;border-radius:10px;font-size:11px">Kemuningsari Lor</span></td></tr>
+          <tr><td style="color:#94a3b8">15</td><td>101235090137</td><td><strong>RA AT-TANWIR</strong></td><td>Swasta</td><td>Wonolangu</td><td><span style="background:#e6f4ea;color:#065f46;padding:2px 8px;border-radius:10px;font-size:11px">Panti</span></td></tr>
+          <tr><td style="color:#94a3b8">16</td><td>101235090138</td><td><strong>RA DEWI AMINAH</strong></td><td>Swasta</td><td>Dsn. Pertelon</td><td><span style="background:#e6f4ea;color:#065f46;padding:2px 8px;border-radius:10px;font-size:11px">Pakis</span></td></tr>
+          <tr><td style="color:#94a3b8">17</td><td>101235090139</td><td><strong>RA TARBIYATUS SHIBYAN</strong></td><td>Swasta</td><td>Tenggiling</td><td><span style="background:#e6f4ea;color:#065f46;padding:2px 8px;border-radius:10px;font-size:11px">Kemiri</span></td></tr>
+          <tr><td style="color:#94a3b8">18</td><td>101235090140</td><td><strong>RA MAMBAUL KHOIROT</strong></td><td>Swasta</td><td>Krajan Selatan</td><td><span style="background:#e6f4ea;color:#065f46;padding:2px 8px;border-radius:10px;font-size:11px">Panti</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="row-count" id="cntRA">Menampilkan 18 dari 18 data</div>
+  </div>
+</div>
+
+<!-- MADRASAH (MI/MTS/MA) -->
+<div id="page-madrasah" class="page">
+  <div class="card">
+    <h2>📚 Madrasah Ibtidaiyah, Tsanawiyah &amp; Aliyah <span class="badge">28 Lembaga</span></h2>
+    <div class="tab-btns">
+      <button class="tab-btn on" onclick="filterJenjang('semua',this)">Semua (28)</button>
+      <button class="tab-btn" onclick="filterJenjang('MI',this)">🌱 MI (16)</button>
+      <button class="tab-btn" onclick="filterJenjang('MTS',this)">👔 MTs (10)</button>
+      <button class="tab-btn" onclick="filterJenjang('MA',this)">🎓 MA (2)</button>
+    </div>
+    <div class="search-wrap">
+      <span class="si">🔍</span>
+      <input id="cariMadrasah" placeholder="Cari nama madrasah, NSM, jenjang, alamat..." oninput="filterTable('cariMadrasah','tblMadrasah','cntMadrasah')">
+    </div>
+    <div class="tbl-wrap">
+      <table id="tblMadrasah">
+        <thead>
+          <tr>
+            <th>No</th>
+            <th>NSM</th>
+            <th>Nama Lembaga</th>
+            <th>Jenjang</th>
+            <th>Alamat</th>
+            <th>Desa</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- MI -->
+          <tr data-jenjang="MI"><td style="color:#94a3b8">1</td><td>111235090201</td><td><strong>MIS AL-ISLAH</strong></td><td><span style="background:#d1fae5;color:#065f46;padding:2px 9px;border-radius:12px;font-size:11px;font-weight:700">MI</span></td><td>Sodong</td><td>Suci</td></tr>
+          <tr data-jenjang="MI"><td style="color:#94a3b8">2</td><td>111235090202</td><td><strong>MIS SUNAN KALIJAGA</strong></td><td><span style="background:#d1fae5;color:#065f46;padding:2px 9px;border-radius:12px;font-size:11px;font-weight:700">MI</span></td><td>Gaplek Barat</td><td>Suci</td></tr>
+          <tr data-jenjang="MI"><td style="color:#94a3b8">3</td><td>111235090203</td><td><strong>MIS AL-HASAN 01</strong></td><td><span style="background:#d1fae5;color:#065f46;padding:2px 9px;border-radius:12px;font-size:11px;font-weight:700">MI</span></td><td>Delima Timur</td><td>Kemiri</td></tr>
+          <tr data-jenjang="MI"><td style="color:#94a3b8">4</td><td>111235090204</td><td><strong>MIS MIFTAHUL ULUM 02</strong></td><td><span style="background:#d1fae5;color:#065f46;padding:2px 9px;border-radius:12px;font-size:11px;font-weight:700">MI</span></td><td>Jl. KH Yasin No. 02</td><td>Kemiri</td></tr>
+          <tr data-jenjang="MI"><td style="color:#94a3b8">5</td><td>111235090205</td><td><strong>MIS SALAFIYAH SYAFI'IYAH</strong></td><td><span style="background:#d1fae5;color:#065f46;padding:2px 9px;border-radius:12px;font-size:11px;font-weight:700">MI</span></td><td>Krajan</td><td>Panti</td></tr>
+          <tr data-jenjang="MI"><td style="color:#94a3b8">6</td><td>111235090206</td><td><strong>MIS BAHRUL ULUM</strong></td><td><span style="background:#d1fae5;color:#065f46;padding:2px 9px;border-radius:12px;font-size:11px;font-weight:700">MI</span></td><td>Badean Wetan</td><td>Serut</td></tr>
+          <tr data-jenjang="MI"><td style="color:#94a3b8">7</td><td>111235090207</td><td><strong>MIS MIFTAHUL ULUM 01</strong></td><td><span style="background:#d1fae5;color:#065f46;padding:2px 9px;border-radius:12px;font-size:11px;font-weight:700">MI</span></td><td>Karanganom</td><td>Serut</td></tr>
+          <tr data-jenjang="MI"><td style="color:#94a3b8">8</td><td>111235090208</td><td><strong>MIS AL-KAWTSAR</strong></td><td><span style="background:#d1fae5;color:#065f46;padding:2px 9px;border-radius:12px;font-size:11px;font-weight:700">MI</span></td><td>Jl. Persil 52</td><td>Kemuningsari Lor</td></tr>
+          <tr data-jenjang="MI"><td style="color:#94a3b8">10</td><td>111235090210</td><td><strong>MIS HIKMATUL ULUM</strong></td><td><span style="background:#d1fae5;color:#065f46;padding:2px 9px;border-radius:12px;font-size:11px;font-weight:700">MI</span></td><td>Gluduk</td><td>Pakis</td></tr>
+          <tr data-jenjang="MI"><td style="color:#94a3b8">11</td><td>111235090211</td><td><strong>MIS NURUL FATAA</strong></td><td><span style="background:#d1fae5;color:#065f46;padding:2px 9px;border-radius:12px;font-size:11px;font-weight:700">MI</span></td><td>Krajan Pakis</td><td>Pakis</td></tr>
+          <tr data-jenjang="MI"><td style="color:#94a3b8">12</td><td>111235090212</td><td><strong>MIS FATHUL MU'IEN</strong></td><td><span style="background:#d1fae5;color:#065f46;padding:2px 9px;border-radius:12px;font-size:11px;font-weight:700">MI</span></td><td>Plalangan</td><td>Glagahwero</td></tr>
+          <tr data-jenjang="MI"><td style="color:#94a3b8">13</td><td>111235090213</td><td><strong>MIS NURUL ULUM</strong></td><td><span style="background:#d1fae5;color:#065f46;padding:2px 9px;border-radius:12px;font-size:11px;font-weight:700">MI</span></td><td>Jl. Rajawali 110</td><td>Kemuningsari Lor</td></tr>
+          <tr data-jenjang="MI"><td style="color:#94a3b8">14</td><td>111235090214</td><td><strong>MIS AT-TANWIR</strong></td><td><span style="background:#d1fae5;color:#065f46;padding:2px 9px;border-radius:12px;font-size:11px;font-weight:700">MI</span></td><td>Wonolangu</td><td>Panti</td></tr>
+          <tr data-jenjang="MI"><td style="color:#94a3b8">15</td><td>111235090215</td><td><strong>MIS DARUS SALAM 01</strong></td><td><span style="background:#d1fae5;color:#065f46;padding:2px 9px;border-radius:12px;font-size:11px;font-weight:700">MI</span></td><td>Jl. Hairil Anwar 30</td><td>Panti</td></tr>
+          <tr data-jenjang="MI"><td style="color:#94a3b8">16</td><td>111235090216</td><td><strong>MIS TARBIYATUS SHIBYAN</strong></td><td><span style="background:#d1fae5;color:#065f46;padding:2px 9px;border-radius:12px;font-size:11px;font-weight:700">MI</span></td><td>Trenggiling</td><td>Kemiri</td></tr>
+          
+          <!-- MTS -->
+          <tr data-jenjang="MTS"><td style="color:#94a3b8">17</td><td>121235090101</td><td><strong>MTsS RAUDLATUL ULUM 03</strong></td><td><span style="background:#dbeafe;color:#1e40af;padding:2px 9px;border-radius:12px;font-size:11px;font-weight:700">MTS</span></td><td>Gaplek</td><td>Suci</td></tr>
+          <tr data-jenjang="MTS"><td style="color:#94a3b8">18</td><td>121235090102</td><td><strong>MTsS AL-HASAN 04</strong></td><td><span style="background:#dbeafe;color:#1e40af;padding:2px 9px;border-radius:12px;font-size:11px;font-weight:700">MTS</span></td><td>Jl. Jenoyo Payung</td><td>Suci</td></tr>
+          <tr data-jenjang="MTS"><td style="color:#94a3b8">19</td><td>121235090103</td><td><strong>MTsS SUBULUS SALAM</strong></td><td><span style="background:#dbeafe;color:#1e40af;padding:2px 9px;border-radius:12px;font-size:11px;font-weight:700">MTS</span></td><td>Perkebunan Legung</td><td>Suci</td></tr>
+          <tr data-jenjang="MTS"><td style="color:#94a3b8">20</td><td>121235090104</td><td><strong>MTsS AL-AMAL PANTI</strong></td><td><span style="background:#dbeafe;color:#1e40af;padding:2px 9px;border-radius:12px;font-size:11px;font-weight:700">MTS</span></td><td>Jl. Moch Seruji 20</td><td>Panti</td></tr>
+          <tr data-jenjang="MTS"><td style="color:#94a3b8">21</td><td>121235090105</td><td><strong>MTsS MIFTAHUL ULUM 05</strong></td><td><span style="background:#dbeafe;color:#1e40af;padding:2px 9px;border-radius:12px;font-size:11px;font-weight:700">MTS</span></td><td>Jl. PB Sudirman 23</td><td>Serut</td></tr>
+          <tr data-jenjang="MTS"><td style="color:#94a3b8">22</td><td>121235090106</td><td><strong>MTsS AS-SHIDDIQY</strong></td><td><span style="background:#dbeafe;color:#1e40af;padding:2px 9px;border-radius:12px;font-size:11px;font-weight:700">MTS</span></td><td>Jl. Mangga No. 06</td><td>Pakis</td></tr>
+          <tr data-jenjang="MTS"><td style="color:#94a3b8">23</td><td>121235090107</td><td><strong>MTsS NAHDLATUL ARIFIN</strong></td><td><span style="background:#dbeafe;color:#1e40af;padding:2px 9px;border-radius:12px;font-size:11px;font-weight:700">MTS</span></td><td>Kemuningsarilor</td><td>Kemuningsari Lor</td></tr>
+          <tr data-jenjang="MTS"><td style="color:#94a3b8">24</td><td>121235090108</td><td><strong>MTsS AL-HIKMAH</strong></td><td><span style="background:#dbeafe;color:#1e40af;padding:2px 9px;border-radius:12px;font-size:11px;font-weight:700">MTS</span></td><td>Badean Wetan</td><td>Serut</td></tr>
+          <tr data-jenjang="MTS"><td style="color:#94a3b8">25</td><td>121235090109</td><td><strong>MTsS AL-GHUFRON</strong></td><td><span style="background:#dbeafe;color:#1e40af;padding:2px 9px;border-radius:12px;font-size:11px;font-weight:700">MTS</span></td><td>Jl. PB Sudirman 52 Mencek</td><td>Serut</td></tr>
+          <tr data-jenjang="MTS"><td style="color:#94a3b8">26</td><td>121235090110</td><td><strong>MTsS NURUL HIDAYAH</strong></td><td><span style="background:#dbeafe;color:#1e40af;padding:2px 9px;border-radius:12px;font-size:11px;font-weight:700">MTS</span></td><td>Kemuningsarilor</td><td>Kemuningsari Lor</td></tr>
+          
+          <!-- MA -->
+          <tr data-jenjang="MA"><td style="color:#94a3b8">27</td><td>131235090051</td><td><strong>MAS AL-HASAN 04</strong></td><td><span style="background:#fee2e2;color:#991b1b;padding:2px 9px;border-radius:12px;font-size:11px;font-weight:700">MA</span></td><td>Jl. Jenoyo Payung</td><td>Suci</td></tr>
+          <tr data-jenjang="MA"><td style="color:#94a3b8">28</td><td>131235090052</td><td><strong>MAS NAHDLATUL ARIFIN</strong></td><td><span style="background:#fee2e2;color:#991b1b;padding:2px 9px;border-radius:12px;font-size:11px;font-weight:700">MA</span></td><td>Kemuningsarilor</td><td>Kemuningsari Lor</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="row-count" id="cntMadrasah">Menampilkan 28 dari 28 data</div>
+  </div>
+</div>
+
+<script>
+function showPage(pId, btn) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.getElementById('page-' + pId).classList.add('active');
+  document.querySelectorAll('nav button').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+}
+
+function filterTable(inputId, tblId, countId) {
+  let val = document.getElementById(inputId).value.toLowerCase();
+  let rows = document.querySelectorAll('#' + tblId + ' tbody tr');
+  let visibleCount = 0;
+  
+  rows.forEach(r => {
+    let matchesSearch = r.textContent.toLowerCase().includes(val);
+    let currentTabOn = document.querySelector('#page-madrasah .tab-btn.on');
+    let matchesTab = true;
+    
+    if (tblId === 'tblMadrasah' && currentTabOn) {
+      let jenjangFilter = currentTabOn.getAttribute('onclick').match(/'([^']+)'/)[1];
+      if (jenjangFilter !== 'semua') {
+        matchesTab = (r.getAttribute('data-jenjang') === jenjangFilter);
+      }
+    }
+    
+    if (matchesSearch && matchesTab) {
+      r.style.display = '';
+      visibleCount++;
+    } else {
+      r.style.display = 'none';
+    }
+  });
+  
+  document.getElementById(countId).textContent = "Menampilkan " + visibleCount + " dari " + rows.length + " data";
+}
+
+function filterJenjang(jenjang, btn) {
+  document.querySelectorAll('#page-madrasah .tab-btn').forEach(b => b.classList.remove('on'));
+  btn.classList.add('on');
+  filterTable('cariMadrasah', 'tblMadrasah', 'cntMadrasah');
+}
+</script>
+</body>
+</html>

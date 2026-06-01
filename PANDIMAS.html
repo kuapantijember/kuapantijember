@@ -1,0 +1,425 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>PANDIMAS — Kecamatan Panti, Jember</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',sans-serif;background:#f5f3ff;color:#1e1b4b;min-height:100vh}
+header{background:linear-gradient(135deg,#4f46e5 0%,#7c3aed 100%);color:white;padding:16px 36px;display:flex;align-items:center;gap:14px;box-shadow:0 2px 10px rgba(79,70,229,.3)}
+.logo-box{width:50px;height:50px;background:rgba(255,255,255,.18);border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:26px;flex-shrink:0}
+header h1{font-size:18px;font-weight:700;line-height:1.3}
+header p{font-size:12px;opacity:.75;margin-top:2px}
+nav{background:#3730a3;display:flex;gap:0;padding:0 32px;overflow-x:auto;box-shadow:0 2px 6px rgba(0,0,0,.15)}
+nav button{background:none;border:none;color:rgba(255,255,255,.68);padding:13px 22px;cursor:pointer;font-size:13.5px;font-weight:500;border-bottom:3px solid transparent;transition:.2s;white-space:nowrap}
+nav button:hover{color:white;background:rgba(255,255,255,.07)}
+nav button.active{color:white;border-bottom-color:#a5f3fc;background:rgba(255,255,255,.07)}
+.page{display:none;padding:24px 34px}
+.page.active{display:block}
+.stats{display:flex;gap:13px;margin-bottom:20px;flex-wrap:wrap}
+.stat{background:white;border-radius:14px;padding:16px 20px;flex:1;min-width:145px;box-shadow:0 1px 5px rgba(79,70,229,.1);border-top:4px solid #7c3aed;text-align:center}
+.stat .icon{font-size:28px;margin-bottom:4px}
+.stat h3{font-size:28px;font-weight:700;color:#4f46e5}
+.stat p{font-size:12.5px;color:#64748b;margin-top:3px}
+.card{background:white;border-radius:14px;padding:20px;margin-bottom:18px;box-shadow:0 1px 5px rgba(79,70,229,.08)}
+.card h2{font-size:15.5px;font-weight:700;margin-bottom:13px;color:#4f46e5;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.badge{background:#4f46e5;color:white;font-size:11.5px;padding:3px 10px;border-radius:20px;font-weight:500}
+.search-wrap{position:relative;margin-bottom:12px}
+.search-wrap input{width:100%;padding:9px 13px 9px 36px;border:1.5px solid #c7d2fe;border-radius:8px;font-size:13.5px;outline:none;transition:.2s}
+.search-wrap input:focus{border-color:#7c3aed;box-shadow:0 0 0 3px rgba(124,58,237,.12)}
+.si{position:absolute;left:11px;top:50%;transform:translateY(-50%);opacity:.35;font-size:14px}
+.tab-btns{display:flex;gap:7px;margin-bottom:12px;flex-wrap:wrap}
+.tab-btn{padding:6px 14px;border-radius:8px;border:1.5px solid #c7d2fe;background:white;cursor:pointer;font-size:12.5px;font-weight:500;color:#4f46e5;transition:.2s}
+.tab-btn.on{background:#4f46e5;color:white;border-color:#4f46e5}
+.tbl-wrap{overflow-x:auto;border-radius:9px;border:1px solid #e0e7ff}
+table{width:100%;border-collapse:collapse;font-size:13px}
+thead th{background:#ede9fe;padding:10px 12px;text-align:left;font-weight:600;white-space:nowrap;border-bottom:2px solid #c4b5fd;color:#3730a3;position:sticky;top:0;z-index:1}
+tbody td{padding:8px 12px;border-bottom:1px solid #f5f3ff;vertical-align:middle}
+tbody tr:hover td{background:#faf5ff}
+tbody tr:last-child td{border-bottom:none}
+.row-count{font-size:12px;color:#a5b4fc;margin-top:7px;text-align:right}
+.dash-2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+@media(max-width:640px){.dash-2{grid-template-columns:1fr}}
+.ql{display:flex;gap:10px;flex-wrap:wrap;margin-top:10px}
+.ql button{padding:9px 18px;border-radius:10px;border:none;cursor:pointer;font-size:13px;font-weight:600;transition:.2s}
+.ql .b1{background:#ede9fe;color:#4f46e5}.ql .b1:hover{background:#ddd6fe}
+.ql .b2{background:#f0fdf4;color:#166534}.ql .b2:hover{background:#dcfce7}
+.ql .b3{background:#fef3c7;color:#92400e}.ql .b3:hover{background:#fde68a}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo-box">📚</div>
+  <div>
+    <h1>PANDIMAS — Pendataan Diniyah dan Pesantren</h1>
+    <p>Kecamatan Panti &nbsp;·&nbsp; Kabupaten Jember &nbsp;·&nbsp; Jawa Timur &nbsp;·&nbsp; Tahun 2025</p>
+  </div>
+</header>
+
+<nav>
+  <button class="active" onclick="showPage('beranda',this)">🏠 Beranda</button>
+  <button onclick="showPage('madin',this)">🏫 Madrasah Diniyah (132)</button>
+  <button onclick="showPage('pesantren',this)">🕌 Pondok Pesantren (57)</button>
+  <button onclick="showPage('dashboard',this)">📊 Dashboard</button>
+</nav>
+
+<!-- BERANDA -->
+<div id="page-beranda" class="page active">
+  <div class="stats">
+    <div class="stat"><div class="icon">🏫</div><h3>132</h3><p>Madrasah Diniyah</p></div>
+    <div class="stat"><div class="icon">📗</div><h3>77</h3><p>MDT Jenjang Ula</p></div>
+    <div class="stat"><div class="icon">📘</div><h3>55</h3><p>MDT Jenjang Wustha</p></div>
+    <div class="stat"><div class="icon">🕌</div><h3>57</h3><p>Pondok Pesantren</p></div>
+    <div class="stat"><div class="icon">📍</div><h3>189</h3><p>Total Lembaga</p></div>
+  </div>
+  <div class="card">
+    <h2>📋 Tentang PANDIMAS</h2>
+    <p style="font-size:14px;color:#475569;line-height:1.8">
+      <strong>PANDIMAS</strong> (Pendataan Diniyah dan Pesantren) adalah sistem informasi
+      pendataan lembaga pendidikan keagamaan di wilayah <strong>Kecamatan Panti, Kabupaten Jember</strong>.
+      Sistem ini memuat data <strong>132 Madrasah Diniyah Takmiliyah (MDT)</strong>
+      dan <strong>57 Pondok Pesantren</strong> yang tersebar di desa/kelurahan
+      se-Kecamatan Panti, dengan total <strong>189 lembaga pendidikan keagamaan</strong>.
+    </p>
+    <p style="font-size:13.5px;color:#64748b;margin-top:10px">
+      📌 Sumber data: EMIS Kemenag RI (Madin, 26 Mei 2025) &amp; IJOP Pesantren Kemenag RI
+    </p>
+  </div>
+  <div class="card">
+    <h2>⚡ Akses Cepat</h2>
+    <div class="ql">
+      <button class="b1" onclick="showPage('madin',document.querySelectorAll('nav button')[1])">🏫 Data Madrasah Diniyah</button>
+      <button class="b2" onclick="showPage('pesantren',document.querySelectorAll('nav button')[2])">🕌 Data Pondok Pesantren</button>
+      <button class="b3" onclick="showPage('dashboard',document.querySelectorAll('nav button')[3])">📊 Dashboard Statistik</button>
+    </div>
+  </div>
+</div>
+
+<!-- MADIN -->
+<div id="page-madin" class="page">
+  <div class="card">
+    <h2>🏫 Madrasah Diniyah Takmiliyah (MDT) <span class="badge">132 Lembaga</span></h2>
+    <div style="margin-bottom:12px">
+      <span style="background:#dcfce7;color:#166534;padding:3px 10px;border-radius:12px;font-size:12px;font-weight:600;margin-right:6px">📗 ULA: 77</span>
+      <span style="background:#dbeafe;color:#1e40af;padding:3px 10px;border-radius:12px;font-size:12px;font-weight:600">📘 WUSTHA: 55</span>
+    </div>
+    <div class="tab-btns">
+      <button class="tab-btn on" onclick="filterJenjang('semua',this)">Semua (132)</button>
+      <button class="tab-btn" onclick="filterJenjang('ULA',this)">Ula (77)</button>
+      <button class="tab-btn" onclick="filterJenjang('WUSTHA',this)">Wustha (55)</button>
+    </div>
+    <div class="search-wrap">
+      <span class="si">🔍</span>
+      <input id="cariMadin" placeholder="Cari nama lembaga, alamat, afiliasi..." oninput="filterTable('cariMadin','tblMadin','cntMadin')">
+    </div>
+    <div class="tbl-wrap">
+      <table id="tblMadin">
+        <thead><tr><th>No</th><th>Nama Lembaga</th><th>Jenjang</th><th>Alamat</th><th>Afiliasi</th></tr></thead>
+        <tbody>
+          <tr data-jenjang="ULA"><td style="color:#94a3b8">1</td><td><strong>MDT AL AMAL</strong></td><td><span style="background:#dcfce7;color:#166534;padding:2px 9px;border-radius:12px;font-size:11px;font-weight:700">ULA</span></td><td style="color:#475569">JL. MOCH SERUJI NO. 20</td><td><span style="color:#94a3b8">—</span></td></tr>
+          <tr data-jenjang="ULA"><td style="color:#94a3b8">2</td><td><strong>MDT NURUL FALAH</strong></td><td><span style="background:#dcfce7;color:#166534;padding:2px 9px;border-radius:12px;font-size:11px;font-weight:700">ULA</span></td><td style="color:#475569">Dusun Danci</td><td><span style="color:#94a3b8">—</span></td></tr>
+          <tr data-jenjang="ULA"><td style="color:#94a3b8">3</td><td><strong>MDT AL FIRDAUS</strong></td><td><span style="background:#dcfce7;color:#166534;padding:2px 9px;border-radius:12px;font-size:11px;font-weight:700">ULA</span></td><td style="color:#475569">Jl. Kepiring No. 1 Dusun Glundengan</td><td><span style="color:#94a3b8">—</span></td></tr>
+          <tr data-jenjang="ULA"><td style="color:#94a3b8">4</td><td><strong>MDT NURUL FATAA</strong></td><td><span style="background:#dcfce7;color:#166534;padding:2px 9px;border-radius:12px;font-size:11px;font-weight:700">ULA</span></td><td style="color:#475569">Kerajan Pakis</td><td><span style="color:#94a3b8">—</span></td></tr>
+          <tr data-jenjang="ULA"><td style="color:#94a3b8">5</td><td><strong>MDT NURUS SHOLIHIN</strong></td><td><span style="background:#dcfce7;color:#166534;padding:2px 9px;border-radius:12px;font-size:11px;font-weight:700">ULA</span></td><td style="color:#475569">Jl. K.Ghirun 01</td><td><span style="background:#fef3c7;color:#92400e;padding:2px 8px;border-radius:10px;font-size:11px;font-weight:600">NU</span></td></tr>
+          <tr data-jenjang="ULA"><td style="color:#94a3b8">6</td><td><strong>MDT RIYADLUS SHOLIHIN</strong></td><td><span style="background:#dcfce7;color:#166534;padding:2px 9px;border-radius:12px;font-size:11px;font-weight:700">ULA</span></td><td style="color:#475569">Prapah Panti</td><td><span style="color:#94a3b8">—</span></td></tr>
+          <tr data-jenjang="ULA"><td style="color:#94a3b8">7</td><td><strong>MDT AL IKHSAN</strong></td><td><span style="background:#dcfce7;color:#166534;padding:2px 9px;border-radius:12px;font-size:11px;font-weight:700">ULA</span></td><td style="color:#475569">Delima</td><td><span style="color:#94a3b8">—</span></td></tr>
+          <tr data-jenjang="ULA"><td style="color:#94a3b8">8</td><td><strong>MDT NURUL HIDAYAH</strong></td><td><span style="background:#dcfce7;color:#166534;padding:2px 9px;border-radius:12px;font-size:11px;font-weight:700">ULA</span></td><td style="color:#475569">Sumber Kembar Pakis</td><td><span style="color:#94a3b8">—</span></td></tr>
+          <tr data-jenjang="ULA"><td style="color:#94a3b8">9</td><td><strong>MDT AL HASAN 03</strong></td><td><span style="background:#dcfce7;color:#166534;padding:2px 9px;border-radius:12px;font-size:11px;font-weight:700">ULA</span></td><td style="color:#475569">Jl. Prekebunan Sentool No.01</td><td><span style="color:#94a3b8">—</span></td></tr>
+          <tr data-jenjang="ULA"><td style="color:#94a3b8">10</td><td><strong>ROUDHOTUL MUMININ</strong></td><td><span style="background:#dcfce7;color:#166534;padding:2px 9px;border-radius:12px;font-size:11px;font-weight:700">ULA</span></td><td style="color:#475569">Jl. Argopuro Plendo, Suci</td><td><span style="color:#94a3b8">—</span></td></tr>
+          <tr data-jenjang="WUSTHA"><td style="color:#94a3b8">11</td><td><strong>MDT AL HASAN 04</strong></td><td><span style="background:#dbeafe;color:#1e40af;padding:2px 9px;border-radius:12px;font-size:11px;font-weight:700">WUSTHA</span></td><td style="color:#475569">Jl. Jenoyo Payung Suci</td><td><span style="color:#94a3b8">—</span></td></tr>
+          <tr data-jenjang="WUSTHA"><td style="color:#94a3b8">12</td><td><strong>MDT AL AMAL</strong></td><td><span style="background:#dbeafe;color:#1e40af;padding:2px 9px;border-radius:12px;font-size:11px;font-weight:700">WUSTHA</span></td><td style="color:#475569">Jl. Moch Seruji No. 20</td><td><span style="color:#94a3b8">—</span></td></tr>
+          <tr data-jenjang="WUSTHA"><td style="color:#94a3b8">13</td><td><strong>MDT JAMIYATUL MUBTADIIN</strong></td><td><span style="background:#dbeafe;color:#1e40af;padding:2px 9px;border-radius:12px;font-size:11px;font-weight:700">WUSTHA</span></td><td style="color:#475569">Badean Wetan Serut</td><td><span style="color:#94a3b8">—</span></td></tr>
+          <tr data-jenjang="WUSTHA"><td style="color:#94a3b8">14</td><td><strong>MDT DARUS SHOLAH</strong></td><td><span style="background:#dbeafe;color:#1e40af;padding:2px 9px;border-radius:12px;font-size:11px;font-weight:700">WUSTHA</span></td><td style="color:#475569">JL. PB. SUDIRMAN</td><td><span style="background:#fef3c7;color:#92400e;padding:2px 8px;border-radius:10px;font-size:11px;font-weight:600">NU</span></td></tr>
+          <tr data-jenjang="WUSTHA"><td style="color:#94a3b8">15</td><td><strong>MDT BINTANG SEMBILAN</strong></td><td><span style="background:#dbeafe;color:#1e40af;padding:2px 9px;border-radius:12px;font-size:11px;font-weight:700">WUSTHA</span></td><td style="color:#475569">Krajan Kemuningsarilor</td><td><span style="color:#94a3b8">—</span></td></tr>
+          <tr data-jenjang="WUSTHA"><td style="color:#94a3b8">16</td><td><strong>MDT MIFTAHUL ULUM 01</strong></td><td><span style="background:#dbeafe;color:#1e40af;padding:2px 9px;border-radius:12px;font-size:11px;font-weight:700">WUSTHA</span></td><td style="color:#475569">KARANGANOM SERUT</td><td><span style="color:#94a3b8">—</span></td></tr>
+          <tr data-jenjang="WUSTHA"><td style="color:#94a3b8">17</td><td><strong>MDT RAUDLATUL ULUM 03</strong></td><td><span style="background:#dbeafe;color:#1e40af;padding:2px 9px;border-radius:12px;font-size:11px;font-weight:700">WUSTHA</span></td><td style="color:#475569">JL. A. YANI 05</td><td><span style="color:#94a3b8">—</span></td></tr>
+          <tr data-jenjang="WUSTHA"><td style="color:#94a3b8">18</td><td><strong>MDT AL BAROKAH</strong></td><td><span style="background:#dbeafe;color:#1e40af;padding:2px 9px;border-radius:12px;font-size:11px;font-weight:700">WUSTHA</span></td><td style="color:#475569">Jl. Khairil Anwar No. 32 Gebang Langkap</td><td><span style="color:#94a3b8">—</span></td></tr>
+          <tr data-jenjang="WUSTHA"><td style="color:#94a3b8">19</td><td><strong>MDT SUBULUS SALAM</strong></td><td><span style="background:#dbeafe;color:#1e40af;padding:2px 9px;border-radius:12px;font-size:11px;font-weight:700">WUSTHA</span></td><td style="color:#475569">JL. PRKEBUNAN LEGONG NO. 5 SUCI</td><td><span style="color:#94a3b8">—</span></td></tr>
+          <tr data-jenjang="WUSTHA"><td style="color:#94a3b8">20</td><td><strong>AS SHIDDIQY</strong></td><td><span style="background:#dbeafe;color:#1e40af;padding:2px 9px;border-radius:12px;font-size:11px;font-weight:700">WUSTHA</span></td><td style="color:#475569">JL.MANGGA 36</td><td><span style="color:#94a3b8">—</span></td></tr>
+          <tr data-jenjang="WUSTHA"><td style="color:#94a3b8">21</td><td><strong>MDT MIFTAHUS SHURUR</strong></td><td><span style="background:#dbeafe;color:#1e40af;padding:2px 9px;border-radius:12px;font-size:11px;font-weight:700">WUSTHA</span></td><td style="color:#475569">Tegalamat Suci</td><td><span style="color:#94a3b8">—</span></td></tr>
+          <tr data-jenjang="WUSTHA"><td style="color:#94a3b8">22</td><td><strong>MDT MIFTAHUL ULUM 03</strong></td><td><span style="background:#dbeafe;color:#1e40af;padding:2px 9px;border-radius:12px;font-size:11px;font-weight:700">WUSTHA</span></td><td style="color:#475569">Kantong Kemiri</td><td><span style="color:#94a3b8">—</span></td></tr>
+          <tr data-jenjang="WUSTHA"><td style="color:#94a3b8">23</td><td><strong>MDT DARUS SALAM 01</strong></td><td><span style="background:#dbeafe;color:#1e40af;padding:2px 9px;border-radius:12px;font-size:11px;font-weight:700">WUSTHA</span></td><td style="color:#475569">Jl. Hairil Anwar No. 30</td><td><span style="color:#94a3b8">—</span></td></tr>
+          <tr data-jenjang="WUSTHA"><td style="color:#94a3b8">24</td><td><strong>MDT AT TANWIR</strong></td><td><span style="background:#dbeafe;color:#1e40af;padding:2px 9px;border-radius:12px;font-size:11px;font-weight:700">WUSTHA</span></td><td style="color:#475569">Jl. KH. Rifa'i Gg. Pesantren 02</td><td><span style="color:#94a3b8">—</span></td></tr>
+          <tr data-jenjang="WUSTHA"><td style="color:#94a3b8">25</td><td><strong>MDT AL HASAN</strong></td><td><span style="background:#dbeafe;color:#1e40af;padding:2px 9px;border-radius:12px;font-size:11px;font-weight:700">WUSTHA</span></td><td style="color:#475569">Delima Timur- Kemiri</td><td><span style="color:#94a3b8">—</span></td></tr>
+          <tr data-jenjang="WUSTHA"><td style="color:#94a3b8">26</td><td><strong>MDT AL FIRDAUS</strong></td><td><span style="background:#dbeafe;color:#1e40af;padding:2px 9px;border-radius:12px;font-size:11px;font-weight:700">WUSTHA</span></td><td style="color:#475569">Jl. Kepiring No. 1 Dusun Glundengan Suci</td><td><span style="color:#94a3b8">—</span></td></tr>
+          <tr data-jenjang="WUSTHA"><td style="color:#94a3b8">27</td><td><strong>MDT AL HIKMAH</strong></td><td><span style="background:#dbeafe;color:#1e40af;padding:2px 9px;border-radius:12px;font-size:11px;font-weight:700">WUSTHA</span></td><td style="color:#475569">Badean Wetan Serut</td><td><span style="color:#94a3b8">—</span></td></tr>
+          <tr data-jenjang="WUSTHA"><td style="color:#94a3b8">28</td><td><strong>MDT NURUL FATAA</strong></td><td><span style="background:#dbeafe;color:#1e40af;padding:2px 9px;border-radius:12px;font-size:11px;font-weight:700">WUSTHA</span></td><td style="color:#475569">-</td><td><span style="color:#94a3b8">—</span></td></tr>
+          <tr data-jenjang="WUSTHA"><td style="color:#94a3b8">29</td><td><strong>MDT NAHDLATUL ARIFIN</strong></td><td><span style="background:#dbeafe;color:#1e40af;padding:2px 9px;border-radius:12px;font-size:11px;font-weight:700">WUSTHA</span></td><td style="color:#475569">Kemuningsarilor</td><td><span style="color:#94a3b8">—</span></td></tr>
+          <tr data-jenjang="WUSTHA"><td style="color:#94a3b8">30</td><td><strong>MDT AL GHUFRON</strong></td><td><span style="background:#dbeafe;color:#1e40af;padding:2px 9px;border-radius:12px;font-size:11px;font-weight:700">WUSTHA</span></td><td style="color:#475569">Jl. PB. Sudirman 52 Mencek Serut</td><td><span style="color:#94a3b8">—</span></td></tr>
+          <tr data-jenjang="WUSTHA"><td style="color:#94a3b8">31</td><td><strong>NURUS SHOLIHIN</strong></td><td><span style="background:#dbeafe;color:#1e40af;padding:2px 9px;border-radius:12px;font-size:11px;font-weight:700">WUSTHA</span></td><td style="color:#475569">DUSUN DANCI RT.04 RW.13</td><td><span style="background:#fef3c7;color:#92400e;padding:2px 8px;border-radius:10px;font-size:11px;font-weight:600">NU</span></td></tr>
+          <tr data-jenjang="WUSTHA"><td style="color:#94a3b8">32</td><td><strong>MDT SIRAJUL MUKHLISIN</strong></td><td><span style="background:#dbeafe;color:#1e40af;padding:2px 9px;border-radius:12px;font-size:11px;font-weight:700">WUSTHA</span></td><td style="color:#475569">TENGGILING KEMIRI</td><td><span style="color:#94a3b8">—</span></td></tr>
+          <tr data-jenjang="WUSTHA"><td style="color:#94a3b8">33</td><td><strong>MDT AS SHIDDIQY</strong></td><td><span style="background:#dbeafe;color:#1e40af;padding:2px 9px;border-radius:12px;font-size:11px;font-weight:700">WUSTHA</span></td><td style="color:#475569">Jl. Mangga No.06 Pakis</td><td><span style="color:#94a3b8">—</span></td></tr>
+          <tr data-jenjang="WUSTHA"><td style="color:#94a3b8">34</td><td><strong>MDT AL HASAN 01</strong></td><td><span style="background:#dbeafe;color:#1e40af;padding:2px 9px;border-radius:12px;font-size:11px;font-weight:700">WUSTHA</span></td><td style="color:#475569">Jl. Teropong Bintang 23 Kemiri</td><td><span style="color:#94a3b8">—</span></td></tr>
+          <tr data-jenjang="WUSTHA"><td style="color:#94a3b8">35</td><td><strong>MDT BAHRUL ULUM</strong></td><td><span style="background:#dbeafe;color:#1e40af;padding:2px 9px;border-radius:12px;font-size:11px;font-weight:700">WUSTHA</span></td><td style="color:#475569">JL. BERINGIN KUNING NO. 38 BADEAN SERUT</td><td><span style="color:#94a3b8">—</span></td></tr>
+          <tr data-jenjang="WUSTHA"><td style="color:#94a3b8">36</td><td><strong>MDT AL HASAN 03</strong></td><td><span style="background:#dbeafe;color:#1e40af;padding:2px 9px;border-radius:12px;font-size:11px;font-weight:700">WUSTHA</span></td><td style="color:#475569">Jl. Prekebunan Sentool No.01 Suci</td><td><span style="color:#94a3b8">—</span></td></tr>
+          <tr data-jenjang="WUSTHA"><td style="color:#94a3b8">37</td><td><strong>MDT AL KAWTSAR</strong></td><td><span style="background:#dbeafe;color:#1e40af;padding:2px 9px;border-radius:12px;font-size:11px;font-weight:700">WUSTHA</span></td><td style="color:#475569">Jl. metro 50 Sumbersari</td><td><span style="background:#fef3c7;color:#92400e;padding:2px 8px;border-radius:10px;font-size:11px;font-weight:600">NU</span></td></tr>
+          <tr data-jenjang="WUSTHA"><td style="color:#94a3b8">38</td><td><strong>MDT FATHUL MU'IN</strong></td><td><span style="background:#dbeafe;color:#1e40af;padding:2px 9px;border-radius:12px;font-size:11px;font-weight:700">WUSTHA</span></td><td style="color:#475569">Jl. Pesantren No.11 Plalangan</td><td><span style="color:#94a3b8">—</span></td></tr>
+          <tr data-jenjang="WUSTHA"><td style="color:#94a3b8">39</td><td><strong>MDT MAMBAUL ISHLAH</strong></td><td><span style="background:#dbeafe;color:#1e40af;padding:2px 9px;border-radius:12px;font-size:11px;font-weight:700">WUSTHA</span></td><td style="color:#475569">-</td><td><span style="color:#94a3b8">—</span></td></tr>
+          <tr data-jenjang="WUSTHA"><td style="color:#94a3b8">40</td><td><strong>MDT AL IKHSAN</strong></td><td><span style="background:#dbeafe;color:#1e40af;padding:2px 9px;border-radius:12px;font-size:11px;font-weight:700">WUSTHA</span></td><td style="color:#475569">Delima Kemiri</td><td><span style="color:#94a3b8">—</span></td></tr>
+          <tr data-jenjang="WUSTHA"><td style="color:#94a3b8">41</td><td><strong>MDT AL HASAN 02</strong></td><td><span style="background:#dbeafe;color:#1e40af;padding:2px 9px;border-radius:12px;font-size:11px;font-weight:700">WUSTHA</span></td><td style="color:#475569">JL. SULAWESI NO. 1</td><td><span style="color:#94a3b8">—</span></td></tr>
+          <tr data-jenjang="WUSTHA"><td style="color:#94a3b8">42</td><td><strong>MDT SUNAN KALIJAGA</strong></td><td><span style="background:#dbeafe;color:#1e40af;padding:2px 9px;border-radius:12px;font-size:11px;font-weight:700">WUSTHA</span></td><td style="color:#475569">JL. IRIA NO. 4 GAPLEK BARAT SUCI</td><td><span style="color:#94a3b8">—</span></td></tr>
+          <tr data-jenjang="WUSTHA"><td style="color:#94a3b8">43</td><td><strong>MDT MIFTAHUL ULUM 05</strong></td><td><span style="background:#dbeafe;color:#1e40af;padding:2px 9px;border-radius:12px;font-size:11px;font-weight:700">WUSTHA</span></td><td style="color:#475569">Jl. PB. Sudirman 23 Serut</td><td><span style="color:#94a3b8">—</span></td></tr>
+          <tr data-jenjang="ULA"><td style="color:#94a3b8">44</td><td><strong>MDT MAMBAUL KHOIROT</strong></td><td><span style="background:#dcfce7;color:#166534;padding:2px 9px;border-radius:12px;font-size:11px;font-weight:700">ULA</span></td><td style="color:#475569">Jl. Agus Salim</td><td><span style="color:#94a3b8">—</span></td></tr>
+          <tr data-jenjang="ULA"><td style="color:#94a3b8">45</td><td><strong>MDT AL FURQON</strong></td><td><span style="background:#dcfce7;color:#166534;padding:2px 9px;border-radius:12px;font-size:11px;font-weight:700">ULA</span></td><td style="color:#475569">Kemundungan</td><td><span style="color:#94a3b8">—</span></td></tr>
+          <tr data-jenjang="ULA"><td style="color:#94a3b8">46</td><td><strong>MDT AL KAWTSAR</strong></td><td><span style="background:#dcfce7;color:#166534;padding:2px 9px;border-radius:12px;font-size:11px;font-weight:700">ULA</span></td><td style="color:#475569">Jl. Persil 52</td><td><span style="color:#94a3b8">—</span></td></tr>
+          <tr data-jenjang="ULA"><td style="color:#94a3b8">47</td><td><strong>MDT AL AMIN</strong></td><td><span style="background:#dcfce7;color:#166534;padding:2px 9px;border-radius:12px;font-size:11px;font-weight:700">ULA</span></td><td style="color:#475569">Karang Kebon</td><td><span style="color:#94a3b8">—</span></td></tr>
+          <tr data-jenjang="ULA"><td style="color:#94a3b8">48</td><td><strong>MDT FATHUL MU'IN</strong></td><td><span style="background:#dcfce7;color:#166534;padding:2px 9px;border-radius:12px;font-size:11px;font-weight:700">ULA</span></td><td style="color:#475569">Jl. Pesantren No.11 Plalangan</td><td><span style="color:#94a3b8">—</span></td></tr>
+          <tr data-jenjang="ULA"><td style="color:#94a3b8">49</td><td><strong>MDTA MIFTAHUL KHOIROT</strong></td><td><span style="background:#dcfce7;color:#166534;padding:2px 9px;border-radius:12px;font-size:11px;font-weight:700">ULA</span></td><td style="color:#475569">Dsn. Krajan</td><td><span style="color:#94a3b8">—</span></td></tr>
+          <tr data-jenjang="ULA"><td style="color:#94a3b8">50</td><td><strong>MDT DARUSSALAM 03</strong></td><td><span style="background:#dcfce7;color:#166534;padding:2px 9px;border-radius:12px;font-size:11px;font-weight:700">ULA</span></td><td style="color:#475569">Perkebunan Gn. Pasang</td><td><span style="color:#94a3b8">—</span></td></tr>
+          <tr data-jenjang="ULA"><td style="color:#94a3b8">51</td><td><strong>AL HASBY</strong></td><td><span style="background:#dcfce7;color:#166534;padding:2px 9px;border-radius:12px;font-size:11px;font-weight:700">ULA</span></td><td style="color:#475569">Jl. PB Sudirman No. 51 Mencek, Serut</td><td><span style="background:#fef3c7;color:#92400e;padding:2px 8px;border-radius:10px;font-size:11px;font-weight:600">NU</span></td></tr>
+          <tr data-jenjang="ULA"><td style="color:#94a3b8">52</td><td><strong>MDT SIRAJUL MUKHLISIN</strong></td><td><span style="background:#dcfce7;color:#166534;padding:2px 9px;border-radius:12px;font-size:11px;font-weight:700">ULA</span></td><td style="color:#475569">Tenggiling Kemiri</td><td><span style="color:#94a3b8">—</span></td></tr>
+          <tr data-jenjang="ULA"><td style="color:#94a3b8">53</td><td><strong>MDT SUNAN KALIJAGA</strong></td><td><span style="background:#dcfce7;color:#166534;padding:2px 9px;border-radius:12px;font-size:11px;font-weight:700">ULA</span></td><td style="color:#475569">Jl. Iria No. 4 Gaplek Barat</td><td><span style="color:#94a3b8">—</span></td></tr>
+          <tr data-jenjang="ULA"><td style="color:#94a3b8">54</td><td><strong>MDT BUSTANUL ULUM</strong></td><td><span style="background:#dcfce7;color:#166534;padding:2px 9px;border-radius:12px;font-size:11px;font-weight:700">ULA</span></td><td style="color:#475569">Gluduk</td><td><span style="color:#94a3b8">—</span></td></tr>
+          <tr data-jenjang="ULA"><td style="color:#94a3b8">55</td><td><strong>MDT MIFTAHUL ULUM 03</strong></td><td><span style="background:#dcfce7;color:#166534;padding:2px 9px;border-radius:12px;font-size:11px;font-weight:700">ULA</span></td><td style="color:#475569">Kantong Kemiri</td><td><span style="color:#94a3b8">—</span></td></tr>
+          <tr data-jenjang="ULA"><td style="color:#94a3b8">56</td><td><strong>MDT MAMBA`UL ISHLAH</strong></td><td><span style="background:#dcfce7;color:#166534;padding:2px 9px;border-radius:12px;font-size:11px;font-weight:700">ULA</span></td><td style="color:#475569">Karang Anom</td><td><span style="color:#94a3b8">—</span></td></tr>
+          <tr data-jenjang="ULA"><td style="color:#94a3b8">57</td><td><strong>MDTA MIFTAHUL HUDA</strong></td><td><span style="background:#dcfce7;color:#166534;padding:2px 9px;border-radius:12px;font-size:11px;font-weight:700">ULA</span></td><td style="color:#475569">Dsn. Sodong</td><td><span style="color:#94a3b8">—</span></td></tr>
+          <tr data-jenjang="ULA"><td style="color:#94a3b8">58</td><td><strong>MDT DARUS SALAM 02</strong></td><td><span style="background:#dcfce7;color:#166534;padding:2px 9px;border-radius:12px;font-size:11px;font-weight:700">ULA</span></td><td style="color:#475569">Jl. Ahmad Yani No. 16</td><td><span style="color:#94a3b8">—</span></td></tr>
+          <tr data-jenjang="ULA"><td style="color:#94a3b8">59</td><td><strong>MDT TARBIYATUS SHIBYAN</strong></td><td><span style="background:#dcfce7;color:#166534;padding:2px 9px;border-radius:12px;font-size:11px;font-weight:700">ULA</span></td><td style="color:#475569">Jl. PB Sudirman</td><td><span style="color:#94a3b8">—</span></td></tr>
+          <tr data-jenjang="ULA"><td style="color:#94a3b8">60</td><td><strong>MDT AL IHSLAH</strong></td><td><span style="background:#dcfce7;color:#166534;padding:2px 9px;border-radius:12px;font-size:11px;font-weight:700">ULA</span></td><td style="color:#475569">Sodong</td><td><span style="color:#94a3b8">—</span></td></tr>
+          <tr data-jenjang="ULA"><td style="color:#94a3b8">61</td><td><strong>MDT NAHDLATUL ARIFIN</strong></td><td><span style="background:#dcfce7;color:#166534;padding:2px 9px;border-radius:12px;font-size:11px;font-weight:700">ULA</span></td><td style="color:#475569">Kemuningsari Lor</td><td><span style="color:#94a3b8">—</span></td></tr>
+          <tr data-jenjang="ULA"><td style="color:#94a3b8">62</td><td><strong>MDT AL AZIZIAH</strong></td><td><span style="background:#dcfce7;color:#166534;padding:2px 9px;border-radius:12px;font-size:11px;font-weight:700">ULA</span></td><td style="color:#475569">Jl. Khairil Anwar RT 01 RW 01</td><td><span style="color:#94a3b8">—</span></td></tr>
+          <tr data-jenjang="ULA"><td style="color:#94a3b8">63</td><td><strong>MDT JAMIYATUL MUBTADIIN</strong></td><td><span style="background:#dcfce7;color:#166534;padding:2px 9px;border-radius:12px;font-size:11px;font-weight:700">ULA</span></td><td style="color:#475569">Badean Wetan</td><td><span style="color:#94a3b8">—</span></td></tr>
+          <tr data-jenjang="ULA"><td style="color:#94a3b8">64</td><td><strong>MIFTAHUL ULUM</strong></td><td><span style="background:#dcfce7;color:#166534;padding:2px 9px;border-radius:12px;font-size:11px;font-weight:700">ULA</span></td><td style="color:#475569">Jl. A. Yani No.49 Desa Serut</td><td><span style="color:#94a3b8">—</span></td></tr>
+          <tr data-jenjang="ULA"><td style="color:#94a3b8">65</td><td><strong>MDT SUBULUS SALAM</strong></td><td><span style="background:#dcfce7;color:#166534;padding:2px 9px;border-radius:12px;font-size:11px;font-weight:700">ULA</span></td><td style="color:#475569">Jl. Prkebunan Legong No. 5</td><td><span style="color:#94a3b8">—</span></td></tr>
+          <tr data-jenjang="ULA"><td style="color:#94a3b8">66</td><td><strong>MDT NURUL HUDA</strong></td><td><span style="background:#dcfce7;color:#166534;padding:2px 9px;border-radius:12px;font-size:11px;font-weight:700">ULA</span></td><td style="color:#475569">Kemuningsarilor</td><td><span style="color:#94a3b8">—</span></td></tr>
+          <tr data-jenjang="ULA"><td style="color:#94a3b8">67</td><td><strong>MDT HIKMATUL ULUM</strong></td><td><span style="background:#dcfce7;color:#166534;padding:2px 9px;border-radius:12px;font-size:11px;font-weight:700">ULA</span></td><td style="color:#475569">Pakis</td><td><span style="color:#94a3b8">—</span></td></tr>
+          <tr data-jenjang="WUSTHA"><td style="color:#94a3b8">68</td><td><strong>MDT NURUL ULUM</strong></td><td><span style="background:#dbeafe;color:#1e40af;padding:2px 9px;border-radius:12px;font-size:11px;font-weight:700">WUSTHA</span></td><td style="color:#475569">Jl. Rajawali No 110 Kemuningsarilor</td><td><span style="color:#94a3b8">—</span></td></tr>
+          <tr data-jenjang="WUSTHA"><td style="color:#94a3b8">69</td><td><strong>MDT HIKMATUL ULUM</strong></td><td><span style="background:#dbeafe;color:#1e40af;padding:2px 9px;border-radius:12px;font-size:11px;font-weight:700">WUSTHA</span></td><td style="color:#475569">PAKIS</td><td><span style="color:#94a3b8">—</span></td></tr>
+          <tr data-jenjang="WUSTHA"><td style="color:#94a3b8">70</td><td><strong>MDT MIFTAHUL ULUM</strong></td><td><span style="background:#dbeafe;color:#1e40af;padding:2px 9px;border-radius:12px;font-size:11px;font-weight:700">WUSTHA</span></td><td style="color:#475569">DS. SUMBER PINANG</td><td><span style="color:#94a3b8">—</span></td></tr>
+          <tr data-jenjang="WUSTHA"><td style="color:#94a3b8">71</td><td><strong>MDT NURUL HIDAYAH</strong></td><td><span style="background:#dbeafe;color:#1e40af;padding:2px 9px;border-radius:12px;font-size:11px;font-weight:700">WUSTHA</span></td><td style="color:#475569">Kemuningsarilor</td><td><span style="color:#94a3b8">—</span></td></tr>
+          <tr data-jenjang="WUSTHA"><td style="color:#94a3b8">72</td><td><strong>MDT AL-HIKMAH</strong></td><td><span style="background:#dbeafe;color:#1e40af;padding:2px 9px;border-radius:12px;font-size:11px;font-weight:700">WUSTHA</span></td><td style="color:#475569">JALAN.PRINGGOLOYO DUSUN BADEAN WETAN</td><td><span style="color:#94a3b8">—</span></td></tr>
+          <tr data-jenjang="WUSTHA"><td style="color:#94a3b8">73</td><td><strong>MDT DARUS SA`ADAH</strong></td><td><span style="background:#dbeafe;color:#1e40af;padding:2px 9px;border-radius:12px;font-size:11px;font-weight:700">WUSTHA</span></td><td style="color:#475569">Jl. Muhammad Saruji Darungan</td><td><span style="color:#94a3b8">—</span></td></tr>
+          <tr data-jenjang="WUSTHA"><td style="color:#94a3b8">74</td><td><strong>MDT NURUL HUDA</strong></td><td><span style="background:#dbeafe;color:#1e40af;padding:2px 9px;border-radius:12px;font-size:11px;font-weight:700">WUSTHA</span></td><td style="color:#475569">Kemuningsarilor</td><td><span style="color:#94a3b8">—</span></td></tr>
+          <tr data-jenjang="WUSTHA"><td style="color:#94a3b8">75</td><td><strong>MDT SALAFIYAH SYAFI`IYAH</strong></td><td><span style="background:#dbeafe;color:#1e40af;padding:2px 9px;border-radius:12px;font-size:11px;font-weight:700">WUSTHA</span></td><td style="color:#475569">KRAJAN LANGKAP</td><td><span style="color:#94a3b8">—</span></td></tr>
+          <tr data-jenjang="WUSTHA"><td style="color:#94a3b8">76</td><td><strong>MDT RIADUS SHOLIHIN</strong></td><td><span style="background:#dbeafe;color:#1e40af;padding:2px 9px;border-radius:12px;font-size:11px;font-weight:700">WUSTHA</span></td><td style="color:#475569">PRAPAH PANTI</td><td><span style="color:#94a3b8">—</span></td></tr>
+          <tr data-jenjang="WUSTHA"><td style="color:#94a3b8">77</td><td><strong>MDT RAUDLATUL ULUM 02</strong></td><td><span style="background:#dbeafe;color:#1e40af;padding:2px 9px;border-radius:12px;font-size:11px;font-weight:700">WUSTHA</span></td><td style="color:#475569">Tenggiling Kemiri</td><td><span style="color:#94a3b8">—</span></td></tr>
+          <tr data-jenjang="WUSTHA"><td style="color:#94a3b8">78</td><td><strong>MDT RAUDLATUL ULUM 03</strong></td><td><span style="background:#dbeafe;color:#1e40af;padding:2px 9px;border-radius:12px;font-size:11px;font-weight:700">WUSTHA</span></td><td style="color:#475569">GAPLEK SUCI</td><td><span style="color:#94a3b8">—</span></td></tr>
+          <tr data-jenjang="WUSTHA"><td style="color:#94a3b8">79</td><td><strong>MDT AL FATAA</strong></td><td><span style="background:#dbeafe;color:#1e40af;padding:2px 9px;border-radius:12px;font-size:11px;font-weight:700">WUSTHA</span></td><td style="color:#475569">Kasiyan Serut</td><td><span style="color:#94a3b8">—</span></td></tr>
+          <tr data-jenjang="WUSTHA"><td style="color:#94a3b8">80</td><td><strong>MDT DARUS SALAM 02</strong></td><td><span style="background:#dbeafe;color:#1e40af;padding:2px 9px;border-radius:12px;font-size:11px;font-weight:700">WUSTHA</span></td><td style="color:#475569">Jl. Ahmadyani No. 16 Serut</td><td><span style="color:#94a3b8">—</span></td></tr>
+          <tr data-jenjang="WUSTHA"><td style="color:#94a3b8">81</td><td><strong>MDT RAUDLATUL ULUM 03</strong></td><td><span style="background:#dbeafe;color:#1e40af;padding:2px 9px;border-radius:12px;font-size:11px;font-weight:700">WUSTHA</span></td><td style="color:#475569">Jl. A.Yani No.05 Gaplek Suci</td><td><span style="color:#94a3b8">—</span></td></tr>
+          <tr data-jenjang="WUSTHA"><td style="color:#94a3b8">82</td><td><strong>NURUL ISLAM</strong></td><td><span style="background:#dbeafe;color:#1e40af;padding:2px 9px;border-radius:12px;font-size:11px;font-weight:700">WUSTHA</span></td><td style="color:#475569">DUSUN DANCI RT.10 RW.14</td><td><span style="color:#94a3b8">—</span></td></tr>
+          <tr data-jenjang="WUSTHA"><td style="color:#94a3b8">83</td><td><strong>MDT HIDAYATUS SHIBYAN</strong></td><td><span style="background:#dbeafe;color:#1e40af;padding:2px 9px;border-radius:12px;font-size:11px;font-weight:700">WUSTHA</span></td><td style="color:#475569">Jl. PB. Sudirman 106 Glagah Wero</td><td><span style="color:#94a3b8">—</span></td></tr>
+          <tr data-jenjang="WUSTHA"><td style="color:#94a3b8">84</td><td><strong>MDT AL KAWTSAR</strong></td><td><span style="background:#dbeafe;color:#1e40af;padding:2px 9px;border-radius:12px;font-size:11px;font-weight:700">WUSTHA</span></td><td style="color:#475569">Jl. Persil 52 Kemuningsarilor</td><td><span style="color:#94a3b8">—</span></td></tr>
+          <tr data-jenjang="WUSTHA"><td style="color:#94a3b8">85</td><td><strong>MDT MAMBAUL ULUM 02</strong></td><td><span style="background:#dbeafe;color:#1e40af;padding:2px 9px;border-radius:12px;font-size:11px;font-weight:700">WUSTHA</span></td><td style="color:#475569">JL. K. MUSYAROJ SAFII NO.1 KASIAN SERUT - PANTI</td><td><span style="color:#94a3b8">—</span></td></tr>
+          <tr data-jenjang="WUSTHA"><td style="color:#94a3b8">86</td><td><strong>MDT AL AMIN</strong></td><td><span style="background:#dbeafe;color:#1e40af;padding:2px 9px;border-radius:12px;font-size:11px;font-weight:700">WUSTHA</span></td><td style="color:#475569">-</td><td><span style="color:#94a3b8">—</span></td></tr>
+          <tr data-jenjang="WUSTHA"><td style="color:#94a3b8">87</td><td><strong>MDT MIFTAHUL ULUM 02</strong></td><td><span style="background:#dbeafe;color:#1e40af;padding:2px 9px;border-radius:12px;font-size:11px;font-weight:700">WUSTHA</span></td><td style="color:#475569">Jl. K. H. Yasin No.02 Kemiri</td><td><span style="color:#94a3b8">—</span></td></tr>
+          <tr data-jenjang="WUSTHA"><td style="color:#94a3b8">88</td><td><strong>MDT RAUDLATUL ULUM 01</strong></td><td><span style="background:#dbeafe;color:#1e40af;padding:2px 9px;border-radius:12px;font-size:11px;font-weight:700">WUSTHA</span></td><td style="color:#475569">Permien Serut</td><td><span style="color:#94a3b8">—</span></td></tr>
+          <tr data-jenjang="WUSTHA"><td style="color:#94a3b8">89</td><td><strong>MDT AL MUSTAQIM</strong></td><td><span style="background:#dbeafe;color:#1e40af;padding:2px 9px;border-radius:12px;font-size:11px;font-weight:700">WUSTHA</span></td><td style="color:#475569">Tegalamat Suci</td><td><span style="color:#94a3b8">—</span></td></tr>
+          <tr data-jenjang="ULA"><td style="color:#94a3b8">90</td><td><strong>MDT HIDAYATUS SHIBYAN</strong></td><td><span style="background:#dcfce7;color:#166534;padding:2px 9px;border-radius:12px;font-size:11px;font-weight:700">ULA</span></td><td style="color:#475569">Jl. PB. Sudirman 106 Glagah Wero</td><td><span style="color:#94a3b8">—</span></td></tr>
+          <tr data-jenjang="ULA"><td style="color:#94a3b8">91</td><td><strong>MDT AL JAWAHIR</strong></td><td><span style="background:#dcfce7;color:#166534;padding:2px 9px;border-radius:12px;font-size:11px;font-weight:700">ULA</span></td><td style="color:#475569">jl.syekh moch nur</td><td><span style="color:#94a3b8">—</span></td></tr>
+          <tr data-jenjang="ULA"><td style="color:#94a3b8">92</td><td><strong>MDT NURUL ULUM</strong></td><td><span style="background:#dcfce7;color:#166534;padding:2px 9px;border-radius:12px;font-size:11px;font-weight:700">ULA</span></td><td style="color:#475569">Jl. Rajawali No 110</td><td><span style="color:#94a3b8">—</span></td></tr>
+          <tr data-jenjang="ULA"><td style="color:#94a3b8">93</td><td><strong>MDT AL HASAN 02</strong></td><td><span style="background:#dcfce7;color:#166534;padding:2px 9px;border-radius:12px;font-size:11px;font-weight:700">ULA</span></td><td style="color:#475569">Jl. Sulawesi No.01</td><td><span style="color:#94a3b8">—</span></td></tr>
+          <tr data-jenjang="ULA"><td style="color:#94a3b8">94</td><td><strong>MDT NURUL ULUMI</strong></td><td><span style="background:#dcfce7;color:#166534;padding:2px 9px;border-radius:12px;font-size:11px;font-weight:700">ULA</span></td><td style="color:#475569">Tengiling</td><td><span style="color:#94a3b8">—</span></td></tr>
+          <tr data-jenjang="ULA"><td style="color:#94a3b8">95</td><td><strong>MDTA NURUL YAKIN</strong></td><td><span style="background:#dcfce7;color:#166534;padding:2px 9px;border-radius:12px;font-size:11px;font-weight:700">ULA</span></td><td style="color:#475569">Dsn. Pertelon</td><td><span style="color:#94a3b8">—</span></td></tr>
+          <tr data-jenjang="ULA"><td style="color:#94a3b8">96</td><td><strong>MDT AL MUSTAQIM</strong></td><td><span style="background:#dcfce7;color:#166534;padding:2px 9px;border-radius:12px;font-size:11px;font-weight:700">ULA</span></td><td style="color:#475569">Tegalamat</td><td><span style="color:#94a3b8">—</span></td></tr>
+          <tr data-jenjang="ULA"><td style="color:#94a3b8">97</td><td><strong>MDT MIFTAHUL ULUM 05</strong></td><td><span style="background:#dcfce7;color:#166534;padding:2px 9px;border-radius:12px;font-size:11px;font-weight:700">ULA</span></td><td style="color:#475569">Jl. PB. Sudirman 23</td><td><span style="color:#94a3b8">—</span></td></tr>
+          <tr data-jenjang="ULA"><td style="color:#94a3b8">98</td><td><strong>MDT BINTAG SEMBILAN</strong></td><td><span style="background:#dcfce7;color:#166534;padding:2px 9px;border-radius:12px;font-size:11px;font-weight:700">ULA</span></td><td style="color:#475569">Krajan</td><td><span style="color:#94a3b8">—</span></td></tr>
+          <tr data-jenjang="ULA"><td style="color:#94a3b8">99</td><td><strong>MDT MIFTAHUL ULUM 01</strong></td><td><span style="background:#dcfce7;color:#166534;padding:2px 9px;border-radius:12px;font-size:11px;font-weight:700">ULA</span></td><td style="color:#475569">Karang Anom</td><td><span style="color:#94a3b8">—</span></td></tr>
+          <tr data-jenjang="ULA"><td style="color:#94a3b8">100</td><td><strong>MDT DARUS SA`ADAH</strong></td><td><span style="background:#dcfce7;color:#166534;padding:2px 9px;border-radius:12px;font-size:11px;font-weight:700">ULA</span></td><td style="color:#475569">Jl. Muhammad Saruji</td><td><span style="color:#94a3b8">—</span></td></tr>
+          <tr data-jenjang="ULA"><td style="color:#94a3b8">101</td><td><strong>MAMBAUL ULUM 02</strong></td><td><span style="background:#dcfce7;color:#166534;padding:2px 9px;border-radius:12px;font-size:11px;font-weight:700">ULA</span></td><td style="color:#475569">Dusun Kasian Serut</td><td><span style="color:#94a3b8">—</span></td></tr>
+          <tr data-jenjang="ULA"><td style="color:#94a3b8">102</td><td><strong>MDT AL HIKMAH</strong></td><td><span style="background:#dcfce7;color:#166534;padding:2px 9px;border-radius:12px;font-size:11px;font-weight:700">ULA</span></td><td style="color:#475569">Badean Wetan</td><td><span style="color:#94a3b8">—</span></td></tr>
+          <tr data-jenjang="ULA"><td style="color:#94a3b8">103</td><td><strong>MDTA NUZULUL ULUM</strong></td><td><span style="background:#dcfce7;color:#166534;padding:2px 9px;border-radius:12px;font-size:11px;font-weight:700">ULA</span></td><td style="color:#475569">Dsn. Tenggiling</td><td><span style="color:#94a3b8">—</span></td></tr>
+          <tr data-jenjang="ULA"><td style="color:#94a3b8">104</td><td><strong>MDT AL HIDAYAH</strong></td><td><span style="background:#dcfce7;color:#166534;padding:2px 9px;border-radius:12px;font-size:11px;font-weight:700">ULA</span></td><td style="color:#475569">Glagah Wero</td><td><span style="color:#94a3b8">—</span></td></tr>
+          <tr data-jenjang="ULA"><td style="color:#94a3b8">105</td><td><strong>MDT RAUDLATUL ULUM 02</strong></td><td><span style="background:#dcfce7;color:#166534;padding:2px 9px;border-radius:12px;font-size:11px;font-weight:700">ULA</span></td><td style="color:#475569">Tenggiling Kemiri</td><td><span style="color:#94a3b8">—</span></td></tr>
+          <tr data-jenjang="ULA"><td style="color:#94a3b8">106</td><td><strong>MDT AS SHIDDIQY</strong></td><td><span style="background:#dcfce7;color:#166534;padding:2px 9px;border-radius:12px;font-size:11px;font-weight:700">ULA</span></td><td style="color:#475569">Jl. Mangga No.06 Dusun Pertelon</td><td><span style="color:#94a3b8">—</span></td></tr>
+          <tr data-jenjang="ULA"><td style="color:#94a3b8">107</td><td><strong>MDT NURUL HIDAYAH</strong></td><td><span style="background:#dcfce7;color:#166534;padding:2px 9px;border-radius:12px;font-size:11px;font-weight:700">ULA</span></td><td style="color:#475569">Kemuningsari Lor</td><td><span style="color:#94a3b8">—</span></td></tr>
+          <tr data-jenjang="ULA"><td style="color:#94a3b8">108</td><td><strong>MDT AL HASAN 04</strong></td><td><span style="background:#dcfce7;color:#166534;padding:2px 9px;border-radius:12px;font-size:11px;font-weight:700">ULA</span></td><td style="color:#475569">Jl. Jenoyo Payung</td><td><span style="color:#94a3b8">—</span></td></tr>
+          <tr data-jenjang="ULA"><td style="color:#94a3b8">109</td><td><strong>MDTA NURUL HUDA</strong></td><td><span style="background:#dcfce7;color:#166534;padding:2px 9px;border-radius:12px;font-size:11px;font-weight:700">ULA</span></td><td style="color:#475569">Dsn. Glundengan</td><td><span style="color:#94a3b8">—</span></td></tr>
+          <tr data-jenjang="ULA"><td style="color:#94a3b8">110</td><td><strong>MDT AL BAROKAH</strong></td><td><span style="background:#dcfce7;color:#166534;padding:2px 9px;border-radius:12px;font-size:11px;font-weight:700">ULA</span></td><td style="color:#475569">JL. KHAIRIL ANWAR NO. 32</td><td><span style="color:#94a3b8">—</span></td></tr>
+          <tr data-jenjang="ULA"><td style="color:#94a3b8">111</td><td><strong>ROUDHOTUS SHOLIHIN</strong></td><td><span style="background:#dcfce7;color:#166534;padding:2px 9px;border-radius:12px;font-size:11px;font-weight:700">ULA</span></td><td style="color:#475569">Padukuhan Payung, dsn. Glengseran</td><td><span style="background:#fef3c7;color:#92400e;padding:2px 8px;border-radius:10px;font-size:11px;font-weight:600">NU</span></td></tr>
+          <tr data-jenjang="ULA"><td style="color:#94a3b8">112</td><td><strong>MDT AL HASAN 01</strong></td><td><span style="background:#dcfce7;color:#166534;padding:2px 9px;border-radius:12px;font-size:11px;font-weight:700">ULA</span></td><td style="color:#475569">Jl. Teropong Bintang 23</td><td><span style="background:#fef3c7;color:#92400e;padding:2px 8px;border-radius:10px;font-size:11px;font-weight:600">NU</span></td></tr>
+          <tr data-jenjang="ULA"><td style="color:#94a3b8">113</td><td><strong>MDT AL FATAA</strong></td><td><span style="background:#dcfce7;color:#166534;padding:2px 9px;border-radius:12px;font-size:11px;font-weight:700">ULA</span></td><td style="color:#475569">Kasiyan</td><td><span style="color:#94a3b8">—</span></td></tr>
+          <tr data-jenjang="ULA"><td style="color:#94a3b8">114</td><td><strong>MDT AL KHATIB</strong></td><td><span style="background:#dcfce7;color:#166534;padding:2px 9px;border-radius:12px;font-size:11px;font-weight:700">ULA</span></td><td style="color:#475569">Danci Timur</td><td><span style="color:#94a3b8">—</span></td></tr>
+          <tr data-jenjang="ULA"><td style="color:#94a3b8">115</td><td><strong>MDT AL GHUFRON</strong></td><td><span style="background:#dcfce7;color:#166534;padding:2px 9px;border-radius:12px;font-size:11px;font-weight:700">ULA</span></td><td style="color:#475569">Jl. PB. Sudirman 52 Mencek</td><td><span style="color:#94a3b8">—</span></td></tr>
+          <tr data-jenjang="ULA"><td style="color:#94a3b8">116</td><td><strong>MDT NURUL YAQIN</strong></td><td><span style="background:#dcfce7;color:#166534;padding:2px 9px;border-radius:12px;font-size:11px;font-weight:700">ULA</span></td><td style="color:#475569">Prapah Panti</td><td><span style="color:#94a3b8">—</span></td></tr>
+          <tr data-jenjang="ULA"><td style="color:#94a3b8">117</td><td><strong>MDT RAUDLATUL ULUM 01</strong></td><td><span style="background:#dcfce7;color:#166534;padding:2px 9px;border-radius:12px;font-size:11px;font-weight:700">ULA</span></td><td style="color:#475569">Permien Serut</td><td><span style="color:#94a3b8">—</span></td></tr>
+          <tr data-jenjang="ULA"><td style="color:#94a3b8">118</td><td><strong>MDTA NURUL HIDAYAH 01</strong></td><td><span style="background:#dcfce7;color:#166534;padding:2px 9px;border-radius:12px;font-size:11px;font-weight:700">ULA</span></td><td style="color:#475569">Perkebunan Gunung Pasang Utara</td><td><span style="color:#94a3b8">—</span></td></tr>
+          <tr data-jenjang="ULA"><td style="color:#94a3b8">119</td><td><strong>BAHRUL ULUM</strong></td><td><span style="background:#dcfce7;color:#166534;padding:2px 9px;border-radius:12px;font-size:11px;font-weight:700">ULA</span></td><td style="color:#475569">Jl. Bringin Kuning No. 38 Badean Wetan</td><td><span style="background:#fef3c7;color:#92400e;padding:2px 8px;border-radius:10px;font-size:11px;font-weight:600">Lainnya</span></td></tr>
+          <tr data-jenjang="ULA"><td style="color:#94a3b8">120</td><td><strong>MDT MIFTAHUS SHURUR</strong></td><td><span style="background:#dcfce7;color:#166534;padding:2px 9px;border-radius:12px;font-size:11px;font-weight:700">ULA</span></td><td style="color:#475569">Tegalamat Suci</td><td><span style="color:#94a3b8">—</span></td></tr>
+          <tr data-jenjang="ULA"><td style="color:#94a3b8">121</td><td><strong>MDT RAUDLOTUL ARQOM</strong></td><td><span style="background:#dcfce7;color:#166534;padding:2px 9px;border-radius:12px;font-size:11px;font-weight:700">ULA</span></td><td style="color:#475569">Jl. Dinoyo Serut</td><td><span style="color:#94a3b8">—</span></td></tr>
+          <tr data-jenjang="ULA"><td style="color:#94a3b8">122</td><td><strong>AT TANWIR</strong></td><td><span style="background:#dcfce7;color:#166534;padding:2px 9px;border-radius:12px;font-size:11px;font-weight:700">ULA</span></td><td style="color:#475569">Jl. KH. Rifai Wonolangu Panti</td><td><span style="color:#94a3b8">—</span></td></tr>
+          <tr data-jenjang="ULA"><td style="color:#94a3b8">123</td><td><strong>MDT ASH SHOFINIYAH</strong></td><td><span style="background:#dcfce7;color:#166534;padding:2px 9px;border-radius:12px;font-size:11px;font-weight:700">ULA</span></td><td style="color:#475569">Sumber Uling</td><td><span style="color:#94a3b8">—</span></td></tr>
+          <tr data-jenjang="ULA"><td style="color:#94a3b8">124</td><td><strong>MDT MIFTAHUL ULUM 02</strong></td><td><span style="background:#dcfce7;color:#166534;padding:2px 9px;border-radius:12px;font-size:11px;font-weight:700">ULA</span></td><td style="color:#475569">Jl. K. H. Yasin No.02</td><td><span style="color:#94a3b8">—</span></td></tr>
+          <tr data-jenjang="ULA"><td style="color:#94a3b8">125</td><td><strong>MDT AL HASAN</strong></td><td><span style="background:#dcfce7;color:#166534;padding:2px 9px;border-radius:12px;font-size:11px;font-weight:700">ULA</span></td><td style="color:#475569">Delima Timur</td><td><span style="color:#94a3b8">—</span></td></tr>
+          <tr data-jenjang="ULA"><td style="color:#94a3b8">126</td><td><strong>MDT AL-ISKANDARIYAH</strong></td><td><span style="background:#dcfce7;color:#166534;padding:2px 9px;border-radius:12px;font-size:11px;font-weight:700">ULA</span></td><td style="color:#475569">Karanganom</td><td><span style="background:#fef3c7;color:#92400e;padding:2px 8px;border-radius:10px;font-size:11px;font-weight:600">NU</span></td></tr>
+          <tr data-jenjang="ULA"><td style="color:#94a3b8">127</td><td><strong>NURUL ISLAM</strong></td><td><span style="background:#dcfce7;color:#166534;padding:2px 9px;border-radius:12px;font-size:11px;font-weight:700">ULA</span></td><td style="color:#475569">Dusun Danci RT.10 RW.14</td><td><span style="color:#94a3b8">—</span></td></tr>
+          <tr data-jenjang="ULA"><td style="color:#94a3b8">128</td><td><strong>MDT AN NUR</strong></td><td><span style="background:#dcfce7;color:#166534;padding:2px 9px;border-radius:12px;font-size:11px;font-weight:700">ULA</span></td><td style="color:#475569">Delima Timur</td><td><span style="color:#94a3b8">—</span></td></tr>
+          <tr data-jenjang="ULA"><td style="color:#94a3b8">129</td><td><strong>MDT DARUS SALAM 01</strong></td><td><span style="background:#dcfce7;color:#166534;padding:2px 9px;border-radius:12px;font-size:11px;font-weight:700">ULA</span></td><td style="color:#475569">Jl. Hairil Anwar No. 30</td><td><span style="color:#94a3b8">—</span></td></tr>
+          <tr data-jenjang="ULA"><td style="color:#94a3b8">130</td><td><strong>MDT BABUS SALAM</strong></td><td><span style="background:#dcfce7;color:#166534;padding:2px 9px;border-radius:12px;font-size:11px;font-weight:700">ULA</span></td><td style="color:#475569">Sodong</td><td><span style="color:#94a3b8">—</span></td></tr>
+          <tr data-jenjang="ULA"><td style="color:#94a3b8">131</td><td><strong>MDT TARBIYATUS SHIBYAN</strong></td><td><span style="background:#dcfce7;color:#166534;padding:2px 9px;border-radius:12px;font-size:11px;font-weight:700">ULA</span></td><td style="color:#475569">Trenggiling Kemiri</td><td><span style="color:#94a3b8">—</span></td></tr>
+          <tr data-jenjang="ULA"><td style="color:#94a3b8">132</td><td><strong>MDT DARUS SHOLAH</strong></td><td><span style="background:#dcfce7;color:#166534;padding:2px 9px;border-radius:12px;font-size:11px;font-weight:700">ULA</span></td><td style="color:#475569">Jl. PB. Sudirman</td><td><span style="color:#94a3b8">—</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="row-count" id="cntMadin">Menampilkan 132 dari 132 data</div>
+  </div>
+</div>
+
+<!-- PESANTREN -->
+<div id="page-pesantren" class="page">
+  <div class="card">
+    <h2>🕌 Pondok Pesantren <span class="badge">57 Pesantren</span></h2>
+    <div class="search-wrap">
+      <span class="si">🔍</span>
+      <input id="cariPP" placeholder="Cari nama pesantren, pendiri, alamat, desa..." oninput="filterTable('cariPP','tblPP','cntPP')">
+    </div>
+    <div class="tbl-wrap">
+      <table id="tblPP">
+        <thead><tr><th>No</th><th>NSPP</th><th>Nama Pesantren</th><th>Nama Pendiri</th><th>Alamat</th><th>Desa/Kelurahan</th></tr></thead>
+        <tbody>
+          <tr><td style="color:#94a3b8">1</td><td style="font-size:11px;color:#7c3aed">510035090600</td><td><strong>Fathul Mu'ien</strong></td><td style="color:#475569">K. Abdul Mu'ien</td><td style="color:#475569">Jl. Pesantren No.11 Plalangan</td><td><span style="background:#ede9fe;color:#4f46e5;padding:2px 8px;border-radius:10px;font-size:11px">Glagahwero</span></td></tr>
+          <tr><td style="color:#94a3b8">2</td><td style="font-size:11px;color:#7c3aed">510035090360</td><td><strong>Al Hidayah</strong></td><td style="color:#475569">—</td><td style="color:#475569">Glagah Wero - Panti</td><td><span style="background:#ede9fe;color:#4f46e5;padding:2px 8px;border-radius:10px;font-size:11px">Glagahwero</span></td></tr>
+          <tr><td style="color:#94a3b8">3</td><td style="font-size:11px;color:#7c3aed">510035090352</td><td><strong>Miftahul Ulum 02</strong></td><td style="color:#475569">K. Mu'arrof</td><td style="color:#475569">Jl. KH. Yasin No.02</td><td><span style="background:#ede9fe;color:#4f46e5;padding:2px 8px;border-radius:10px;font-size:11px">Kemiri</span></td></tr>
+          <tr><td style="color:#94a3b8">4</td><td style="font-size:11px;color:#7c3aed">510035090359</td><td><strong>Nurus Sholihin</strong></td><td style="color:#475569">K. Salamin</td><td style="color:#475569">Jl. K. Ghirun 01</td><td><span style="background:#ede9fe;color:#4f46e5;padding:2px 8px;border-radius:10px;font-size:11px">Kemiri</span></td></tr>
+          <tr><td style="color:#94a3b8">5</td><td style="font-size:11px;color:#7c3aed">510035090330</td><td><strong>Al Hasan 4</strong></td><td style="color:#475569">KH. Taufiq Muti'illah Hasba</td><td style="color:#475569">Jl. Teropong Bintang No.1-2 RT 001 RW 001</td><td><span style="background:#ede9fe;color:#4f46e5;padding:2px 8px;border-radius:10px;font-size:11px">Kemiri</span></td></tr>
+          <tr><td style="color:#94a3b8">6</td><td style="font-size:11px;color:#7c3aed">510035090331</td><td><strong>Al Hasan</strong></td><td style="color:#475569">Kyai Abduh</td><td style="color:#475569">Delima Timur- Kemiri - Panti</td><td><span style="background:#ede9fe;color:#4f46e5;padding:2px 8px;border-radius:10px;font-size:11px">Kemiri</span></td></tr>
+          <tr><td style="color:#94a3b8">7</td><td style="font-size:11px;color:#7c3aed">510035090340</td><td><strong>Raudlatul Ulum 02</strong></td><td style="color:#475569">Kyai Lutfi</td><td style="color:#475569">Tenggiling Kemiri - Panti - Jember</td><td><span style="background:#ede9fe;color:#4f46e5;padding:2px 8px;border-radius:10px;font-size:11px">Kemiri</span></td></tr>
+          <tr><td style="color:#94a3b8">8</td><td style="font-size:11px;color:#7c3aed">510335090613</td><td><strong>Pondok Pesantren al-Hasan II</strong></td><td style="color:#475569">Ny. Hj. Fatmawati Rosyidi</td><td style="color:#475569">Jl.Teropong Bintang 01-02 Dsn. Kantong</td><td><span style="background:#ede9fe;color:#4f46e5;padding:2px 8px;border-radius:10px;font-size:11px">Kemiri</span></td></tr>
+          <tr><td style="color:#94a3b8">9</td><td style="font-size:11px;color:#7c3aed">510035090691</td><td><strong>Al Hasan III</strong></td><td style="color:#475569">KH Abdul Qodir Hasba</td><td style="color:#475569">Jl. Teropong Bintang No. 01-02</td><td><span style="background:#ede9fe;color:#4f46e5;padding:2px 8px;border-radius:10px;font-size:11px">Kemiri</span></td></tr>
+          <tr><td style="color:#94a3b8">10</td><td style="font-size:11px;color:#7c3aed">510035090606</td><td><strong>Nurul Huda</strong></td><td style="color:#475569">K IMAM WAJIH</td><td style="color:#475569">Kemiri Panti</td><td><span style="background:#ede9fe;color:#4f46e5;padding:2px 8px;border-radius:10px;font-size:11px">Kemiri</span></td></tr>
+          <tr><td style="color:#94a3b8">11</td><td style="font-size:11px;color:#7c3aed">510035090347</td><td><strong>Miftahul Ulum 03</strong></td><td style="color:#475569">K. Zahri Hambali</td><td style="color:#475569">Kantong Kemiri - Panti - Jember</td><td><span style="background:#ede9fe;color:#4f46e5;padding:2px 8px;border-radius:10px;font-size:11px">Kemiri</span></td></tr>
+          <tr><td style="color:#94a3b8">12</td><td style="font-size:11px;color:#7c3aed">510035090351</td><td><strong>Tarbiyatus Shibyan</strong></td><td style="color:#475569">KYAI SAHLAN</td><td style="color:#475569">Trenggiling Kemiri - Panti</td><td><span style="background:#ede9fe;color:#4f46e5;padding:2px 8px;border-radius:10px;font-size:11px">Kemiri</span></td></tr>
+          <tr><td style="color:#94a3b8">13</td><td style="font-size:11px;color:#7c3aed">510035090333</td><td><strong>Al Kawtsar</strong></td><td style="color:#475569">KH. Ahmad Thohir</td><td style="color:#475569">Jl. Persil 52</td><td><span style="background:#ede9fe;color:#4f46e5;padding:2px 8px;border-radius:10px;font-size:11px">Kemuningsari Lor</span></td></tr>
+          <tr><td style="color:#94a3b8">14</td><td style="font-size:11px;color:#7c3aed">510035090338</td><td><strong>Nurul Ulum</strong></td><td style="color:#475569">M. Hanif Abd. Razaq</td><td style="color:#475569">Jl. Rajawali No. 110</td><td><span style="background:#ede9fe;color:#4f46e5;padding:2px 8px;border-radius:10px;font-size:11px">Kemuningsari Lor</span></td></tr>
+          <tr><td style="color:#94a3b8">15</td><td style="font-size:11px;color:#7c3aed">510035090341</td><td><strong>Nahdlatul Arifin</strong></td><td style="color:#475569">Syekh H. Muhammad Noer</td><td style="color:#475569">Kemuningsarilor</td><td><span style="background:#ede9fe;color:#4f46e5;padding:2px 8px;border-radius:10px;font-size:11px">Kemuningsari Lor</span></td></tr>
+          <tr><td style="color:#94a3b8">16</td><td style="font-size:11px;color:#7c3aed">510035090605</td><td><strong>Nurul Huda</strong></td><td style="color:#475569">M. Zaini Abd Salam</td><td style="color:#475569">Kemuningsarilor - Panti - Jember</td><td><span style="background:#ede9fe;color:#4f46e5;padding:2px 8px;border-radius:10px;font-size:11px">Kemuningsari Lor</span></td></tr>
+          <tr><td style="color:#94a3b8">17</td><td style="font-size:11px;color:#7c3aed">510035090334</td><td><strong>Bintang Sembilan</strong></td><td style="color:#475569">Mu'tasim Billah</td><td style="color:#475569">Jl. Raja Wali 41 Krajan Kemuningsarilor Panti</td><td><span style="background:#ede9fe;color:#4f46e5;padding:2px 8px;border-radius:10px;font-size:11px">Kemuningsari Lor</span></td></tr>
+          <tr><td style="color:#94a3b8">18</td><td style="font-size:11px;color:#7c3aed">510035090356</td><td><strong>Nurul Hidayah</strong></td><td style="color:#475569">K. Abdullah</td><td style="color:#475569">Kemuningsarilor - Panti - Jember</td><td><span style="background:#ede9fe;color:#4f46e5;padding:2px 8px;border-radius:10px;font-size:11px">Kemuningsari Lor</span></td></tr>
+          <tr><td style="color:#94a3b8">19</td><td style="font-size:11px;color:#7c3aed">510035090336</td><td><strong>As Shiddiqy</strong></td><td style="color:#475569">Abd. Bashir</td><td style="color:#475569">Jl. Mangga No.06</td><td><span style="background:#ede9fe;color:#4f46e5;padding:2px 8px;border-radius:10px;font-size:11px">Pakis</span></td></tr>
+          <tr><td style="color:#94a3b8">20</td><td style="font-size:11px;color:#7c3aed">510035090602</td><td><strong>Nabiul Ulum</strong></td><td style="color:#475569">Imam Bukhori</td><td style="color:#475569">Gluduk</td><td><span style="background:#ede9fe;color:#4f46e5;padding:2px 8px;border-radius:10px;font-size:11px">Pakis</span></td></tr>
+          <tr><td style="color:#94a3b8">21</td><td style="font-size:11px;color:#7c3aed">510035090342</td><td><strong>Nurul Fataa</strong></td><td style="color:#475569">KH. Hasan Kholili</td><td style="color:#475569">Krajan</td><td><span style="background:#ede9fe;color:#4f46e5;padding:2px 8px;border-radius:10px;font-size:11px">Pakis</span></td></tr>
+          <tr><td style="color:#94a3b8">22</td><td style="font-size:11px;color:#7c3aed">510035090326</td><td><strong>Al Furqon</strong></td><td style="color:#475569">Sholehuddin</td><td style="color:#475569">Kemundungan</td><td><span style="background:#ede9fe;color:#4f46e5;padding:2px 8px;border-radius:10px;font-size:11px">Pakis</span></td></tr>
+          <tr><td style="color:#94a3b8">23</td><td style="font-size:11px;color:#7c3aed">510035090337</td><td><strong>Nurul Hidayah</strong></td><td style="color:#475569">H. Muzammil</td><td style="color:#475569">Sumber Kembar - Gluduk - Pakis</td><td><span style="background:#ede9fe;color:#4f46e5;padding:2px 8px;border-radius:10px;font-size:11px">Pakis</span></td></tr>
+          <tr><td style="color:#94a3b8">24</td><td style="font-size:11px;color:#7c3aed">510035090363</td><td><strong>Hikmatul Ulum</strong></td><td style="color:#475569">Ust Baidawi</td><td style="color:#475569">Gluduk - Pakis - Panti</td><td><span style="background:#ede9fe;color:#4f46e5;padding:2px 8px;border-radius:10px;font-size:11px">Pakis</span></td></tr>
+          <tr><td style="color:#94a3b8">25</td><td style="font-size:11px;color:#7c3aed">510035090353</td><td><strong>Nurul Yaqin</strong></td><td style="color:#475569">K. Abd. Basith Amaruddin</td><td style="color:#475569">Prapah</td><td><span style="background:#ede9fe;color:#4f46e5;padding:2px 8px;border-radius:10px;font-size:11px">Panti</span></td></tr>
+          <tr><td style="color:#94a3b8">26</td><td style="font-size:11px;color:#7c3aed">510035090603</td><td><strong>At Tanwir</strong></td><td style="color:#475569">K. Muhammad Mukhlis</td><td style="color:#475569">Jl. KH. Rifa'i Gg. Pesantren 02</td><td><span style="background:#ede9fe;color:#4f46e5;padding:2px 8px;border-radius:10px;font-size:11px">Panti</span></td></tr>
+          <tr><td style="color:#94a3b8">27</td><td style="font-size:11px;color:#7c3aed">510035090472</td><td><strong>Al Manhal</strong></td><td style="color:#475569">KH. Ahmad Fauzan Arrazi, Lc.DIP.ED</td><td style="color:#475569">Jl. Pb. Sudirman 41 Krajan</td><td><span style="background:#ede9fe;color:#4f46e5;padding:2px 8px;border-radius:10px;font-size:11px">Panti</span></td></tr>
+          <tr><td style="color:#94a3b8">28</td><td style="font-size:11px;color:#7c3aed">510035090358</td><td><strong>Mambaul Khoirot</strong></td><td style="color:#475569">KH. Muhammad Yazid Khobir</td><td style="color:#475569">Dusun Krajan Selatan</td><td><span style="background:#ede9fe;color:#4f46e5;padding:2px 8px;border-radius:10px;font-size:11px">Panti</span></td></tr>
+          <tr><td style="color:#94a3b8">29</td><td style="font-size:11px;color:#7c3aed">510035090362</td><td><strong>Nurul Falah</strong></td><td style="color:#475569">Kyai Basit</td><td style="color:#475569">Jl. Dinoyo Dsn. Wonolangu Prapah Panti</td><td><span style="background:#ede9fe;color:#4f46e5;padding:2px 8px;border-radius:10px;font-size:11px">Panti</span></td></tr>
+          <tr><td style="color:#94a3b8">30</td><td style="font-size:11px;color:#7c3aed">510035090344</td><td><strong>Al Amal</strong></td><td style="color:#475569">Kyai Imam</td><td style="color:#475569">Jl. Moch Seruji No. 20</td><td><span style="background:#ede9fe;color:#4f46e5;padding:2px 8px;border-radius:10px;font-size:11px">Panti</span></td></tr>
+          <tr><td style="color:#94a3b8">31</td><td style="font-size:11px;color:#7c3aed">510035090325</td><td><strong>Al Barokah</strong></td><td style="color:#475569">—</td><td style="color:#475569">Jl. Khairil Anwar No. 32 Gebang Langkap</td><td><span style="background:#ede9fe;color:#4f46e5;padding:2px 8px;border-radius:10px;font-size:11px">Panti</span></td></tr>
+          <tr><td style="color:#94a3b8">32</td><td style="font-size:11px;color:#7c3aed">510035090705</td><td><strong>Al Hasan 1</strong></td><td style="color:#475569">KH.Mujamil hasba</td><td style="color:#475569">Dusun Delima Desa Kemiri Panti Jember</td><td><span style="background:#ede9fe;color:#4f46e5;padding:2px 8px;border-radius:10px;font-size:11px">Panti</span></td></tr>
+          <tr><td style="color:#94a3b8">33</td><td style="font-size:11px;color:#7c3aed">510035090604</td><td><strong>Bahrul Ulum</strong></td><td style="color:#475569">K. Mahfudz MH</td><td style="color:#475569">Jl. Beringin Kuning</td><td><span style="background:#ede9fe;color:#4f46e5;padding:2px 8px;border-radius:10px;font-size:11px">Serut</span></td></tr>
+          <tr><td style="color:#94a3b8">34</td><td style="font-size:11px;color:#7c3aed">510035090348</td><td><strong>Mambaul Ulum II</strong></td><td style="color:#475569">K. Syahadi</td><td style="color:#475569">Jl. K. Musyaroj Syafi'i No.1 Kasian</td><td><span style="background:#ede9fe;color:#4f46e5;padding:2px 8px;border-radius:10px;font-size:11px">Serut</span></td></tr>
+          <tr><td style="color:#94a3b8">35</td><td style="font-size:11px;color:#7c3aed">510035090601</td><td><strong>Miftahul Ulum 05</strong></td><td style="color:#475569">KH. Turmudi</td><td style="color:#475569">Jl. Pb. Sudirman 23</td><td><span style="background:#ede9fe;color:#4f46e5;padding:2px 8px;border-radius:10px;font-size:11px">Serut</span></td></tr>
+          <tr><td style="color:#94a3b8">36</td><td style="font-size:11px;color:#7c3aed">510035090361</td><td><strong>Salafiyah Darus Sholah</strong></td><td style="color:#475569">Kyai Abdul Aziz</td><td style="color:#475569">Jl. PB Sudirman No.51 RT.001 RW.001</td><td><span style="background:#ede9fe;color:#4f46e5;padding:2px 8px;border-radius:10px;font-size:11px">Serut</span></td></tr>
+          <tr><td style="color:#94a3b8">37</td><td style="font-size:11px;color:#7c3aed">510035090596</td><td><strong>Al Fataa</strong></td><td style="color:#475569">Kyai Mar Husen</td><td style="color:#475569">Jl. Kasiyan</td><td><span style="background:#ede9fe;color:#4f46e5;padding:2px 8px;border-radius:10px;font-size:11px">Serut</span></td></tr>
+          <tr><td style="color:#94a3b8">38</td><td style="font-size:11px;color:#7c3aed">510035090339</td><td><strong>Raudlatul Ulum 01</strong></td><td style="color:#475569">M. Anwar Mukhlish</td><td style="color:#475569">Jl. Kapuas Dsn. Kasian RT.003 RW. 014</td><td><span style="background:#ede9fe;color:#4f46e5;padding:2px 8px;border-radius:10px;font-size:11px">Serut</span></td></tr>
+          <tr><td style="color:#94a3b8">39</td><td style="font-size:11px;color:#7c3aed">510035090332</td><td><strong>Al Hikmah</strong></td><td style="color:#475569">Ust. Tausan AZ</td><td style="color:#475569">Badean Wetan</td><td><span style="background:#ede9fe;color:#4f46e5;padding:2px 8px;border-radius:10px;font-size:11px">Serut</span></td></tr>
+          <tr><td style="color:#94a3b8">40</td><td style="font-size:11px;color:#7c3aed">510035090349</td><td><strong>Tarbiyatus Shibyan 01</strong></td><td style="color:#475569">—</td><td style="color:#475569">Jl. Pb Sudirman Serut - Panti</td><td><span style="background:#ede9fe;color:#4f46e5;padding:2px 8px;border-radius:10px;font-size:11px">Serut</span></td></tr>
+          <tr><td style="color:#94a3b8">41</td><td style="font-size:11px;color:#7c3aed">510035090355</td><td><strong>Al Ghufron 02</strong></td><td style="color:#475569">KH Ahmad Jaelani</td><td style="color:#475569">Dusun Mencek Serut Panti</td><td><span style="background:#ede9fe;color:#4f46e5;padding:2px 8px;border-radius:10px;font-size:11px">Serut</span></td></tr>
+          <tr><td style="color:#94a3b8">42</td><td style="font-size:11px;color:#7c3aed">510035090004</td><td><strong>Subulussalam</strong></td><td style="color:#475569">Kyai Sahadi</td><td style="color:#475569">Perkebunan Legung No. 09</td><td><span style="background:#ede9fe;color:#4f46e5;padding:2px 8px;border-radius:10px;font-size:11px">Serut</span></td></tr>
+          <tr><td style="color:#94a3b8">43</td><td style="font-size:11px;color:#7c3aed">510035090343</td><td><strong>Hidayatus Shibyan</strong></td><td style="color:#475569">—</td><td style="color:#475569">Jl PB Sudirman Serut Panti</td><td><span style="background:#ede9fe;color:#4f46e5;padding:2px 8px;border-radius:10px;font-size:11px">Serut</span></td></tr>
+          <tr><td style="color:#94a3b8">44</td><td style="font-size:11px;color:#7c3aed">510035090327</td><td><strong>Al Ghufron</strong></td><td style="color:#475569">Kyai Ahmad Jaelani</td><td style="color:#475569">Jl. Pb. Sudirman 52 Mencek Serut Panti</td><td><span style="background:#ede9fe;color:#4f46e5;padding:2px 8px;border-radius:10px;font-size:11px">Serut</span></td></tr>
+          <tr><td style="color:#94a3b8">45</td><td style="font-size:11px;color:#7c3aed">510035090350</td><td><strong>Jamiyatul Mubtadiin</strong></td><td style="color:#475569">K. Samsuni</td><td style="color:#475569">Badean Wetan Serut - Panti</td><td><span style="background:#ede9fe;color:#4f46e5;padding:2px 8px;border-radius:10px;font-size:11px">Serut</span></td></tr>
+          <tr><td style="color:#94a3b8">46</td><td style="font-size:11px;color:#7c3aed">510035090346</td><td><strong>Miftahul Ulum 01</strong></td><td style="color:#475569">Kyai Dawam</td><td style="color:#475569">Karang Anom Serut - Panti</td><td><span style="background:#ede9fe;color:#4f46e5;padding:2px 8px;border-radius:10px;font-size:11px">Serut</span></td></tr>
+          <tr><td style="color:#94a3b8">47</td><td style="font-size:11px;color:#7c3aed">510035090595</td><td><strong>Al Amin</strong></td><td style="color:#475569">H. Imam Marzuki</td><td style="color:#475569">Jl. Sulawesi No.02</td><td><span style="background:#ede9fe;color:#4f46e5;padding:2px 8px;border-radius:10px;font-size:11px">Suci</span></td></tr>
+          <tr><td style="color:#94a3b8">48</td><td style="font-size:11px;color:#7c3aed">510035090597</td><td><strong>Al Firdaus</strong></td><td style="color:#475569">K. Aziz</td><td style="color:#475569">Kepiring</td><td><span style="background:#ede9fe;color:#4f46e5;padding:2px 8px;border-radius:10px;font-size:11px">Suci</span></td></tr>
+          <tr><td style="color:#94a3b8">49</td><td style="font-size:11px;color:#7c3aed">510035090364</td><td><strong>Sunan Kalijaga</strong></td><td style="color:#475569">K. Jamal</td><td style="color:#475569">Jl. Irian No. 4 Gaplek Barat</td><td><span style="background:#ede9fe;color:#4f46e5;padding:2px 8px;border-radius:10px;font-size:11px">Suci</span></td></tr>
+          <tr><td style="color:#94a3b8">50</td><td style="font-size:11px;color:#7c3aed">510035090598</td><td><strong>Al Mustaqim</strong></td><td style="color:#475569">K. Moh. Romli</td><td style="color:#475569">Tegalamat</td><td><span style="background:#ede9fe;color:#4f46e5;padding:2px 8px;border-radius:10px;font-size:11px">Suci</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="row-count" id="cntPP">Menampilkan 50 data</div>
+  </div>
+</div>
+
+<!-- DASHBOARD -->
+<div id="page-dashboard" class="page">
+  <div class="card">
+    <h2>📊 Dashboard Statistik</h2>
+    <p style="color:#64748b; font-size:13.5px;">Halaman statistik utama sistem PANDIMAS.</p>
+  </div>
+</div>
+
+<script>
+function showPage(pageId, btn) {
+  // Sembunyikan semua halaman
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  // Tampilkan halaman terpilih
+  const targetPage = document.getElementById('page-' + pageId);
+  if(targetPage) targetPage.classList.add('active');
+  
+  // Atur kelas aktif di tombol navigasi
+  document.querySelectorAll('nav button').forEach(b => b.classList.remove('active'));
+  if(btn) btn.classList.add('active');
+}
+
+function filterJenjang(jenjang, btn) {
+  // Ganti status aktif tombol filter jenjang madin
+  document.querySelectorAll('#page-madin .tab-btn').forEach(b => b.classList.remove('on'));
+  if(btn) btn.classList.add('on');
+  
+  const rows = document.querySelectorAll('#tblMadin tbody tr');
+  let count = 0;
+  
+  rows.forEach(row => {
+    const rowJenjang = row.getAttribute('data-jenjang');
+    if (jenjang === 'semua' || rowJenjang === jenjang) {
+      row.style.display = '';
+      count++;
+    } else {
+      row.style.display = 'none';
+    }
+  });
+  
+  document.getElementById('cntMadin').innerText = `Menampilkan ${count} dari 132 data`;
+}
+
+function filterTable(inputId, tableId, countId) {
+  const input = document.getElementById(inputId);
+  const filter = input.value.toUpperCase();
+  const table = document.getElementById(tableId);
+  const rows = table.getElementsByTagName('tr');
+  let count = 0;
+
+  // Cek apakah ada filter jenjang aktif khusus untuk tabel madin
+  let activeMadinJenjang = 'semua';
+  if(tableId === 'tblMadin') {
+    const activeBtn = document.querySelector('#page-madin .tab-btn.on');
+    if(activeBtn) {
+      if(activeBtn.innerText.includes('Ula')) activeMadinJenjang = 'ULA';
+      else if(activeBtn.innerText.includes('Wustha')) activeMadinJenjang = 'WUSTHA';
+    }
+  }
+
+  for (let i = 1; i < rows.length; i++) {
+    const row = rows[i];
+    
+    // Jika tabel madin, pastikan baris sesuai dengan filter jenjang terlebih dahulu
+    if(tableId === 'tblMadin' && activeMadinJenjang !== 'semua') {
+      if(row.getAttribute('data-jenjang') !== activeMadinJenjang) {
+        row.style.display = 'none';
+        continue;
+      }
+    }
+
+    let match = false;
+    const cells = row.getElementsByTagName('td');
+    
+    for (let j = 0; j < cells.length; j++) {
+      if (cells[j]) {
+        const textValue = cells[j].textContent || cells[j].innerText;
+        if (textValue.toUpperCase().indexOf(filter) > -1) {
+          match = true;
+          break;
+        }
+      }
+    }
+    
+    if (match) {
+      row.style.display = '';
+      count++;
+    } else {
+      row.style.display = 'none';
+    }
+  }
+  
+  document.getElementById(countId).innerText = `Menampilkan ${count} data`;
+}
+</script>
+
+</body>
+</html>

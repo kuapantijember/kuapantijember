@@ -1,0 +1,867 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SIMPATI Tempat Ibadah — Panti, Jember</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',sans-serif;background:#eef3f6;color:#1e293b}
+
+/* HEADER */
+header{background:#075f3f;color:white;padding:18px 40px;display:flex;align-items:center;gap:16px}
+header .logo{font-size:28px}
+header h1{font-size:20px;font-weight:700}
+header p{font-size:13px;opacity:.8}
+
+/* NAV */
+nav{background:#064d34;display:flex;gap:4px;padding:0 36px}
+nav button{
+  background:none;border:none;color:rgba(255,255,255,.75);
+  padding:14px 20px;cursor:pointer;font-size:14px;font-weight:500;
+  border-bottom:3px solid transparent;transition:.2s;white-space:nowrap
+}
+nav button:hover{color:white;background:rgba(255,255,255,.08)}
+nav button.active{color:white;border-bottom-color:#4ade80;background:rgba(255,255,255,.06)}
+
+/* PAGES */
+.page{display:none;padding:28px 36px;min-height:calc(100vh - 120px)}
+.page.active{display:block}
+
+/* STAT CARDS */
+.stats{display:flex;gap:16px;margin-bottom:24px;flex-wrap:wrap}
+.stat{background:white;border-radius:14px;padding:20px 28px;flex:1;min-width:160px;
+  box-shadow:0 1px 4px rgba(0,0,0,.07);border-left:4px solid #075f3f;text-align:center}
+.stat .icon{font-size:32px;margin-bottom:6px}
+.stat h3{font-size:32px;font-weight:700;color:#075f3f}
+.stat p{font-size:13px;color:#64748b;margin-top:4px}
+
+/* CARD */
+.card{background:white;border-radius:14px;padding:22px;margin-bottom:22px;
+  box-shadow:0 1px 4px rgba(0,0,0,.07)}
+.card h2{font-size:17px;font-weight:600;margin-bottom:14px;color:#075f3f;
+  display:flex;align-items:center;gap:8px}
+.card h2 .badge{background:#075f3f;color:white;font-size:12px;padding:3px 10px;
+  border-radius:20px;font-weight:500}
+
+/* SEARCH */
+.search-wrap{position:relative;margin-bottom:14px}
+.search-wrap input{
+  width:100%;padding:10px 16px 10px 40px;border:1px solid #cbd5e1;
+  border-radius:8px;font-size:14px;outline:none;transition:.2s
+}
+.search-wrap input:focus{border-color:#075f3f;box-shadow:0 0 0 3px rgba(7,95,63,.12)}
+.search-wrap .icon{position:absolute;left:12px;top:50%;transform:translateY(-50%);opacity:.45}
+
+/* TABLE */
+.tbl-wrap{overflow-x:auto;border-radius:8px;border:1px solid #e2e8f0}
+table{width:100%;border-collapse:collapse;font-size:13px}
+thead th{
+  background:#f1f5f9;padding:10px 12px;text-align:left;
+  font-weight:600;white-space:nowrap;position:sticky;top:0;z-index:1;
+  border-bottom:2px solid #e2e8f0
+}
+tbody td{padding:9px 12px;border-bottom:1px solid #f1f5f0;white-space:nowrap}
+tbody tr:hover td{background:#f0fdf4}
+tbody tr:last-child td{border-bottom:none}
+.row-count{font-size:12px;color:#94a3b8;margin-top:8px}
+
+/* DASHBOARD CHART */
+.dash-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-bottom:24px}
+@media(max-width:640px){.dash-grid{grid-template-columns:1fr}}
+.bar-label{font-size:13px;color:#334155;margin-bottom:4px}
+.bar-track{background:#e2e8f0;border-radius:6px;height:20px;overflow:hidden}
+.bar-fill{height:100%;border-radius:6px;background:#075f3f;transition:.6s ease}
+.bar-val{font-size:12px;color:#64748b;text-align:right;margin-top:2px}
+
+/* INPUT FORM */
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+@media(max-width:640px){.form-grid{grid-template-columns:1fr}}
+.form-group label{display:block;font-size:13px;font-weight:500;margin-bottom:5px;color:#374151}
+.form-group input,.form-group select{
+  width:100%;padding:9px 12px;border:1px solid #cbd5e1;border-radius:8px;
+  font-size:14px;outline:none;transition:.2s
+}
+.form-group input:focus,.form-group select:focus{
+  border-color:#075f3f;box-shadow:0 0 0 3px rgba(7,95,63,.12)
+}
+.btn{background:#075f3f;color:white;border:none;padding:10px 24px;
+  border-radius:8px;cursor:pointer;font-size:14px;font-weight:600;margin-top:8px}
+.btn:hover{background:#064d34}
+.section-title{font-size:16px;font-weight:600;color:#075f3f;margin:20px 0 12px;
+  padding-bottom:8px;border-bottom:2px solid #e2e8f0}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo">🕌</div>
+  <div>
+    <h1>SIMPATI — Sistem Informasi Tempat Ibadah</h1>
+    <p>KUA Kecamatan Panti — Kabupaten Jember, Jawa Timur</p>
+  </div>
+</header>
+
+<nav>
+  <button class="active" onclick="showPage('beranda',this)">🏠 Beranda</button>
+  <button onclick="showPage('masjid',this)">🕌 Masjid</button>
+  <button onclick="showPage('mushalla',this)">🕍 Mushalla</button>
+  <button onclick="showPage('nonmuslim',this)">⛩️ Non Muslim</button>
+  <button onclick="showPage('input',this)">📝 Input &amp; Form</button>
+  <button onclick="showPage('dashboard',this)">📊 Dashboard</button>
+</nav>
+
+<!-- ===== BERANDA ===== -->
+<div id="page-beranda" class="page active">
+  <div class="stats">
+    <div class="stat"><div class="icon">🕌</div><h3>108</h3><p>Masjid</p></div>
+    <div class="stat"><div class="icon">🕍</div><h3>396</h3><p>Mushalla</p></div>
+    <div class="stat"><div class="icon">⛩️</div><h3>1</h3><p>Non Muslim</p></div>
+    <div class="stat"><div class="icon">📍</div><h3>505</h3><p>Total Tempat Ibadah</p></div>
+  </div>
+
+  <div class="card">
+    <h2>📋 Tentang SIMPATI</h2>
+    <p style="font-size:14px;color:#475569;line-height:1.7">
+      SIMPATI (Sistem Informasi Tempat Ibadah) adalah aplikasi pendataan tempat ibadah
+      di wilayah Kecamatan Panti, Kabupaten Jember, Provinsi Jawa Timur.
+      Data mencakup <strong>108 Masjid</strong>, <strong>396 Mushalla</strong>, dan
+      <strong>1 Tempat Ibadah Non Muslim</strong> yang tersebar di seluruh desa/kelurahan
+      di Kecamatan Panti.
+    </p>
+    <p style="font-size:14px;color:#475569;line-height:1.7;margin-top:12px">
+      Gunakan menu navigasi di atas untuk melihat data per kategori, mengisi form pendataan,
+      atau melihat ringkasan statistik di Dashboard.
+    </p>
+  </div>
+
+  <div class="card">
+    <h2>⚡ Akses Cepat</h2>
+    <div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:4px">
+      <button class="btn" onclick="showPage('masjid',document.querySelectorAll('nav button')[1])">🕌 Lihat Data Masjid</button>
+      <button class="btn" onclick="showPage('mushalla',document.querySelectorAll('nav button')[2])">🕍 Lihat Data Mushalla</button>
+      <button class="btn" onclick="showPage('dashboard',document.querySelectorAll('nav button')[5])">📊 Buka Dashboard</button>
+    </div>
+  </div>
+</div>
+
+<!-- ===== MASJID ===== -->
+<div id="page-masjid" class="page">
+  <div class="card">
+    <h2>🕌 Data Masjid <span class="badge">108 Masjid</span></h2>
+    <div class="search-wrap">
+      <span class="icon">🔍</span>
+      <input id="cariMasjid" placeholder="Cari nama masjid, alamat, tipologi..." oninput="filterTable('cariMasjid','tblMasjid','cntMasjid')">
+    </div>
+    <div class="tbl-wrap">
+      <table id="tblMasjid">
+        <thead><tr>
+  <th>No</th><th>ID</th><th>Nama</th><th>Provinsi</th><th>Kabupaten</th>
+  <th>Kecamatan</th><th>Tipologi</th><th>Alamat</th><th>Status Tanah</th>
+  <th>Luas Tanah</th><th>Luas Bangunan</th><th>Tahun Berdiri</th>
+  <th>Jumlah SDM</th><th>No. Telp/HP</th><th>Email</th>
+</tr></thead>
+        <tbody><tr><td>1</td><td>01.4.16.09.14.000110</td><td>AT-TAUHID</td><td>Jawa Timur</td><td>Kab. Jember</td><td>Panti</td><td>Masjid Jami</td><td>Dusun Krajan Desa Kemuningsari Lor</td><td>SHM</td><td>1000</td><td>289</td><td>2014</td><td>300</td><td>0331-713849, 081234556532</td><td></td></tr>
+<tr><td>2</td><td>01.4.16.09.14.000002</td><td>AL-ISKANDARIYAH</td><td>Jawa Timur</td><td>Kab. Jember</td><td>Panti</td><td>Masjid Jami</td><td>Jalan Mahakam No. 2-3 Dusun Karanganom RT 003 RW 009 Desa Serut</td><td>SHM</td><td>1078</td><td>600</td><td>1953</td><td>600</td><td>81230291198</td><td></td></tr>
+<tr><td>3</td><td>01.4.16.09.14.000003</td><td>SABILUL MUTTAQIN</td><td>Jawa Timur</td><td>Kab. Jember</td><td>Panti</td><td>Masjid Jami</td><td>Jalan Dinoyo RT.003 RW.008 Serut Barat</td><td>Wakaf</td><td>216</td><td>120</td><td>1978</td><td>75</td><td>85100034139</td><td></td></tr>
+<tr><td>4</td><td>01.4.16.09.14.000004</td><td>BAITUR ROHMAN</td><td>Jawa Timur</td><td>Kab. Jember</td><td>Panti</td><td>Masjid Jami</td><td>Jalan Mahakam RT.010 RW.004 Dusun Karang Anom, Serut</td><td>Wakaf</td><td>728</td><td>204</td><td>1985</td><td>200</td><td>85730344498</td><td></td></tr>
+<tr><td>5</td><td>01.4.16.09.14.000005</td><td>AL-HADI</td><td>Jawa Timur</td><td>Kab. Jember</td><td>Panti</td><td>Masjid Jami</td><td>Dusun Mencek Desa Serut RT.002 RW.001</td><td>Wakaf</td><td>790</td><td>180</td><td>2013</td><td>200</td><td>85100743762</td><td></td></tr>
+<tr><td>6</td><td>01.4.16.09.14.000006</td><td>YAYASAN PENDIDIKAN PESANTREN NURUL IMAN</td><td>Jawa Timur</td><td>Kab. Jember</td><td>Panti</td><td>Masjid Jami</td><td>Jalan Andong sari RT.006 RW.0001 Dusun Badean Desa Serut</td><td>Wakaf</td><td>225</td><td>144</td><td>1985</td><td>200</td><td>85102794934</td><td></td></tr>
+<tr><td>7</td><td>01.4.16.09.14.000007</td><td>NURUL IMAN</td><td>Jawa Timur</td><td>Kab. Jember</td><td>Panti</td><td>Masjid Jami</td><td>Jalan PB Soedirman RT.002 RW.002 Mencek, Serut</td><td>Wakaf</td><td>2250</td><td>180</td><td>2007</td><td>200</td><td>85103805765</td><td></td></tr>
+<tr><td>8</td><td>01.4.16.09.14.000008</td><td>MIFTAHUL JANNAH</td><td>Jawa Timur</td><td>Kab. Jember</td><td>Panti</td><td>Masjid Jami</td><td>Jalan Bringin kuning RT.004 RW.019 Badean Kulon, Serut</td><td>Wakaf</td><td>400</td><td>270</td><td>1980</td><td>200</td><td>85288005253</td><td></td></tr>
+<tr><td>9</td><td>01.4.16.09.14.000009</td><td>ANNUR</td><td>Jawa Timur</td><td>Kab. Jember</td><td>Panti</td><td>Masjid Jami</td><td>Jl. Ahmad Yani Dusun Krajan Desa Serut</td><td>Wakaf</td><td>400</td><td>225</td><td>2007</td><td>250</td><td>81234184268</td><td></td></tr>
+<tr><td>10</td><td>01.4.16.09.14.000013</td><td>BAITURROHMAN</td><td>Jawa Timur</td><td>Kab. Jember</td><td>Panti</td><td>Masjid Jami</td><td>Jalan PB. Soedirman RT. 005 RW. 003 Dusun Mencek Desa Serut</td><td>Wakaf</td><td>184</td><td>98</td><td>1995</td><td>75</td><td>81334035045</td><td></td></tr>
+<tr><td>11</td><td>01.4.16.09.14.000015</td><td>AL-HIKMAH</td><td>Jawa Timur</td><td>Kab. Jember</td><td>Panti</td><td>Masjid Jami</td><td>Rt: 04 Rw: 16 Badean Timur</td><td>Wakaf</td><td>1192</td><td>324</td><td>2013</td><td>200</td><td>85100706447</td><td></td></tr>
+<tr><td>12</td><td>01.4.16.09.14.000016</td><td>AT-TAQWA</td><td>Jawa Timur</td><td>Kab. Jember</td><td>Panti</td><td>Masjid Jami</td><td>RT.001 RW.014 permisen utara, kasian, serut</td><td>Wakaf</td><td>400</td><td>168</td><td>1950</td><td>150</td><td>81336650770</td><td></td></tr>
+<tr><td>13</td><td>01.4.16.09.14.000108</td><td>NURUL YAQIN</td><td>Jawa Timur</td><td>Kab. Jember</td><td>Panti</td><td>Masjid Jami</td><td>Jalan PB.Sudirman 108 Panti</td><td>Wakaf</td><td>1948</td><td>300</td><td>1930</td><td>300</td><td>81249145252</td><td></td></tr>
+<tr><td>14</td><td>01.4.16.09.14.000018</td><td>MIFTAHUL ULUM</td><td>Jawa Timur</td><td>Kab. Jember</td><td>Panti</td><td>Masjid Jami</td><td>Jalan PB. Sudirman RT.002RW.002 Dusun Mencek Desa Serut</td><td>Wakaf</td><td>2500</td><td>195</td><td>1984</td><td>200</td><td>85101469842</td><td></td></tr>
+<tr><td>15</td><td>01.4.16.09.14.000019</td><td>RIYADLUS SHOLIHIN</td><td>Jawa Timur</td><td>Kab. Jember</td><td>Panti</td><td>Masjid Jami</td><td>Jalan PB. Sudirman RT.002 RW.003 Dusun Mencek Desa Serut</td><td>Wakaf</td><td>200</td><td>144</td><td>1996</td><td>300</td><td>81217890415</td><td></td></tr>
+<tr><td>16</td><td>01.4.16.09.14.000020</td><td>SIROJUDDIN</td><td>Jawa Timur</td><td>Kab. Jember</td><td>Panti</td><td>Masjid Jami</td><td>Jalan A. Yani RT. 004 RW. 007 Dusun Krajan Desa Serut</td><td>Wakaf</td><td>387</td><td>350</td><td>1937</td><td>300</td><td>82312705619</td><td></td></tr>
+<tr><td>17</td><td>01.4.16.09.14.000021</td><td>SABILIL MUHTADIN</td><td>Jawa Timur</td><td>Kab. Jember</td><td>Panti</td><td>Masjid Jami</td><td>RT.002 RW.013 Dusun Kasian Desa Serut</td><td>Wakaf</td><td>300</td><td>144</td><td>1975</td><td>150</td><td>85859338899</td><td></td></tr>
+<tr><td>18</td><td>01.4.16.09.14.000022</td><td>AT-TAQWA</td><td>Jawa Timur</td><td>Kab. Jember</td><td>Panti</td><td>Masjid Jami</td><td>JL. Kapuas RT. 002 RW. 011 Desa Serut</td><td>Wakaf</td><td>612</td><td>20.55</td><td>1961</td><td>200</td><td>81330829635</td><td></td></tr>
+<tr><td>19</td><td>01.4.16.09.14.000093</td><td>AL-IKHSAN</td><td>Jawa Timur</td><td>Kab. Jember</td><td>Panti</td><td>Masjid Jami</td><td>Dusun Krajan RT.001 RW.003 Desa Panti</td><td>Wakaf</td><td>675</td><td>500</td><td>2011</td><td>200</td><td>82330149400</td><td></td></tr>
+<tr><td>20</td><td>01.4.16.09.14.000094</td><td>NURUSSHOIMIN</td><td>Jawa Timur</td><td>Kab. Jember</td><td>Panti</td><td>Masjid Jami</td><td>Dusun Gebang Langkap RT.003 RW.012</td><td>Wakaf</td><td>216</td><td>168</td><td>2011</td><td>150</td><td>85102497158</td><td></td></tr>
+<tr><td>21</td><td>01.4.16.09.14.000091</td><td>BAITUL MUTTAQIN</td><td>Jawa Timur</td><td>Kab. Jember</td><td>Panti</td><td>Masjid Jami</td><td>Jalan Patimura Dusun Gebang Langkap RT.003 RW.011 Desa Panti</td><td>Wakaf</td><td>500</td><td>225</td><td>1955</td><td>200</td><td>85106015767</td><td></td></tr>
+<tr><td>22</td><td>01.4.16.09.14.000023</td><td>NURUL HUDA</td><td>Jawa Timur</td><td>Kab. Jember</td><td>Panti</td><td>Masjid Jami</td><td>Dusun Gebang Utara RT.003 RW.014 Desa Panti</td><td>Wakaf</td><td>324</td><td>168</td><td>1950</td><td>200</td><td>82330316594</td><td></td></tr>
+<tr><td>23</td><td>01.4.16.09.14.000024</td><td>AL-BAROKAH</td><td>Jawa Timur</td><td>Kab. Jember</td><td>Panti</td><td>Masjid Jami</td><td>Dusun Gebang Utara RT. 003 RW. 015 Desa Panti</td><td>Wakaf</td><td>342</td><td>342</td><td>1998</td><td>150</td><td>83195246151</td><td></td></tr>
+<tr><td>24</td><td>01.4.16.09.14.000025</td><td>BAITUL AMAL</td><td>Jawa Timur</td><td>Kab. Jember</td><td>Panti</td><td>Masjid Jami</td><td>Dusun Gebang Utara RT.001 RW.015 Desa Panti</td><td>Wakaf</td><td>490</td><td>180</td><td>1965</td><td>200</td><td>82136965177</td><td></td></tr>
+<tr><td>25</td><td>01.4.16.09.14.000026</td><td>AL-BAITUL HIDAYAH</td><td>Jawa Timur</td><td>Kab. Jember</td><td>Panti</td><td>Masjid Jami</td><td>Dusun Prapah Kedaton RT.001 RW.019 Desa Panti</td><td>SHM</td><td>400</td><td>144</td><td>1940</td><td>200</td><td>82318324875</td><td></td></tr>
+<tr><td>26</td><td>01.4.16.09.14.000027</td><td>AL-IKLASH</td><td>Jawa Timur</td><td>Kab. Jember</td><td>Panti</td><td>Masjid Jami</td><td>Dusun Prapah RT.002 RW.017 Desa Panti</td><td>Wakaf</td><td>900</td><td>625</td><td>1980</td><td>200</td><td>82332078716</td><td></td></tr>
+<tr><td>27</td><td>01.4.16.09.14.000028</td><td>NURUT TAUFIQ</td><td>Jawa Timur</td><td>Kab. Jember</td><td>Panti</td><td>Masjid Jami</td><td>Dusun Tenggiling Desa Serut</td><td>Wakaf</td><td>225</td><td>144</td><td>1980</td><td>150</td><td>85786717780</td><td></td></tr>
+<tr><td>28</td><td>01.4.16.09.14.000029</td><td>DARUN NAJAH</td><td>Jawa Timur</td><td>Kab. Jember</td><td>Panti</td><td>Masjid Jami</td><td>Dusun Badean Kulon Rt:01/15</td><td>Wakaf</td><td>262</td><td>202</td><td>1961</td><td>150</td><td>82331937706</td><td></td></tr>
+<tr><td>29</td><td>01.4.16.09.14.000030</td><td>DARUSSALAM</td><td>Jawa Timur</td><td>Kab. Jember</td><td>Panti</td><td>Masjid Jami</td><td>Jalan Ahmad Yani No.16 Dusun KrajanRT. 003 RW. 005 Serut</td><td>Wakaf</td><td>768</td><td>120</td><td>1980</td><td>300</td><td>08135865757 / 085101788127</td><td></td></tr>
+<tr><td>30</td><td>01.4.16.09.14.000031</td><td>AN-NUR</td><td>Jawa Timur</td><td>Kab. Jember</td><td>Panti</td><td>Masjid Jami</td><td>Jalan A. Yani RT.001 RW. 002 Krajan Serut</td><td>Wakaf</td><td>338</td><td>338</td><td>2004</td><td>150</td><td>81234550112</td><td></td></tr>
+<tr><td>31</td><td>01.6.16.09.14.000115</td><td>AL-AMIN</td><td>Jawa Timur</td><td>Kab. Jember</td><td>Panti</td><td>Masjid di Tempat Publik</td><td>Jl. Bringin Kuning RT. 003 RW. 019 Dusun Badean Wetan Desa Serut</td><td>Wakaf</td><td>3133</td><td>254</td><td>1968</td><td>200</td><td>85101811884</td><td></td></tr>
+<tr><td>32</td><td>01.4.16.09.14.000033</td><td>NURUL AMAL</td><td>Jawa Timur</td><td>Kab. Jember</td><td>Panti</td><td>Masjid Jami</td><td>Dusun Krajan Selatan Panti</td><td>Wakaf</td><td>285</td><td>160</td><td>1955</td><td>200</td><td>82233723149</td><td></td></tr>
+<tr><td>33</td><td>01.4.16.09.14.000034</td><td>NURUS SALAM</td><td>Jawa Timur</td><td>Kab. Jember</td><td>Panti</td><td>Masjid Jami</td><td>Jalan Agus Salim No.43 Panti Selatan</td><td>Wakaf</td><td>2500</td><td>192</td><td>1970</td><td>250</td><td>8775780447</td><td></td></tr>
+<tr><td>34</td><td>01.4.16.09.14.000035</td><td>DARUSSALAM</td><td>Jawa Timur</td><td>Kab. Jember</td><td>Panti</td><td>Masjid Jami</td><td>Wonolangu RT.001 RW.022 Panti</td><td>Wakaf</td><td>120</td><td>120</td><td>1950</td><td>150</td><td>-</td><td></td></tr>
+<tr><td>35</td><td>01.4.16.09.14.000036</td><td>AL-MUHLISIN</td><td>Jawa Timur</td><td>Kab. Jember</td><td>Panti</td><td>Masjid Jami</td><td>Wonolangu RT.002 RW.021 Karangan Panti</td><td>Wakaf</td><td>450</td><td>168</td><td>1990</td><td>200</td><td>81234923644</td><td></td></tr>
+<tr><td>36</td><td>01.4.16.09.14.000037</td><td>BAITUTTAIB</td><td>Jawa Timur</td><td>Kab. Jember</td><td>Panti</td><td>Masjid Jami</td><td>Wonolangu RT.001 RW.020 Panti</td><td>Wakaf</td><td>180</td><td>117</td><td>1965</td><td>200</td><td>-</td><td></td></tr>
+<tr><td>37</td><td>01.4.16.09.14.000038</td><td>AL-AMAL</td><td>Jawa Timur</td><td>Kab. Jember</td><td>Panti</td><td>Masjid Jami</td><td>Darungan RT.001 RW.009 Panti</td><td>Wakaf</td><td>360</td><td>144</td><td>1980</td><td>200</td><td>8124991175</td><td></td></tr>
+<tr><td>38</td><td>01.4.16.09.14.000039</td><td>NURUL HUDA</td><td>Jawa Timur</td><td>Kab. Jember</td><td>Panti</td><td>Masjid Jami</td><td>Darungan Jalan Pb Sudirman 5/35 Panti</td><td>Wakaf</td><td>180</td><td>150</td><td>1972</td><td>200</td><td>81330347485</td><td></td></tr>
+<tr><td>39</td><td>01.4.16.09.14.000040</td><td>AL-MUJAHIDIN</td><td>Jawa Timur</td><td>Kab. Jember</td><td>Panti</td><td>Masjid Jami</td><td>Dusun. Krajan RT.005 RW.004 Desa Suci</td><td>Wakaf</td><td>1600</td><td>550</td><td>1998</td><td>500</td><td>85749494366</td><td></td></tr>
+<tr><td>40</td><td>01.4.16.09.14.000041</td><td>NURUL HIDAYAH</td><td>Jawa Timur</td><td>Kab. Jember</td><td>Panti</td><td>Masjid Jami</td><td>Gunung Pasang Suci</td><td>SHM</td><td>300</td><td>200</td><td>1957</td><td>100</td><td>-</td><td></td></tr>
+<tr><td>41</td><td>01.4.16.09.14.000042</td><td>AS-SAKDIYAH</td><td>Jawa Timur</td><td>Kab. Jember</td><td>Panti</td><td>Masjid Jami</td><td>Payung Suci</td><td>Wakaf</td><td>250</td><td>150</td><td>1949</td><td>100</td><td>-</td><td></td></tr>
+<tr><td>42</td><td>01.4.16.09.14.000043</td><td>NURUL YAQIN</td><td>Jawa Timur</td><td>Kab. Jember</td><td>Panti</td><td>Masjid Jami</td><td>Dusun Karang Kebon RT.001 RW. 012 Desa Suci</td><td>Wakaf</td><td>400</td><td>150</td><td>1965</td><td>100</td><td>82228605474</td><td>zidanfaqih76@gmail.com</td></tr>
+<tr><td>43</td><td>01.4.16.09.14.000044</td><td>AL-BAITUL AMAL</td><td>Jawa Timur</td><td>Kab. Jember</td><td>Panti</td><td>Masjid Jami</td><td>Dusun Tegalamat Glengseran Desa Suci</td><td>Wakaf</td><td>1586</td><td>120</td><td>1975</td><td>100</td><td>82244764707</td><td>0</td></tr>
+<tr><td>44</td><td>01.4.16.09.14.000045</td><td>AL-FALAH</td><td>Jawa Timur</td><td>Kab. Jember</td><td>Panti</td><td>Masjid Jami</td><td>Perkebunan Sentool Suci</td><td>SHM</td><td>750</td><td>550</td><td>1948</td><td>200</td><td>-</td><td></td></tr>
+<tr><td>45</td><td>01.4.16.09.14.000046</td><td>AL-FALAH</td><td>Jawa Timur</td><td>Kab. Jember</td><td>Panti</td><td>Masjid Jami</td><td>Jalan Teropong Bintang RT. 003 RW. 013 Dusun Gaplek Desa Suci</td><td>Wakaf</td><td>1600</td><td>1200</td><td>1961</td><td>250</td><td>85738288823</td><td></td></tr>
+<tr><td>46</td><td>01.4.16.09.14.000047</td><td>BAITUR ROHMAN</td><td>Jawa Timur</td><td>Kab. Jember</td><td>Panti</td><td>Masjid Jami</td><td>Dusun Gaplek Barat RT.001 RW.001 Desa Suci</td><td>Wakaf</td><td>380</td><td>300</td><td>1985</td><td>250</td><td>82334106692</td><td></td></tr>
+<tr><td>47</td><td>01.4.16.09.14.000048</td><td>AL-HASAN</td><td>Jawa Timur</td><td>Kab. Jember</td><td>Panti</td><td>Masjid Jami</td><td>Dusun Glengseren Suci</td><td>Wakaf</td><td>1650</td><td>650</td><td>1935</td><td>250</td><td>-</td><td></td></tr>
+<tr><td>48</td><td>01.4.16.09.14.000049</td><td>AL-IKHLASH</td><td>Jawa Timur</td><td>Kab. Jember</td><td>Panti</td><td>Masjid Jami</td><td>Jalan Bali No.05 Dusun Glundengan RT.003 RW.001 Suci</td><td>Wakaf</td><td>353</td><td>200</td><td>1983</td><td>175</td><td>85100607780</td><td></td></tr>
+<tr><td>49</td><td>01.4.16.09.14.000050</td><td>BAITUL MU&#x27;MININ</td><td>Jawa Timur</td><td>Kab. Jember</td><td>Panti</td><td>Masjid Jami</td><td>Plendo Selatan Suci</td><td>Wakaf</td><td>350</td><td>200</td><td>1956</td><td>250</td><td>-</td><td></td></tr>
+<tr><td>50</td><td>01.4.16.09.14.000051</td><td>RAUDLATUL MU&#x27;MININ</td><td>Jawa Timur</td><td>Kab. Jember</td><td>Panti</td><td>Masjid Jami</td><td>Plendo Utara Suci</td><td>Wakaf</td><td>500</td><td>300</td><td>2013</td><td>400</td><td>-</td><td></td></tr>
+<tr><td>51</td><td>01.4.16.09.14.000052</td><td>AL-ISHLAH</td><td>Jawa Timur</td><td>Kab. Jember</td><td>Panti</td><td>Masjid Jami</td><td>Kepiring Krajan Suci</td><td>Wakaf</td><td>750</td><td>400</td><td>1996</td><td>500</td><td>85340042002</td><td></td></tr>
+<tr><td>52</td><td>01.4.16.09.14.000053</td><td>AL-HIDAYAH</td><td>Jawa Timur</td><td>Kab. Jember</td><td>Panti</td><td>Masjid Jami</td><td>Dusun Krajan RT.006 RW.004 Suci</td><td>Wakaf</td><td>450</td><td>250</td><td>1969</td><td>250</td><td>-</td><td></td></tr>
+<tr><td>53</td><td>01.4.16.09.14.000092</td><td>AL-EKHLAS</td><td>Jawa Timur</td><td>Kab. Jember</td><td>Panti</td><td>Masjid Jami</td><td>Gluduk Pakis</td><td>Wakaf</td><td>12000</td><td>120</td><td>1970</td><td>400</td><td>-</td><td></td></tr>
+<tr><td>54</td><td>01.4.16.09.14.000054</td><td>NURUL MUKMININ</td><td>Jawa Timur</td><td>Kab. Jember</td><td>Panti</td><td>Masjid Jami</td><td>Cempaka Pakis</td><td>Wakaf</td><td>750</td><td>150</td><td>1980</td><td>300</td><td>-</td><td></td></tr>
+<tr><td>55</td><td>01.4.16.09.14.000055</td><td>AL-ABROR</td><td>Jawa Timur</td><td>Kab. Jember</td><td>Panti</td><td>Masjid Jami</td><td>Cempaka Pakis</td><td>Wakaf</td><td>600</td><td>150</td><td>1998</td><td>300</td><td>-</td><td></td></tr>
+<tr><td>56</td><td>01.4.16.09.14.000056</td><td>NURUL IMAN</td><td>Jawa Timur</td><td>Kab. Jember</td><td>Panti</td><td>Masjid Jami</td><td>Dusun Cempaka RT. 002 RW. 006 Desa Pakis</td><td>Wakaf</td><td>426</td><td>256</td><td>1989</td><td>300</td><td>81235309706</td><td></td></tr>
+<tr><td>57</td><td>01.4.16.09.14.000057</td><td>NURUL TAQWA</td><td>Jawa Timur</td><td>Kab. Jember</td><td>Panti</td><td>Masjid Jami</td><td>Kemundungan Pakis</td><td>Wakaf</td><td>2400</td><td>800</td><td>1970</td><td>400</td><td>85815574199</td><td></td></tr>
+<tr><td>58</td><td>01.4.16.09.14.000058</td><td>BAITUL MUTTAKIM</td><td>Jawa Timur</td><td>Kab. Jember</td><td>Panti</td><td>Masjid Jami</td><td>Tajek Pakis</td><td>Wakaf</td><td>2000</td><td>120</td><td>1977</td><td>400</td><td>-</td><td></td></tr>
+<tr><td>59</td><td>01.4.16.09.14.000059</td><td>NURUL HUDA</td><td>Jawa Timur</td><td>Kab. Jember</td><td>Panti</td><td>Masjid Jami</td><td>Jalan Rambutan Dusun Pertelon Desa Pakis</td><td>Wakaf</td><td>476</td><td>400</td><td>1975</td><td>200</td><td>82331374424</td><td></td></tr>
+<tr><td>60</td><td>01.4.16.09.14.000060</td><td>DARUT TAQWA</td><td>Jawa Timur</td><td>Kab. Jember</td><td>Panti</td><td>Masjid Jami</td><td>Dusun Gluduk RT. 007 RW. 004 Desa Pakis</td><td>Wakaf</td><td>943</td><td>800</td><td>1985</td><td>400</td><td>82141436857</td><td></td></tr>
+<tr><td>61</td><td>01.4.16.09.14.000061</td><td>AL-MUBAROK</td><td>Jawa Timur</td><td>Kab. Jember</td><td>Panti</td><td>Masjid Jami</td><td>Dusun Pakis Utara RT. 005 RW. 005 Desa Pakis</td><td>Wakaf</td><td>800</td><td>600</td><td>1967</td><td>300</td><td>85335467288</td><td></td></tr>
+<tr><td>62</td><td>01.4.16.09.14.000062</td><td>BAITUR ROHMAN</td><td>Jawa Timur</td><td>Kab. Jember</td><td>Panti</td><td>Masjid Jami</td><td>Sawah Kongsi Pakis</td><td>Wakaf</td><td>120</td><td>120</td><td>1997</td><td>400</td><td>85815970704</td><td></td></tr>
+<tr><td>63</td><td>01.4.16.09.14.000063</td><td>NURUL HUDA</td><td>Jawa Timur</td><td>Kab. Jember</td><td>Panti</td><td>Masjid Jami</td><td>Sawah Kongsi Pakis</td><td>Wakaf</td><td>2000</td><td>120</td><td>1998</td><td>300</td><td>81333187719</td><td></td></tr>
+<tr><td>64</td><td>01.4.16.09.14.000064</td><td>AL-HIDAYAH</td><td>Jawa Timur</td><td>Kab. Jember</td><td>Panti</td><td>Masjid Jami</td><td>Tajek Pakis</td><td>Wakaf</td><td>12000</td><td>600</td><td>1998</td><td>300</td><td>-</td><td></td></tr>
+<tr><td>65</td><td>01.4.16.09.14.000065</td><td>DARUS SALAM</td><td>Jawa Timur</td><td>Kab. Jember</td><td>Panti</td><td>Masjid Jami</td><td>Tajek Pakis</td><td>Wakaf</td><td>800</td><td>120</td><td>1990</td><td>300</td><td>81644735565</td><td></td></tr>
+<tr><td>66</td><td>01.4.16.09.14.000067</td><td>AL-BAROKAH</td><td>Jawa Timur</td><td>Kab. Jember</td><td>Panti</td><td>Masjid Jami</td><td>Kemuningsari lor RT.001 RW.006</td><td>Wakaf</td><td>360</td><td>144</td><td>1990</td><td>200</td><td>85257152524</td><td></td></tr>
+<tr><td>67</td><td>01.4.16.09.14.000068</td><td>AL-KAWTSAR</td><td>Jawa Timur</td><td>Kab. Jember</td><td>Panti</td><td>Masjid Jami</td><td>Dusun Sumbersari RT. 001 RW. 008 Desa Kemuningsarilor</td><td>Wakaf</td><td>1552</td><td>420</td><td>1950</td><td>250</td><td>85330221998</td><td></td></tr>
+<tr><td>68</td><td>01.4.16.09.14.000069</td><td>AL-HIDAYAH</td><td>Jawa Timur</td><td>Kab. Jember</td><td>Panti</td><td>Masjid Jami</td><td>Karangasem Barat Glagahwero</td><td>Wakaf</td><td>198</td><td>180</td><td>1980</td><td>250</td><td>-</td><td></td></tr>
+<tr><td>69</td><td>01.4.16.09.14.000070</td><td>NURUS SAJA&#x27;AH</td><td>Jawa Timur</td><td>Kab. Jember</td><td>Panti</td><td>Masjid Jami</td><td>Dusun Krajan Glagahwero</td><td>Wakaf</td><td>225</td><td>144</td><td>1959</td><td>100</td><td>-</td><td></td></tr>
+<tr><td>70</td><td>01.4.16.09.14.000072</td><td>AL-BAROKAH</td><td>Jawa Timur</td><td>Kab. Jember</td><td>Panti</td><td>Masjid Jami</td><td>Dusun Karangasem Timur RT. 002 RW. 006 Desa Glagahwero</td><td>Wakaf</td><td>210</td><td>210</td><td>2000</td><td>150</td><td>82244179572</td><td></td></tr>
+<tr><td>71</td><td>01.4.16.09.14.000109</td><td>AT-TAQWA</td><td>Jawa Timur</td><td>Kab. Jember</td><td>Panti</td><td>Masjid Jami</td><td>Dusun Karangasem Tengah Glagahwero</td><td>Wakaf</td><td>210</td><td>144</td><td>1952</td><td>200</td><td>-</td><td></td></tr>
+<tr><td>72</td><td>01.4.16.09.14.000073</td><td>AL-MUJEHIDIN</td><td>Jawa Timur</td><td>Kab. Jember</td><td>Panti</td><td>Masjid Jami</td><td>Sumber Duren Glagahwero</td><td>Wakaf</td><td>1200</td><td>156</td><td>1956</td><td>200</td><td>-</td><td></td></tr>
+<tr><td>73</td><td>01.4.16.09.14.000074</td><td>BAITUR ROHMAN</td><td>Jawa Timur</td><td>Kab. Jember</td><td>Panti</td><td>Masjid Jami</td><td>Dusun Plalangan Glagahwero</td><td>Wakaf</td><td>306</td><td>156</td><td>1951</td><td>200</td><td>-</td><td></td></tr>
+<tr><td>74</td><td>01.4.16.09.14.000075</td><td>AT-TAQWA</td><td>Jawa Timur</td><td>Kab. Jember</td><td>Panti</td><td>Masjid Jami</td><td>Dusun Krajan Glagahwero</td><td>Wakaf</td><td>200</td><td>144</td><td>1980</td><td>120</td><td>-</td><td></td></tr>
+<tr><td>75</td><td>01.4.16.09.14.000076</td><td>AR-RAYYAN</td><td>Jawa Timur</td><td>Kab. Jember</td><td>Panti</td><td>Masjid Jami</td><td>Dusun Delima RT. 004 RW. 003 Desa Kemiri</td><td>Wakaf</td><td>1100</td><td>256</td><td>2019</td><td>150</td><td>85230232999</td><td>benyazhary42@gmail.com</td></tr>
+<tr><td>76</td><td>01.4.16.09.14.000077</td><td>AL-TAUBAH</td><td>Jawa Timur</td><td>Kab. Jember</td><td>Panti</td><td>Masjid Jami</td><td>Kemiri Krajan</td><td>Wakaf</td><td>144</td><td>144</td><td>1959</td><td>85</td><td></td><td></td></tr>
+<tr><td>77</td><td>01.4.16.09.14.000078</td><td>AL-FALAH</td><td>Jawa Timur</td><td>Kab. Jember</td><td>Panti</td><td>Masjid Jami</td><td>Kemiri Dusun Perkebunan PDP Gentong I</td><td>SHM</td><td>150</td><td>150</td><td>1996</td><td>70</td><td></td><td></td></tr>
+<tr><td>78</td><td>01.4.16.09.14.000079</td><td>SIRAJUL MUKHLISIN</td><td>Jawa Timur</td><td>Kab. Jember</td><td>Panti</td><td>Masjid Jami</td><td>Dusun Tenggiling RT. 003 RW. 010 Desa Kemiri</td><td>Wakaf</td><td>437</td><td>196</td><td>2006</td><td>400</td><td>81541358206</td><td></td></tr>
+<tr><td>79</td><td>01.4.16.09.14.000080</td><td>AL-MUTTAQIEN</td><td>Jawa Timur</td><td>Kab. Jember</td><td>Panti</td><td>Masjid Jami</td><td>Dusun Tenggiling RT 001 RW 010 Desa Kemiri</td><td>Wakaf</td><td>1100</td><td>300</td><td>1948</td><td>350</td><td>85746472666</td><td></td></tr>
+<tr><td>80</td><td>01.4.16.09.14.000081</td><td>AL-AMIN</td><td>Jawa Timur</td><td>Kab. Jember</td><td>Panti</td><td>Masjid Jami</td><td>Kemiri Dusun Tenggiling</td><td>SHM</td><td>75</td><td>182</td><td>1990</td><td>75</td><td></td><td></td></tr>
+<tr><td>81</td><td>01.4.16.09.14.000082</td><td>BAITUR ROHMAN</td><td>Jawa Timur</td><td>Kab. Jember</td><td>Panti</td><td>Masjid Jami</td><td>Kemiri Perkebunan PDP II</td><td>SHM</td><td>150</td><td>150</td><td>1980</td><td>60</td><td></td><td></td></tr>
+<tr><td>82</td><td>01.4.16.09.14.000083</td><td>AL-HIKMAH</td><td>Jawa Timur</td><td>Kab. Jember</td><td>Panti</td><td>Masjid Jami</td><td>Kemiri Sodong Utara</td><td>Wakaf</td><td>150</td><td>150</td><td>1965</td><td>75</td><td></td><td></td></tr>
+<tr><td>83</td><td>01.4.16.09.14.000084</td><td>MIFTAHUL ULUM</td><td>Jawa Timur</td><td>Kab. Jember</td><td>Panti</td><td>Masjid Jami</td><td>Kemiri Sodong Selatan</td><td>Wakaf</td><td>105</td><td>105</td><td>1960</td><td>90</td><td></td><td></td></tr>
+<tr><td>84</td><td>01.4.16.09.14.000085</td><td>AL-KAROMAH</td><td>Jawa Timur</td><td>Kab. Jember</td><td>Panti</td><td>Masjid Jami</td><td>Kemiri Perkebunan Manggis</td><td>SHM</td><td>130</td><td>130</td><td>1990</td><td>70</td><td></td><td></td></tr>
+<tr><td>85</td><td>01.4.16.09.14.000086</td><td>BAITUR ROHIM</td><td>Jawa Timur</td><td>Kab. Jember</td><td>Panti</td><td>Masjid Jami</td><td>Kemiri Krajan II</td><td>Wakaf</td><td>63</td><td>45</td><td>1987</td><td>70</td><td></td><td></td></tr>
+<tr><td>86</td><td>01.4.16.09.14.000087</td><td>NURUS SHOLIHIN</td><td>Jawa Timur</td><td>Kab. Jember</td><td>Panti</td><td>Masjid Jami</td><td>Danci Kemiri</td><td>Wakaf</td><td>105</td><td>105</td><td>2013</td><td>75</td><td></td><td></td></tr>
+<tr><td>87</td><td>01.4.16.09.14.000088</td><td>BAITUR ROHMAN</td><td>Jawa Timur</td><td>Kab. Jember</td><td>Panti</td><td>Masjid Jami</td><td>Dusun Danci RT 001 RW 013 Desa Kemiri</td><td>Wakaf</td><td>80</td><td>80</td><td>1962</td><td>80</td><td>85211203223</td><td></td></tr>
+<tr><td>88</td><td>01.4.16.09.14.000089</td><td>AL-MUTTAQIN</td><td>Jawa Timur</td><td>Kab. Jember</td><td>Panti</td><td>Masjid Jami</td><td>Kantong Kemiri</td><td>Wakaf</td><td>256</td><td>256</td><td>1995</td><td>100</td><td>8568215850</td><td></td></tr>
+<tr><td>89</td><td>01.4.16.09.14.000090</td><td>BAITUL ALAMIN</td><td>Jawa Timur</td><td>Kab. Jember</td><td>Panti</td><td>Masjid Jami</td><td>Kemiri Danci</td><td>Wakaf</td><td>130</td><td>130</td><td>2006</td><td>75</td><td></td><td></td></tr>
+<tr><td>90</td><td>01.4.16.09.14.000095</td><td>NURUL HUDA</td><td>Jawa Timur</td><td>Kab. Jember</td><td>Panti</td><td>Masjid Jami</td><td>Dusun Darungan RT.001 RW.010 Desa Panti</td><td>Wakaf</td><td>293</td><td>150</td><td>1972</td><td>0</td><td>81358894849</td><td></td></tr>
+<tr><td>91</td><td>01.4.16.09.14.000096</td><td>AL-HIDAYAH</td><td>Jawa Timur</td><td>Kab. Jember</td><td>Panti</td><td>Masjid Jami</td><td>Jalan WR.Supratman Dusun Karangasem RT.001 RW.004 Glagahwero</td><td>Wakaf</td><td>198</td><td>198</td><td>1989</td><td>0</td><td>82330102609</td><td></td></tr>
+<tr><td>92</td><td>01.4.16.09.14.000097</td><td>NAHDLATUL ARIFIN</td><td>Jawa Timur</td><td>Kab. Jember</td><td>Panti</td><td>Masjid Jami</td><td>Jalan Syekh.HM.Noer RaKemuning Lor RT.006 RW.001 Kemuningsari Lor</td><td>Wakaf</td><td>7892</td><td>400</td><td>1918</td><td>0</td><td>82332209174</td><td></td></tr>
+<tr><td>93</td><td>01.4.16.09.14.000098</td><td>BAITUL MUTTAQOIN</td><td>Jawa Timur</td><td>Kab. Jember</td><td>Panti</td><td>Masjid Jami</td><td>Jalan Hasanudin Dusun Krajan Selatan Panti</td><td>Wakaf</td><td>285</td><td>221</td><td>1950</td><td>0</td><td>8511757255</td><td></td></tr>
+<tr><td>94</td><td>01.4.16.09.14.000099</td><td>BAITUL MUTTAQIN</td><td>Jawa Timur</td><td>Kab. Jember</td><td>Panti</td><td>Masjid Jami</td><td>Jalan Hasanudin Dusun Krajan Selatan Tamengan RT 002 RW 001 Desa Panti r</td><td>Wakaf</td><td>285</td><td>260</td><td>1954</td><td>200</td><td>85646692575</td><td></td></tr>
+<tr><td>95</td><td>01.4.16.09.14.000100</td><td>BAITUL GHUFRON</td><td>Jawa Timur</td><td>Kab. Jember</td><td>Panti</td><td>Masjid Jami</td><td>Jalan Argopuro No. 1 Dusun Krajan RT 002 RW 001 Desa Kemuningsari Lor</td><td>Wakaf</td><td>640</td><td>540</td><td>1983</td><td>600</td><td>82338714095</td><td></td></tr>
+<tr><td>96</td><td>01.4.16.09.14.000101</td><td>BAHRUL HASAN</td><td>Jawa Timur</td><td>Kab. Jember</td><td>Panti</td><td>Masjid Jami</td><td>Jalan Ahmad Yani No 15 Dsn. Gaplek Desa Suci</td><td>Wakaf</td><td>680</td><td>270</td><td>1989</td><td>0</td><td>0</td><td></td></tr>
+<tr><td>97</td><td>01.4.16.09.14.000102</td><td>AL IKHLAS</td><td>Jawa Timur</td><td>Kab. Jember</td><td>Panti</td><td>Masjid Jami</td><td>Dusun Prapah RT. 002 RW. 018 Desa Panti</td><td>Wakaf</td><td>500</td><td>400</td><td>1978</td><td>400</td><td>82319353574</td><td></td></tr>
+<tr><td>98</td><td>01.4.16.09.14.000103</td><td>NURUL HIDAYAH</td><td>Jawa Timur</td><td>Kab. Jember</td><td>Panti</td><td>Masjid Jami</td><td>Dusun Gaplek Kongsi Tengah Desa Suci</td><td>Girik</td><td>1600</td><td>90</td><td>1985</td><td>150</td><td>88989247101</td><td></td></tr>
+<tr><td>99</td><td>01.4.16.09.14.000104</td><td>AL-MUHAJIRIN</td><td>Jawa Timur</td><td>Kab. Jember</td><td>Panti</td><td>Masjid Jami</td><td>Dusun Krajan RT. 007 RW. 002 Desa Kemuningsarilor</td><td>Wakaf</td><td>767</td><td>512</td><td>2015</td><td>250</td><td>81234589844</td><td></td></tr>
+<tr><td>100</td><td>01.4.16.09.14.000105</td><td>AL-BAROKAH</td><td>Jawa Timur</td><td>Kab. Jember</td><td>Panti</td><td>Masjid Jami</td><td>Jalan Metro No. 99 Dusun Sumbersari RT. 001 RW. 006 Desa Kemuningsari Lor</td><td>Wakaf</td><td>277.5</td><td>262.5</td><td>1980</td><td>250</td><td>82245616611</td><td></td></tr>
+<tr><td>101</td><td>01.4.16.09.14.000106</td><td>BAITUR ROHMAN</td><td>Jawa Timur</td><td>Kab. Jember</td><td>Panti</td><td>Masjid Jami</td><td>Dusun Karanganom RT. 004 RW. 010 Desa Serut</td><td>Wakaf</td><td>775</td><td>340</td><td>1981</td><td>500</td><td>85233054700</td><td>ariefinpanti@gmail.com</td></tr>
+<tr><td>102</td><td>01.4.16.09.14.000107</td><td>NURUL YAQIN</td><td>Jawa Timur</td><td>Kab. Jember</td><td>Panti</td><td>Masjid Jami</td><td>Dusun Gaplek RT. 001 RW. 012 Desa Suci</td><td>Wakaf</td><td>290</td><td>200</td><td>1965</td><td>300</td><td>85607788551</td><td></td></tr>
+<tr><td>103</td><td>01.4.16.09.14.000111</td><td>MIFTAHUL JANNAH</td><td>Jawa Timur</td><td>Kab. Jember</td><td>Panti</td><td>Masjid Jami</td><td>Dusun Badean Wetan RT. 005 RW. 010 Desa Serut</td><td>Wakaf</td><td>375</td><td>289</td><td>1997</td><td>250</td><td>85336082816</td><td></td></tr>
+<tr><td>104</td><td>01.4.16.09.14.000112</td><td>NURUS SAFA&#x27;AH</td><td>Jawa Timur</td><td>Kab. Jember</td><td>Panti</td><td>Masjid Jami</td><td>Dusun Krajan RT. 003 RW. 001 Desa Glagahwero</td><td>Wakaf</td><td>280</td><td>280</td><td>1992</td><td>200</td><td>85790487270</td><td></td></tr>
+<tr><td>105</td><td>01.4.16.09.14.000113</td><td>DARUN NAJAH</td><td>Jawa Timur</td><td>Kab. Jember</td><td>Panti</td><td>Masjid Jami</td><td>Dusun Badean Kulon RT. 003 RW. 015 Desa Serut</td><td>Wakaf</td><td>262</td><td>262</td><td>1991</td><td>250</td><td>85334471399</td><td></td></tr>
+<tr><td>106</td><td>01.6.16.09.14.000114</td><td>AS-SHIDDIQY</td><td>Jawa Timur</td><td>Kab. Jember</td><td>Panti</td><td>Masjid di Tempat Publik</td><td>Dusun Pertelon RT. 007 RW. 002 Desa Pakis</td><td>Wakaf</td><td>735</td><td>60</td><td>1988</td><td>70</td><td>81331928685</td><td>musholaasshiddiqy@gmail.com</td></tr>
+<tr><td>107</td><td>01.4.16.09.14.000116</td><td>AL-MUKHLISIN</td><td>Jawa Timur</td><td>Kab. Jember</td><td>Panti</td><td>Masjid Jami</td><td>Dusun Wonolangu RT. 001 RW. 021 Desa Panti</td><td>Wakaf</td><td>279</td><td>279</td><td>1991</td><td>300</td><td>85336231798</td><td>almukhlisinmosque@gmail.com</td></tr>
+<tr><td>108</td><td>01.4.16.09.14.000117</td><td>NURUS SHOIMIN</td><td>Jawa Timur</td><td>Kab. Jember</td><td>Panti</td><td>Masjid Jami</td><td>Dusun Gebang Langkap Desa Panti</td><td>Wakaf</td><td>333</td><td>300</td><td>2012</td><td>300</td><td>81249304931</td><td></td></tr></tbody>
+      </table>
+    </div>
+    <div class="row-count" id="cntMasjid">Menampilkan 108 dari 108 data</div>
+  </div>
+</div>
+
+<!-- ===== MUSHALLA ===== -->
+<div id="page-mushalla" class="page">
+  <div class="card">
+    <h2>🕍 Data Mushalla <span class="badge">396 Mushalla</span></h2>
+    <div class="search-wrap">
+      <span class="icon">🔍</span>
+      <input id="cariMushalla" placeholder="Cari nama mushalla, alamat, tipologi..." oninput="filterTable('cariMushalla','tblMushalla','cntMushalla')">
+    </div>
+    <div class="tbl-wrap">
+      <table id="tblMushalla">
+        <thead><tr>
+  <th>No</th><th>ID</th><th>Nama</th><th>Provinsi</th><th>Kabupaten</th>
+  <th>Kecamatan</th><th>Tipologi</th><th>Alamat</th><th>Status Tanah</th>
+  <th>Luas Tanah</th><th>Luas Bangunan</th><th>Tahun Berdiri</th>
+  <th>Jumlah SDM</th><th>No. Telp/HP</th><th>Email</th>
+</tr></thead>
+        <tbody><tr><td>1</td><td>02.4.16.09.14.000454</td><td>AS-SARIBAN</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Jalan Metro No. 99 Dusun Sumbersari RT.001 RW.006 Desa Kemuningsari Lor</td><td>Wakaf</td><td>135</td><td>20</td><td>2019</td><td>35</td><td>85800000000</td><td></td></tr>
+<tr><td>2</td><td>02.4.16.09.14.000455</td><td>AL-MU&#x27;IEN</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Dusun Plalangan Desa Glagahwero</td><td>Wakaf</td><td>86</td><td>80</td><td>1976</td><td>150</td><td>85200000000</td><td></td></tr>
+<tr><td>3</td><td>02.4.16.09.14.000450</td><td>RAUDLATUL ULUM</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Jalan Ahmad Yani No.15 Dusun Gaplek Desa Suci</td><td>Wakaf</td><td>680</td><td>80</td><td>1981</td><td>80</td><td>0</td><td></td></tr>
+<tr><td>4</td><td>02.4.16.09.14.000449</td><td>ROUDLATUL ULUM</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Dusun Gaplek RT.001 RW.013 Suci Panti</td><td>Wakaf</td><td>230</td><td>100</td><td>1981</td><td>50</td><td>0</td><td></td></tr>
+<tr><td>5</td><td>02.4.16.09.14.000456</td><td>AL - IKHLAS</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Jalan Hasanudin Dusun Krajan Selatan RT 002 RW 001 Desa Panti</td><td>Wakaf</td><td>189 m2</td><td>100 m2</td><td>1997</td><td>50</td><td>85100000000</td><td>benyazhary42@gmail.com</td></tr>
+<tr><td>6</td><td>02.4.16.09.14.000022</td><td>AL-HAMIDI</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Jalan Pb. Sudirman RT.001 RW.001 Mencek Serut</td><td>Wakaf</td><td>120</td><td>80</td><td>1984</td><td>75</td><td>85100000000</td><td></td></tr>
+<tr><td>7</td><td>02.4.16.09.14.000250</td><td>AL-HIDAYAH 2</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Jalan A Yani RT.002 RW.004 Serut Krajan</td><td>Wakaf</td><td>50</td><td>30</td><td>1989</td><td>40</td><td>81200000000</td><td></td></tr>
+<tr><td>8</td><td>02.4.16.09.14.000457</td><td>AINUL YAQIN</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Jalan Beringin Kuning RT.006 RW.015 Badean</td><td>SHM</td><td>50</td><td>40</td><td>1988</td><td>75</td><td>85300000000</td><td></td></tr>
+<tr><td>9</td><td>02.4.16.09.14.000158</td><td>AL HIKMAH</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Dusun Prapah RT.002 RW.016 Desa Panti</td><td>SHM</td><td>149</td><td>45</td><td>1992</td><td>50</td><td>85100000000</td><td></td></tr>
+<tr><td>10</td><td>02.4.16.09.14.000447</td><td>AIDHA</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Dusun Gaplek RT 004 RW 011 Desa Suci</td><td>Wakaf</td><td>143</td><td>32</td><td>2020</td><td>30</td><td>085 749 793 344</td><td></td></tr>
+<tr><td>11</td><td>02.4.16.09.14.000459</td><td>NURUL HUDA</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>RT.003 RW.006 Desa Kemiri</td><td>Wakaf</td><td>250</td><td>40</td><td>1990</td><td>35</td><td>082 230 842 608</td><td></td></tr>
+<tr><td>12</td><td>02.4.16.09.14.000384</td><td>NURUL HIDAYAH</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Dusun Karangasem RT.003 RW.011 Glagahwero</td><td>Wakaf</td><td>65</td><td>52</td><td>1985</td><td>75</td><td>85900000000</td><td></td></tr>
+<tr><td>13</td><td>02.4.16.09.14.000460</td><td>AS- SALAM</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Dusun krajan RT.003 RW.005 Kemiri - Panti - Jember</td><td>SHM</td><td>25</td><td>20</td><td>1984</td><td>50</td><td>85200000000</td><td></td></tr>
+<tr><td>14</td><td>02.4.16.09.14.000443</td><td>BAITURROHMAN</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Dusun Plendo RT.004 RW.005 Desa Suci</td><td>SHM</td><td>70</td><td>60</td><td>1989</td><td>30</td><td>85600000000</td><td></td></tr>
+<tr><td>15</td><td>02.4.16.09.14.000442</td><td>SABILILLAH</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Dusun Plendo RT.004 RW.005 Desa Suci</td><td>SHM</td><td>70</td><td>60</td><td>1985</td><td>0</td><td>85700000000</td><td></td></tr>
+<tr><td>16</td><td>02.4.16.09.14.000288</td><td>AR-RIFA&#x27;I</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Dusun Plendo RT.005 RW.005 Desa Suci</td><td>SHM</td><td>100</td><td>90</td><td>1967</td><td>50</td><td>82300000000</td><td></td></tr>
+<tr><td>17</td><td>02.4.16.09.14.000418</td><td>LOWO IJO</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Jalan Syekh Moch.Noer Dusun Krajan Kemuningsari Lor Panti</td><td>SHM</td><td>441</td><td>50</td><td>2000</td><td>80</td><td>85100000000</td><td></td></tr>
+<tr><td>18</td><td>02.4.16.09.14.000440</td><td>RAUDHATUL MUTTAQIN</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Dusun Danci Desa Kemiri Kecamatan Panti</td><td>Wakaf</td><td>1000</td><td>56</td><td>1991</td><td>50</td><td>85800000000</td><td></td></tr>
+<tr><td>19</td><td>02.4.16.09.14.000439</td><td>RAUDLATUL ULUM</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Dusun Tenggiling Desa Kemiri Kec. Panti</td><td>SHM</td><td>200</td><td>16</td><td>2016</td><td>50</td><td>85200000000</td><td></td></tr>
+<tr><td>20</td><td>02.4.16.09.14.000437</td><td>Darul Hasan</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Dusun Karangasem Barat Desa Glagahwero RT.003 RW.004</td><td>SHM</td><td>150</td><td>70</td><td>2008</td><td>75</td><td>85300000000</td><td></td></tr>
+<tr><td>21</td><td>02.4.16.09.14.000433</td><td>AL-FAJAR</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Kemuningan Lor RT.005 RW.006</td><td>SHM</td><td>990</td><td>50</td><td>1980</td><td>60</td><td>85700000000</td><td></td></tr>
+<tr><td>22</td><td>02.4.16.09.14.000431</td><td>AMINAH</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Dusun Sumbersari Karangsari RT.005 RW.007</td><td>SHM</td><td>96</td><td>96</td><td>1984</td><td>15</td><td></td><td></td></tr>
+<tr><td>23</td><td>02.4.16.09.14.000430</td><td>SIROTUL MUSTAQIM</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Kemuningsari Lor RT.004 RW.007</td><td>SHM</td><td>80</td><td>80</td><td>1990</td><td>30</td><td>85800000000</td><td></td></tr>
+<tr><td>24</td><td>02.4.16.09.14.000429</td><td>NURUL IMAN</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Kemuningsari Lor RT.005 RW.006</td><td>SHM</td><td>132</td><td>132</td><td>1952</td><td>40</td><td></td><td></td></tr>
+<tr><td>25</td><td>02.4.16.09.14.000428</td><td>AN-NASIR</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Kemuningsari Lor RT.004 RW.005</td><td>SHM</td><td>63</td><td>63</td><td>1994</td><td>80</td><td></td><td></td></tr>
+<tr><td>26</td><td>02.4.16.09.14.000427</td><td>DARUS SALAM</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Kemuningsari Lor RT.005 RW.004</td><td>SHM</td><td>150</td><td>24</td><td>2000</td><td>25</td><td></td><td></td></tr>
+<tr><td>27</td><td>02.4.16.09.14.000426</td><td>NURUL HIDAYAH</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Kemuningsari Lor RT.004 RW.005</td><td>SHM</td><td>48</td><td>48</td><td>1996</td><td>100</td><td>85200000000</td><td></td></tr>
+<tr><td>28</td><td>02.4.16.09.14.000425</td><td>AL-IHLAS</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Kemuning Lor</td><td>SHM</td><td>84</td><td>32</td><td>2002</td><td>25</td><td>82200000000</td><td></td></tr>
+<tr><td>29</td><td>02.4.16.09.14.000424</td><td>NURUL HIDAYAH</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Krajan RT.001 RW.001 Kemuningsari Lor</td><td>SHM</td><td>45</td><td>45</td><td>2001</td><td>40</td><td>85330733</td><td></td></tr>
+<tr><td>30</td><td>02.4.16.09.14.000423</td><td>NURUL HIDAYAH</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>RT.001 RW.001</td><td>SHM</td><td>36</td><td>36</td><td>1979</td><td>50</td><td></td><td></td></tr>
+<tr><td>31</td><td>02.4.16.09.14.000421</td><td>NURUL JADID</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>RT.003 RW.005</td><td>Wakaf</td><td>40</td><td>126</td><td>1984</td><td>70</td><td>81200000000</td><td></td></tr>
+<tr><td>32</td><td>02.4.16.09.14.000420</td><td>AL-HIKMAH</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Kemuningsari Lor RT.006 RW.001</td><td>SHM</td><td>100</td><td>56</td><td>1972</td><td>30</td><td>85700000000</td><td></td></tr>
+<tr><td>33</td><td>02.4.16.09.14.000419</td><td>AL-IQOMAH</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Kemuning Krajan RT.005 RW.002</td><td>SHM</td><td>30</td><td>30</td><td>1986</td><td>67</td><td>85300000000</td><td></td></tr>
+<tr><td>34</td><td>02.4.16.09.14.000417</td><td>AL-IZZA</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Kemuningsari Lor RT.003 RW.002</td><td>SHM</td><td>200</td><td>150</td><td>1970</td><td>30</td><td></td><td></td></tr>
+<tr><td>35</td><td>02.4.16.09.14.000416</td><td>NURUL SYAFIAH</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Kemuningsari</td><td>SHM</td><td>228</td><td>63</td><td>1979</td><td>27</td><td>82300000000</td><td></td></tr>
+<tr><td>36</td><td>02.4.16.09.14.000415</td><td>BAITUR ROHMAN</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Kemuningsari Lor RT.004 RW.007</td><td>SHM</td><td>60</td><td>60</td><td>1995</td><td>80</td><td>85700000000</td><td></td></tr>
+<tr><td>37</td><td>02.4.16.09.14.000462</td><td>Syafi&amp;#39;iyyah Suja&amp;#39;iyah</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Dusun Mencek barat Desa Serut (Barat Lap. Sidomulyo)</td><td>SHM</td><td>70</td><td>24</td><td>2003</td><td>40</td><td>085336225552 / 082314841231</td><td></td></tr>
+<tr><td>38</td><td>02.4.16.09.14.000453</td><td>THORIQUL JANNAH</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Dusun Badean RT. 003 RW. 018 Desa Serut</td><td>Wakaf</td><td>200</td><td>84</td><td>1982</td><td>0</td><td>81200000000</td><td></td></tr>
+<tr><td>39</td><td>02.4.16.09.14.000402</td><td>BANI SHOLEH</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Kemuningsari Lor RT.003 RW.004</td><td>SHM</td><td>135</td><td>63</td><td>1989</td><td>50</td><td>85300000000</td><td></td></tr>
+<tr><td>40</td><td>02.4.16.09.14.000005</td><td>Baitul Asyifak</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Jalan. Mahakam Utara RT.006 RW.010 Karang Anom Serut</td><td>SHM</td><td>63</td><td>10</td><td>1945</td><td>40</td><td>85700000000</td><td></td></tr>
+<tr><td>41</td><td>02.4.16.09.14.000004</td><td>Al-Hikmah</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>RT.001 RW.001 Karangsawo, Serut</td><td>SHM</td><td>70</td><td>54</td><td>1945</td><td>30</td><td>81300000000</td><td></td></tr>
+<tr><td>42</td><td>02.4.16.09.14.000398</td><td>AL-HUSEN</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Kemuningsari Lor RT.002 RW.002</td><td>SHM</td><td>200</td><td>180</td><td>1940</td><td>50</td><td></td><td></td></tr>
+<tr><td>43</td><td>02.4.16.09.14.000397</td><td>MAN HALIL</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Kemuningsari Lor RT.001 RW.008</td><td>Wakaf</td><td>54</td><td>54</td><td>1985</td><td>20</td><td></td><td></td></tr>
+<tr><td>44</td><td>02.4.16.09.14.000396</td><td>MIFTAHUL ULUM</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Kemuningsari Lor RT.003 RW.002</td><td>SHM</td><td>250</td><td>42</td><td>2005</td><td>150</td><td>85300000000</td><td></td></tr>
+<tr><td>45</td><td>02.4.16.09.14.000395</td><td>NURUS SALAM</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Kemuning Lor RT.001 RW.006</td><td>SHM</td><td>48</td><td>48</td><td>2010</td><td>42</td><td>81300000000</td><td></td></tr>
+<tr><td>46</td><td>02.4.16.09.14.000461</td><td>Darus Sholah</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Jalan PB. Sudirman RT.001 RW.001</td><td>SHM</td><td>2320</td><td>144</td><td>2002</td><td>300</td><td>81400000000</td><td></td></tr>
+<tr><td>47</td><td>02.4.16.09.14.000412</td><td>AL-IKOMAH</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Kemuningsari Lor RT.002 RW.001</td><td>SHM</td><td>72</td><td>72</td><td>2005</td><td>55</td><td></td><td></td></tr>
+<tr><td>48</td><td>02.4.16.09.14.000409</td><td>AR-ROHIM</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Kemuningsari Lor RT.004 RW.008</td><td>Wakaf</td><td>54</td><td>54</td><td>1995</td><td>64</td><td></td><td></td></tr>
+<tr><td>49</td><td>02.4.16.09.14.000408</td><td>SIROUL ULUM</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Krajan Curah Kates RT.002 RW.005</td><td>SHM</td><td>150</td><td>72</td><td>1930</td><td>100</td><td>85100000000</td><td></td></tr>
+<tr><td>50</td><td>02.4.16.09.14.000407</td><td>BAITUS SALAM</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Krajan Curah Kates RT.001 RW.003</td><td>SHM</td><td>200</td><td>35</td><td>1982</td><td>80</td><td>85100000000</td><td></td></tr>
+<tr><td>51</td><td>02.4.16.09.14.000406</td><td>HJ ABDUL MUTHOLIB</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Curah Kates Krajan Panti RT.003 RW.003</td><td>SHM</td><td>180</td><td>35</td><td>2000</td><td>25</td><td>8780000000</td><td></td></tr>
+<tr><td>52</td><td>02.4.16.09.14.000405</td><td>BANI DARMO</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Kemuningsari Lor RT.005 RW.005</td><td>SHM</td><td>128</td><td>84</td><td>1997</td><td>50</td><td>8120000000</td><td></td></tr>
+<tr><td>53</td><td>02.4.16.09.14.000404</td><td>NURUS SALAM</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Kemuningsari Lor RT.005 RW.001</td><td>SHM</td><td>78</td><td>78</td><td>1985</td><td>60</td><td></td><td></td></tr>
+<tr><td>54</td><td>02.4.16.09.14.000403</td><td>ABDUL KHOLIK</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Kemuningsari Lor RT.006 RW.002</td><td>SHM</td><td>20</td><td>20</td><td>2013</td><td>27</td><td></td><td></td></tr>
+<tr><td>55</td><td>02.4.16.09.14.000414</td><td>AL-HIKAM</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Krajan RT.004 RW.001 Kemuninglor</td><td>SHM</td><td>450</td><td>200</td><td>1957</td><td>80</td><td>81200000000</td><td></td></tr>
+<tr><td>56</td><td>02.4.16.09.14.000413</td><td>AL-BAROKAH</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Kemuningsari Lor RT.003 RW.001</td><td>SHM</td><td>55</td><td>55</td><td>1970</td><td>60</td><td></td><td></td></tr>
+<tr><td>57</td><td>02.4.16.09.14.000401</td><td>BURA</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Kemuningsari Lor RT.007 RW.005</td><td>SHM</td><td>24</td><td>24</td><td>2000</td><td>40</td><td></td><td></td></tr>
+<tr><td>58</td><td>02.4.16.09.14.000400</td><td>SAFA&amp;#39;AT</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Dusun Kemuningsari Lor</td><td>SHM</td><td>63</td><td>63</td><td>1990</td><td>50</td><td></td><td></td></tr>
+<tr><td>59</td><td>02.4.16.09.14.000399</td><td>NURUL ARIFIN</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Kemuningsari RT.002 RW.004</td><td>SHM</td><td>200</td><td>56</td><td>1986</td><td>45</td><td></td><td></td></tr>
+<tr><td>60</td><td>02.4.16.09.14.000394</td><td>MADINATUL MUNAWAROH</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Kemuningsari Lor RT.001 RW.007</td><td>SHM</td><td>60</td><td>60</td><td>1977</td><td>30</td><td>81600000000</td><td></td></tr>
+<tr><td>61</td><td>02.4.16.09.14.000393</td><td>HIDAYAH</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Kemuningsari Lor RT.004 RW.006</td><td>Wakaf</td><td>32</td><td>32</td><td>2000</td><td>15</td><td>81600000000</td><td></td></tr>
+<tr><td>62</td><td>02.4.16.09.14.000392</td><td>NURUL QUR&amp;#39;AN</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Kemuningsari Lor RT.002 RW.005</td><td>Wakaf</td><td>60</td><td>60</td><td>1989</td><td>25</td><td>81300000000</td><td></td></tr>
+<tr><td>63</td><td>02.4.16.09.14.000391</td><td>P.MUSEILAMI</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Kemuningsari Lor</td><td>SHM</td><td>100</td><td>100</td><td>1958</td><td>40</td><td></td><td></td></tr>
+<tr><td>64</td><td>02.4.16.09.14.000390</td><td>AL-HIKMAH</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Kemuningsari Lor RT.007 RW.002</td><td>SHM</td><td>20</td><td>20</td><td>1976</td><td>20</td><td>85300000000</td><td></td></tr>
+<tr><td>65</td><td>02.4.16.09.14.000389</td><td>MAMBA&amp;#39;UL HUSNA</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Sumbersari Kemuning Lor RT.001 RW.008</td><td>SHM</td><td>144</td><td>12</td><td>2002</td><td>115</td><td>85700000000</td><td></td></tr>
+<tr><td>66</td><td>02.4.16.09.14.000388</td><td>AS-SYAYYIDAH</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Sumbersari Kemuning Lor RT.003 RW.008</td><td>SHM</td><td>28</td><td>28</td><td>1984</td><td>20</td><td>85600000000</td><td></td></tr>
+<tr><td>67</td><td>02.4.16.09.14.000387</td><td>AL-HAFIDZ</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Kemuningsari Lor RT.002 RW.007</td><td>SHM</td><td>32</td><td>32</td><td>2004</td><td>15</td><td>81200000000</td><td></td></tr>
+<tr><td>68</td><td>02.4.16.09.14.000386</td><td>P.IKSAN</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Krajan Glgagahwero</td><td>SHM</td><td>50</td><td>40</td><td>1997</td><td>50</td><td></td><td></td></tr>
+<tr><td>69</td><td>02.4.16.09.14.000385</td><td>P.UMRA&amp;#39;I</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Karang Asem Tengah Glagahworo</td><td>SHM</td><td>60</td><td>50</td><td>1948</td><td>60</td><td></td><td></td></tr>
+<tr><td>70</td><td>02.4.16.09.14.000383</td><td>AN-NASHIHIN</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Karang Asem Tengah Glagahwero</td><td>SHM</td><td>65</td><td>60</td><td>1928</td><td>75</td><td></td><td></td></tr>
+<tr><td>71</td><td>02.4.16.09.14.000381</td><td>P.TIMA</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Plalangan Glagahwero</td><td>SHM</td><td>240</td><td>72</td><td>1969</td><td>35</td><td></td><td></td></tr>
+<tr><td>72</td><td>02.4.16.09.14.000380</td><td>P.THOLI</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Karang Asem Tengah Glagahwero</td><td>SHM</td><td>50</td><td>42</td><td>1972</td><td>50</td><td></td><td></td></tr>
+<tr><td>73</td><td>02.4.16.09.14.000379</td><td>NURUL FATAH</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Dusun Plalangan Glgahwero</td><td>SHM</td><td>182</td><td>42</td><td>1973</td><td>50</td><td></td><td></td></tr>
+<tr><td>74</td><td>02.4.16.09.14.000378</td><td>FATHUL MU&amp;#39;IN</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Dusun Plalangan Glgagahwero</td><td>SHM</td><td>180</td><td>144</td><td>1960</td><td>56</td><td></td><td></td></tr>
+<tr><td>75</td><td>02.4.16.09.14.000377</td><td>P.WARO</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Dusun Plalangan Glgagahwero</td><td>SHM</td><td>180</td><td>72</td><td>1986</td><td>50</td><td></td><td></td></tr>
+<tr><td>76</td><td>02.4.16.09.14.000375</td><td>AR-RIFA&amp;#39;I</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Dusun Plalangan Desa Glagahwero</td><td>SHM</td><td>80</td><td>35</td><td>1999</td><td>25</td><td></td><td></td></tr>
+<tr><td>77</td><td>02.4.16.09.14.000373</td><td>P.DAYAT</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Karang Asem Timur Glgagahwero</td><td>SHM</td><td>40</td><td>35</td><td>1997</td><td>35</td><td></td><td></td></tr>
+<tr><td>78</td><td>02.4.16.09.14.000372</td><td>P.TAHER</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Karang Asem Timur Glgagahwero</td><td>SHM</td><td>38</td><td>29</td><td>1958</td><td>25</td><td></td><td></td></tr>
+<tr><td>79</td><td>02.4.16.09.14.000371</td><td>AS-SHOBIRN</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Karang Asem Timur Glgagahwero</td><td>SHM</td><td>240</td><td>80</td><td>1989</td><td>50</td><td></td><td></td></tr>
+<tr><td>80</td><td>02.4.16.09.14.000370</td><td>P.SUMUNA</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Karang Asem Timur Glgagahwero</td><td>SHM</td><td>120</td><td>72</td><td>1960</td><td>30</td><td></td><td></td></tr>
+<tr><td>81</td><td>02.4.16.09.14.000369</td><td>AD-DHUHA</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Karang Asem Timur Glgagahwero</td><td>SHM</td><td>180</td><td>42</td><td>1987</td><td>30</td><td></td><td></td></tr>
+<tr><td>82</td><td>02.4.16.09.14.000368</td><td>P.JOHAR</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Karang Asem Timur Glgagahwero</td><td>SHM</td><td>120</td><td>60</td><td>1983</td><td>50</td><td></td><td></td></tr>
+<tr><td>83</td><td>02.4.16.09.14.000367</td><td>NURUL BAJURI</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Karang Asem Timur Glgagahwero</td><td>SHM</td><td>50</td><td>40</td><td>1998</td><td>50</td><td></td><td></td></tr>
+<tr><td>84</td><td>02.4.16.09.14.000366</td><td>AL-MUNIR</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Krajan Glgagahwero</td><td>SHM</td><td>30</td><td>24</td><td>1992</td><td>60</td><td>8120000000</td><td></td></tr>
+<tr><td>85</td><td>02.4.16.09.14.000365</td><td>AL-KHORIYAH</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Krajan Glgagahwero</td><td>SHM</td><td>50</td><td>40</td><td>1996</td><td>53</td><td></td><td></td></tr>
+<tr><td>86</td><td>02.4.16.09.14.000364</td><td>AT-TAQWA</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Krajan Glgagahwero</td><td>SHM</td><td>32</td><td>26</td><td>1979</td><td>60</td><td></td><td></td></tr>
+<tr><td>87</td><td>02.4.16.09.14.000363</td><td>AN-NAWAWI</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Karang Asem Barat Glgahwero</td><td>SHM</td><td>60</td><td>50</td><td>1978</td><td>50</td><td></td><td></td></tr>
+<tr><td>88</td><td>02.4.16.09.14.000362</td><td>AL-IMRON</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Karang Asem Barat Glgahwero</td><td>SHM</td><td>16</td><td>12</td><td>2003</td><td>20</td><td></td><td></td></tr>
+<tr><td>89</td><td>02.4.16.09.14.000361</td><td>AS-SHOHIN</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Karang Asem Barat Glgahwero</td><td>SHM</td><td>20</td><td>16</td><td>1980</td><td>20</td><td></td><td></td></tr>
+<tr><td>90</td><td>02.4.16.09.14.000360</td><td>AL-BAROKAH</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Karang Asem Barat Glgahwero</td><td>SHM</td><td>35</td><td>25</td><td>2008</td><td>75</td><td></td><td></td></tr>
+<tr><td>91</td><td>02.4.16.09.14.000359</td><td>AT-TAQWA</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Karang Asem Barat Glgahwero</td><td>SHM</td><td>50</td><td>42</td><td>1982</td><td>100</td><td>85100000000</td><td></td></tr>
+<tr><td>92</td><td>02.4.16.09.14.000358</td><td>AL-BUSRO</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Karang Barat Glgahwero</td><td>SHM</td><td>50</td><td>30</td><td>1990</td><td>75</td><td></td><td></td></tr>
+<tr><td>93</td><td>02.4.16.09.14.000357</td><td>AL-MUTAQINI</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Karang Asem Glgahwero</td><td>SHM</td><td>30</td><td>18</td><td>2001</td><td>50</td><td></td><td></td></tr>
+<tr><td>94</td><td>02.4.16.09.14.000356</td><td>AL-AHKLAS</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Sumberduren Glagahwero</td><td>SHM</td><td>120</td><td>42</td><td>2007</td><td>30</td><td></td><td></td></tr>
+<tr><td>95</td><td>02.4.16.09.14.000355</td><td>AL-AMIN</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Sumberduren Glagahwero</td><td>SHM</td><td>90</td><td>72</td><td>1985</td><td>35</td><td></td><td></td></tr>
+<tr><td>96</td><td>02.4.16.09.14.000354</td><td>AL-JUARI</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Dusun Sumberduren Glagahwero</td><td>SHM</td><td>90</td><td>56</td><td>1981</td><td>30</td><td></td><td></td></tr>
+<tr><td>97</td><td>02.4.16.09.14.000353</td><td>P.KARIM</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Dusun Sumberduren Glagahwero</td><td>SHM</td><td>270</td><td>120</td><td>1960</td><td>50</td><td></td><td></td></tr>
+<tr><td>98</td><td>02.4.16.09.14.000352</td><td>P.LIS</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Sumberduren Glagahwero</td><td>SHM</td><td>150</td><td>49</td><td>1960</td><td>30</td><td></td><td></td></tr>
+<tr><td>99</td><td>02.4.16.09.14.000351</td><td>AL-BAROKAH</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Sumberduren Glagahwero</td><td>SHM</td><td>300</td><td>80</td><td>1985</td><td>50</td><td></td><td></td></tr>
+<tr><td>100</td><td>02.4.16.09.14.000350</td><td>AL-HASAN</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Dusun Sumberduren Desa Glagahwero</td><td>SHM</td><td>300</td><td>80</td><td>1978</td><td>30</td><td></td><td></td></tr>
+<tr><td>101</td><td>02.4.16.09.14.000349</td><td>P.SUNLAH</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Desa Sumberduren Glagahwero</td><td>SHM</td><td>216</td><td>56</td><td>1998</td><td>30</td><td></td><td></td></tr>
+<tr><td>102</td><td>02.4.16.09.14.000348</td><td>P.SUGIONO</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Dusun Sumbersari Glagahwero</td><td>SHM</td><td>360</td><td>80</td><td>1970</td><td>50</td><td></td><td></td></tr>
+<tr><td>103</td><td>02.4.16.09.14.000347</td><td>AL-ALI</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Tajek Pakis</td><td>SHM</td><td>500</td><td>32</td><td>1970</td><td>50</td><td></td><td></td></tr>
+<tr><td>104</td><td>02.4.16.09.14.000463</td><td>NURUL IMAN</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Tajek Pakis</td><td>SHM</td><td>80</td><td>32</td><td>1978</td><td>50</td><td></td><td></td></tr>
+<tr><td>105</td><td>02.4.16.09.14.000345</td><td>AN-NABAWI</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Tajek Pakis</td><td>SHM</td><td>80</td><td>32</td><td>1976</td><td>50</td><td></td><td></td></tr>
+<tr><td>106</td><td>02.4.16.09.14.000344</td><td>AL-LAWI</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Sawah Kongsi Pakis</td><td>SHM</td><td>400</td><td>40</td><td>1970</td><td>50</td><td></td><td></td></tr>
+<tr><td>107</td><td>02.4.16.09.14.000331</td><td>AR-ROHMAN</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Pertelon Pakis</td><td>SHM</td><td>80</td><td>48</td><td>1970</td><td>30</td><td></td><td></td></tr>
+<tr><td>108</td><td>02.4.16.09.14.000341</td><td>AL-ASROP</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Cempaka Pakis</td><td>SHM</td><td>200</td><td>32</td><td>1978</td><td>50</td><td></td><td></td></tr>
+<tr><td>109</td><td>02.4.16.09.14.000471</td><td>AR-RAHMAT</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Sawah Kongsi Pakis</td><td>SHM</td><td>80</td><td>32</td><td>1975</td><td>50</td><td></td><td></td></tr>
+<tr><td>110</td><td>02.4.16.09.14.000342</td><td>ALLLAWI</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Cempaka Pakis</td><td>SHM</td><td>200</td><td>40</td><td>1980</td><td>50</td><td></td><td></td></tr>
+<tr><td>111</td><td>02.4.16.09.14.000340</td><td>AL-ASROB</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Cempaka Pakis</td><td>SHM</td><td>200</td><td>32</td><td>1978</td><td>50</td><td></td><td></td></tr>
+<tr><td>112</td><td>02.4.16.09.14.000339</td><td>NURUL MUSTOFA</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Pertelon Pakis</td><td>SHM</td><td>500</td><td>60</td><td>1967</td><td>100</td><td>85800000000</td><td></td></tr>
+<tr><td>113</td><td>02.4.16.09.14.000335</td><td>AS-SIDIQI</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Pertelon Pakis</td><td>SHM</td><td>2400</td><td>80</td><td>1968</td><td>100</td><td>857000000000</td><td></td></tr>
+<tr><td>114</td><td>02.4.16.09.14.000334</td><td>ASSAYYIT</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Pertelon Pakis</td><td>SHM</td><td>48</td><td>48</td><td>1985</td><td>50</td><td></td><td></td></tr>
+<tr><td>115</td><td>02.4.16.09.14.000473</td><td>AL-BAROKAH</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Pertelon Pakis</td><td>SHM</td><td>2000</td><td>24</td><td>2001</td><td>40</td><td></td><td></td></tr>
+<tr><td>116</td><td>02.4.16.09.14.000332</td><td>AL-LUKMAN</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Pertelon Pakis</td><td>SHM</td><td>80</td><td>48</td><td>1985</td><td>15</td><td></td><td></td></tr>
+<tr><td>117</td><td>02.4.16.09.14.000072</td><td>BAITUR ROHMAN</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Gebang Utara RT.001 RW.015 Panti</td><td>Wakaf</td><td>48</td><td>20</td><td>1996</td><td>25</td><td>-</td><td></td></tr>
+<tr><td>118</td><td>02.4.16.09.14.000330</td><td>AS-SA&amp;#39;AH</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Pertelon Pakis</td><td>SHM</td><td>120</td><td>32</td><td>1977</td><td>50</td><td></td><td></td></tr>
+<tr><td>119</td><td>02.4.16.09.14.000329</td><td>AN-NABAWI</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Pakis</td><td>SHM</td><td>200</td><td>40</td><td>1971</td><td>50</td><td></td><td></td></tr>
+<tr><td>120</td><td>02.4.16.09.14.000328</td><td>AS-SODIKIN</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Kemundunban pakis</td><td>SHM</td><td>80</td><td>32</td><td>1980</td><td>50</td><td></td><td></td></tr>
+<tr><td>121</td><td>02.4.16.09.14.000327</td><td>AS-SAHAM</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Kemendungan Pakis</td><td>SHM</td><td>200</td><td>48</td><td>1975</td><td>50</td><td></td><td></td></tr>
+<tr><td>122</td><td>02.4.16.09.14.000326</td><td>AL-ABROR</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Cempaka Pakis</td><td>SHM</td><td>80</td><td>18</td><td>1995</td><td>50</td><td></td><td></td></tr>
+<tr><td>123</td><td>02.4.16.09.14.000325</td><td>AN-NUR</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Pakis Utara</td><td>SHM</td><td>120</td><td>21</td><td>1998</td><td>0</td><td></td><td></td></tr>
+<tr><td>124</td><td>02.4.16.09.14.000324</td><td>AL-MUZAMIL</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Gluduk Pakis</td><td>SHM</td><td>120</td><td>32</td><td>1982</td><td>50</td><td></td><td></td></tr>
+<tr><td>125</td><td>02.4.16.09.14.000323</td><td>AL-KAUSAR</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Gluduk Pakis</td><td>SHM</td><td>300</td><td>72</td><td>1982</td><td>120</td><td></td><td></td></tr>
+<tr><td>126</td><td>02.4.16.09.14.000321</td><td>AT-TAQWA</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Guluduk Pakis</td><td>SHM</td><td>120</td><td>40</td><td>1980</td><td>100</td><td></td><td></td></tr>
+<tr><td>127</td><td>02.4.16.09.14.000320</td><td>AL-MUTAGIN</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Kemiri Kantong</td><td>SHM</td><td>50</td><td>18</td><td>2013</td><td>0</td><td></td><td></td></tr>
+<tr><td>128</td><td>02.4.16.09.14.000318</td><td>AL-KAUSAR</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Kemiri Kanrong</td><td>SHM</td><td>85</td><td>24</td><td>2006</td><td>40</td><td></td><td></td></tr>
+<tr><td>129</td><td>02.4.16.09.14.000316</td><td>BUSTANUL ULUM</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Kemiri Delima</td><td>SHM</td><td>85</td><td>24</td><td>2014</td><td>45</td><td></td><td></td></tr>
+<tr><td>130</td><td>02.4.16.09.14.000315</td><td>AL-HIDAYAH</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Kemiri Delima Barat</td><td>SHM</td><td>80</td><td>36</td><td>1987</td><td>50</td><td></td><td></td></tr>
+<tr><td>131</td><td>02.4.16.09.14.000314</td><td>AT-TAUBAH</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Kemiri Kerajan</td><td>SHM</td><td>50</td><td>48</td><td>1991</td><td>50</td><td></td><td></td></tr>
+<tr><td>132</td><td>02.4.16.09.14.000313</td><td>BUSTANUL ULUM</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Desa Kemiri Kantong</td><td>SHM</td><td>144</td><td>240</td><td>2008</td><td>0</td><td></td><td></td></tr>
+<tr><td>133</td><td>02.4.16.09.14.000312</td><td>AL-BAROKAH</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Kemiri Dusun Kantong</td><td>SHM</td><td>50</td><td>12</td><td>1970</td><td>40</td><td></td><td></td></tr>
+<tr><td>134</td><td>02.4.16.09.14.000310</td><td>AL-KHOTIB</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Kemiri Danci</td><td>SHM</td><td>35</td><td>27</td><td>1990</td><td>0</td><td></td><td></td></tr>
+<tr><td>135</td><td>02.4.16.09.14.000309</td><td>AL-AMIN</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Kemiri Dusun Tenggiling</td><td>SHM</td><td>38</td><td>18</td><td>1991</td><td>15</td><td></td><td></td></tr>
+<tr><td>136</td><td>02.4.16.09.14.000308</td><td>AL-KARIMILLAH</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Gaplek Barat</td><td>SHM</td><td>450</td><td>81</td><td>1990</td><td>30</td><td></td><td></td></tr>
+<tr><td>137</td><td>02.4.16.09.14.000307</td><td>AL-BAROKAH</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Gaplek Barat</td><td>SHM</td><td>300</td><td>72</td><td>1960</td><td>30</td><td></td><td></td></tr>
+<tr><td>138</td><td>02.4.16.09.14.000306</td><td>RAUDATUL ULUM</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Gaplek</td><td>SHM</td><td>450</td><td>72</td><td>1990</td><td>50</td><td></td><td></td></tr>
+<tr><td>139</td><td>02.4.16.09.14.000305</td><td>AN-NUR</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Gaplek</td><td>SHM</td><td>350</td><td>72</td><td>1989</td><td>50</td><td></td><td></td></tr>
+<tr><td>140</td><td>02.4.16.09.14.000304</td><td>AL-SALAMMAH</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Karang Kebon</td><td>SHM</td><td>400</td><td>36</td><td>1973</td><td>40</td><td></td><td></td></tr>
+<tr><td>141</td><td>02.4.16.09.14.000303</td><td>AS-SALAMAH</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Karang Kebon</td><td>SHM</td><td>400</td><td>36</td><td>1973</td><td>40</td><td></td><td></td></tr>
+<tr><td>142</td><td>02.4.16.09.14.000302</td><td>AR-ROHMAN</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Kongsi Tengah</td><td>SHM</td><td>200</td><td>36</td><td>1966</td><td>30</td><td></td><td></td></tr>
+<tr><td>143</td><td>02.4.16.09.14.000301</td><td>AT-TAUFIK</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Karang Kebon</td><td>SHM</td><td>400</td><td>81</td><td>1987</td><td>30</td><td></td><td></td></tr>
+<tr><td>144</td><td>02.4.16.09.14.000300</td><td>AL-MUTTAQIN</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Guapa Utara</td><td>SHM</td><td>225</td><td>36</td><td>1965</td><td>30</td><td></td><td></td></tr>
+<tr><td>145</td><td>02.4.16.09.14.000299</td><td>AT-TAKWA</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Payung Utara</td><td>SHM</td><td>600</td><td>90</td><td>1988</td><td>30</td><td></td><td></td></tr>
+<tr><td>146</td><td>02.4.16.09.14.000295</td><td>AL-FIRDAUS</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Kepiring Suci</td><td>SHM</td><td>3400</td><td>150</td><td>1995</td><td>300</td><td></td><td></td></tr>
+<tr><td>147</td><td>02.4.16.09.14.000294</td><td>SIRATUS-SALIKIN</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Glundengan Suci</td><td>SHM</td><td>1400</td><td>90</td><td>1960</td><td>250</td><td></td><td></td></tr>
+<tr><td>148</td><td>02.4.16.09.14.000293</td><td>SUBULUS SALAM</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Suci Krajan</td><td>SHM</td><td>400</td><td>81</td><td>1999</td><td>50</td><td></td><td></td></tr>
+<tr><td>149</td><td>02.4.16.09.14.000292</td><td>AL-IKHLAS</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Kepiring</td><td>SHM</td><td>200</td><td>35</td><td>1990</td><td>30</td><td></td><td></td></tr>
+<tr><td>150</td><td>02.4.16.09.14.000291</td><td>AL-HIDAYAH</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Kepiring</td><td>SHM</td><td>300</td><td>64</td><td>1992</td><td>30</td><td></td><td></td></tr>
+<tr><td>151</td><td>02.4.16.09.14.000290</td><td>AL-HIDAYAH</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Pledo</td><td>SHM</td><td>250</td><td>46</td><td>1989</td><td>30</td><td></td><td></td></tr>
+<tr><td>152</td><td>02.4.16.09.14.000289</td><td>NURUL HUDA</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Ledok&#x27;an Pledon</td><td>SHM</td><td>200</td><td>36</td><td>1992</td><td>30</td><td></td><td></td></tr>
+<tr><td>153</td><td>02.4.16.09.14.000287</td><td>AL-MAHFUD</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Plendo</td><td>SHM</td><td>250</td><td>36</td><td>1980</td><td>30</td><td></td><td></td></tr>
+<tr><td>154</td><td>02.4.16.09.14.000286</td><td>AL-MUHDOR</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Plendo</td><td>SHM</td><td>400</td><td>41</td><td>1972</td><td>20</td><td></td><td></td></tr>
+<tr><td>155</td><td>02.4.16.09.14.000285</td><td>AL-HIKMAH</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Tegalamat</td><td>SHM</td><td>350</td><td>71</td><td>1995</td><td>30</td><td></td><td></td></tr>
+<tr><td>156</td><td>02.4.16.09.14.000284</td><td>AL-KARIMULLAH</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Tegalamat</td><td>SHM</td><td>350</td><td>71</td><td>1964</td><td>15</td><td></td><td></td></tr>
+<tr><td>157</td><td>02.4.16.09.14.000283</td><td>BAITURROHMAN</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Tegalamat</td><td>SHM</td><td>450</td><td>71</td><td>1985</td><td>30</td><td></td><td></td></tr>
+<tr><td>158</td><td>02.4.16.09.14.000282</td><td>ARRAHMAN</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Tegal Amat Atas</td><td>SHM</td><td>300</td><td>41</td><td>1981</td><td>50</td><td></td><td></td></tr>
+<tr><td>159</td><td>02.4.16.09.14.000281</td><td>AR-ROFIQ</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Tegal Amat Atas</td><td>SHM</td><td>250</td><td>41</td><td>1950</td><td>15</td><td></td><td></td></tr>
+<tr><td>160</td><td>02.4.16.09.14.000280</td><td>AL-HASAN</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Glengseran</td><td>SHM</td><td>1200</td><td>45</td><td>1982</td><td>30</td><td></td><td></td></tr>
+<tr><td>161</td><td>02.4.16.09.14.000279</td><td>AL-IHKLAS</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Glengseran</td><td>SHM</td><td>400</td><td>41</td><td>1993</td><td>60</td><td></td><td></td></tr>
+<tr><td>162</td><td>02.4.16.09.14.000278</td><td>AL-MUJAHIDIN</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Glengseran</td><td>SHM</td><td>350</td><td>42</td><td>1967</td><td>30</td><td></td><td></td></tr>
+<tr><td>163</td><td>02.4.16.09.14.000276</td><td>ROUDHOTUL AFFAL</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Panti</td><td>SHM</td><td>350</td><td>41</td><td>1987</td><td>40</td><td></td><td></td></tr>
+<tr><td>164</td><td>02.4.16.09.14.000277</td><td>SUNAN KALIJOGO</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Glengseran</td><td>SHM</td><td>450</td><td>71</td><td>1971</td><td>30</td><td></td><td></td></tr>
+<tr><td>165</td><td>02.4.16.09.14.000275</td><td>AL-BAROKAH</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Gengseran</td><td>SHM</td><td>300</td><td>41</td><td>1948</td><td>30</td><td></td><td></td></tr>
+<tr><td>166</td><td>02.4.16.09.14.000274</td><td>AL-ANSHOR</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Dunoyo</td><td>SHM</td><td>350</td><td>71</td><td>1965</td><td>30</td><td></td><td></td></tr>
+<tr><td>167</td><td>02.4.16.09.14.000273</td><td>AL-IKHLAS</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Gandol</td><td>SHM</td><td>400</td><td>81</td><td>1989</td><td>30</td><td></td><td></td></tr>
+<tr><td>168</td><td>02.4.16.09.14.000272</td><td>AL-AZIZ</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Payung</td><td>SHM</td><td>350</td><td>72</td><td>1999</td><td>30</td><td></td><td></td></tr>
+<tr><td>169</td><td>02.4.16.09.14.000271</td><td>AL-IKHLAS</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Payung</td><td>SHM</td><td>300</td><td>41</td><td>1997</td><td>30</td><td></td><td></td></tr>
+<tr><td>170</td><td>02.4.16.09.14.000270</td><td>AN-NUR</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Payung</td><td>SHM</td><td>450</td><td>71</td><td>2001</td><td>50</td><td></td><td></td></tr>
+<tr><td>171</td><td>02.4.16.09.14.000268</td><td>ARROSIDIYAH</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Payung</td><td>SHM</td><td>300</td><td>42</td><td>1973</td><td>50</td><td></td><td></td></tr>
+<tr><td>172</td><td>02.4.16.09.14.000267</td><td>AL-HIDAYAH</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Perkebunan Sentool</td><td>SHM</td><td>300</td><td>42</td><td>1968</td><td>50</td><td></td><td></td></tr>
+<tr><td>173</td><td>02.4.16.09.14.000266</td><td>AL-FARUK</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Perkebunan Sentool</td><td>SHM</td><td>358</td><td>42</td><td>1960</td><td>30</td><td></td><td></td></tr>
+<tr><td>174</td><td>02.4.16.09.14.000265</td><td>AN-NURUL</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Perkebunan Sentol</td><td>SHM</td><td>400</td><td>71</td><td>1953</td><td>90</td><td></td><td></td></tr>
+<tr><td>175</td><td>02.4.16.09.14.000264</td><td>AR-ROSIDI</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Silo</td><td>SHM</td><td>200</td><td>35</td><td>1991</td><td>30</td><td></td><td></td></tr>
+<tr><td>176</td><td>02.4.16.09.14.000263</td><td>AS-SHOLIKIN</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Kayangan</td><td>SHM</td><td>400</td><td>36</td><td>1956</td><td>36</td><td></td><td></td></tr>
+<tr><td>177</td><td>02.4.16.09.14.000262</td><td>SUNAN KALIJOGO</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Gaplek Barat</td><td>SHM</td><td>350</td><td>72</td><td>1960</td><td>70</td><td></td><td></td></tr>
+<tr><td>178</td><td>02.4.16.09.14.000261</td><td>ASSHOBIRIN</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Gabplek barat</td><td>SHM</td><td>450</td><td>81</td><td>1989</td><td>30</td><td></td><td></td></tr>
+<tr><td>179</td><td>02.4.16.09.14.000475</td><td>AL-IKHLAS</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Jalan Bringin Kuning ,Badean Wetan</td><td>SHM</td><td>150</td><td>28</td><td>1994</td><td>50</td><td>82300000000</td><td></td></tr>
+<tr><td>180</td><td>02.4.16.09.14.000259</td><td>AL-BAROKAH</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Badiyan Wetan RT.006 RW.018</td><td>SHM</td><td>72</td><td>56</td><td>1997</td><td>40</td><td>85300000000</td><td></td></tr>
+<tr><td>181</td><td>02.4.16.09.14.000258</td><td>AL-MASYKUR</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Badiyah Timur RT.002 RW.019</td><td>SHM</td><td>35</td><td>25</td><td>2001</td><td>25</td><td>82300000000</td><td></td></tr>
+<tr><td>182</td><td>02.4.16.09.14.000257</td><td>NURUL ANWAR</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Badiah Tengah RT.001 RW.016</td><td>SHM</td><td>70</td><td>48</td><td>1970</td><td>30</td><td>85300000000</td><td></td></tr>
+<tr><td>183</td><td>02.4.16.09.14.000256</td><td>AL-IKHLAS</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Dusun Badean Wetan</td><td>SHM</td><td>200</td><td>60</td><td>1992</td><td>0</td><td>85300000000</td><td></td></tr>
+<tr><td>184</td><td>02.4.16.09.14.000255</td><td>AL-IKHLAS</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Jalan Pb Sudirman RT.001 RW.003</td><td>Wakaf</td><td>25</td><td>40</td><td>1992</td><td>30</td><td>81300000000</td><td></td></tr>
+<tr><td>185</td><td>02.4.16.09.14.000254</td><td>AN-NAHR</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Jalan Bringin Juning RT.006 RW.019 Badean Kulon</td><td>SHM</td><td>104</td><td>91</td><td>1990</td><td>80</td><td>85300000000</td><td></td></tr>
+<tr><td>186</td><td>02.4.16.09.14.000477</td><td>AL-IKLAS</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Serut Permisen</td><td>SHM</td><td>150</td><td>150</td><td>1985</td><td>50</td><td></td><td></td></tr>
+<tr><td>187</td><td>02.4.16.09.14.000481</td><td>AL-MUSTAKIM</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Dusun Mencek Desa Serut RT.003 RW.002</td><td>SHM</td><td>60</td><td>25</td><td>1999</td><td>30</td><td>85800000000</td><td></td></tr>
+<tr><td>188</td><td>02.4.16.09.14.000220</td><td>AL-ROSIMI</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Mencek serut RT.002 RW.002</td><td>SHM</td><td>10</td><td>22</td><td>1980</td><td>70</td><td>1980</td><td></td></tr>
+<tr><td>189</td><td>02.4.16.09.14.000221</td><td>AL-MISRO&amp;#39;I</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>RT.001 RW.008 Dusun Krajan</td><td>SHM</td><td>42</td><td>80</td><td>1965</td><td>60</td><td>82300000000</td><td></td></tr>
+<tr><td>190</td><td>02.4.16.09.14.000224</td><td>HAROMAN</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Gang Pemuda RT.003 RW.003 Mencek</td><td>SHM</td><td>40</td><td>28</td><td>1967</td><td>40</td><td>85100000000</td><td></td></tr>
+<tr><td>191</td><td>02.4.16.09.14.000234</td><td>AL-HALIM</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Jalan Andongsari RT.002 RW.016</td><td>SHM</td><td>35</td><td>24</td><td>2000</td><td>15</td><td>81200000000</td><td></td></tr>
+<tr><td>192</td><td>02.4.16.09.14.000236</td><td>AL-HASAN</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Utara Lapangan Sido Mulyo RT.002 RW.001</td><td>Wakaf</td><td>70</td><td>150</td><td>1980</td><td>50</td><td>85300000000</td><td></td></tr>
+<tr><td>193</td><td>02.4.16.09.14.000441</td><td>AR-ROHMAN</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Desa Dukuh Mencek Panti</td><td>SHM</td><td>20</td><td>20</td><td>2010</td><td>30</td><td></td><td></td></tr>
+<tr><td>194</td><td>02.4.16.09.14.000237</td><td>NURUL ISLAM</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Mencek RT.002 RW.002 Serut No.28</td><td>Wakaf</td><td>120</td><td>90</td><td>1991</td><td>25</td><td>82300000000</td><td></td></tr>
+<tr><td>195</td><td>02.4.16.09.14.000480</td><td>NURUL QODIRI</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Gang Pemuda RT.006 RW.003 Mencek Panti</td><td>SHM</td><td></td><td></td><td>1984</td><td>40</td><td>85100000000</td><td></td></tr>
+<tr><td>196</td><td>02.4.16.09.14.000239</td><td>AN-NUR</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Jalan.Bringin Kuning RT.001 RW.002 Badean Kulon Serut</td><td>SHM</td><td>42</td><td>24</td><td>2000</td><td>20</td><td>85200000000</td><td></td></tr>
+<tr><td>197</td><td>02.4.16.09.14.000240</td><td>NURUL IMAN</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Jalan PB Sudirman RT.003 RW.001 Mencek Serut</td><td>SHM</td><td>40</td><td>72</td><td>1985</td><td>40</td><td>82300000000</td><td></td></tr>
+<tr><td>198</td><td>02.4.16.09.14.000228</td><td>NURUL IMAN</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Mencek Serut RT.007 RW.003 Gang Pemuda</td><td>SHM</td><td>3525</td><td>40</td><td>1997</td><td>20</td><td>82300000000</td><td></td></tr>
+<tr><td>199</td><td>02.4.16.09.14.000479</td><td>AL-HIDAYAH</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>RT.003 RW.004 Dusun Mencek Desa Serut</td><td>SHM</td><td>65</td><td>48</td><td>1990</td><td>50</td><td>85200000000</td><td></td></tr>
+<tr><td>200</td><td>02.4.16.09.14.000244</td><td>AL-HIDAYAH</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>RT.001 RW.006</td><td>Wakaf</td><td>50</td><td>42</td><td>1990</td><td>50</td><td>81300000000</td><td></td></tr>
+<tr><td>201</td><td>02.4.16.09.14.000478</td><td>NURUL HIDAYA</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Jalan A Yani RT.002 RW.006 Serut krajan</td><td>SHM</td><td>64</td><td>64</td><td>2015</td><td>50</td><td>85900000000</td><td></td></tr>
+<tr><td>202</td><td>02.4.16.09.14.000242</td><td>FASCHO</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Jalan Pb Sudirman No.45 Serut</td><td>SHM</td><td>100</td><td>48</td><td>1994</td><td>30</td><td>8120000000</td><td></td></tr>
+<tr><td>203</td><td>02.4.16.09.14.000245</td><td>AL-HIDAYAH</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Serut.Jalan Ahmad Yani RT.001 RW.004</td><td>SHM</td><td>150</td><td>72</td><td>1990</td><td>60</td><td>85700000000</td><td></td></tr>
+<tr><td>204</td><td>02.4.16.09.14.000246</td><td>AL-WAHAB</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Jalan Pb Soedirman RT.001 RW.002 Dusun Mencek Merut</td><td>SHM</td><td></td><td>24</td><td>1985</td><td>50</td><td>85200000000</td><td></td></tr>
+<tr><td>205</td><td>02.4.16.09.14.000247</td><td>NURUL YAQIN</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Jalan Diyono RT.003 RW.004 Dusun kerajan</td><td>SHM</td><td>40</td><td>40</td><td>1976</td><td>60</td><td>85200000000</td><td></td></tr>
+<tr><td>206</td><td>02.4.16.09.14.000248</td><td>AMINATUS ZAKIYAH</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Jalan A Yani RT.003 RW.007 Serut</td><td>SHM</td><td>63</td><td>63</td><td>1971</td><td>80</td><td>85300000000</td><td></td></tr>
+<tr><td>207</td><td>02.4.16.09.14.000076</td><td>AL-AZIS</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Darungan Panti</td><td>SHM</td><td>25</td><td>25</td><td>1985</td><td>30</td><td>-</td><td></td></tr>
+<tr><td>208</td><td>02.4.16.09.14.000077</td><td>AN-NUR</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Darungan RT.001 RW.009 Panti</td><td>SHM</td><td>30</td><td>30</td><td>2008</td><td>50</td><td>-</td><td></td></tr>
+<tr><td>209</td><td>02.4.16.09.14.000075</td><td>AL-AMAL</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Darungan RT.002 RW.009 Panti</td><td>Wakaf</td><td>35</td><td>35</td><td>1986</td><td>80</td><td>-</td><td></td></tr>
+<tr><td>210</td><td>02.4.16.09.14.000078</td><td>AL-IKHLAS</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Darungan RT.002 RW.009 Panti</td><td>SHM</td><td>80</td><td>49</td><td>1970</td><td>40</td><td>-</td><td></td></tr>
+<tr><td>211</td><td>02.4.16.09.14.000079</td><td>AL-MARJUKI</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Darungan RT.002 RW.009 Panti</td><td>SHM</td><td>30</td><td>12</td><td>1965</td><td>30</td><td>-</td><td></td></tr>
+<tr><td>212</td><td>02.4.16.09.14.000080</td><td>AR-ROHMAN</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Darungan RT.002 RW.009 Panti</td><td>SHM</td><td>30</td><td>24</td><td>1980</td><td>20</td><td>-</td><td></td></tr>
+<tr><td>213</td><td>02.4.16.09.14.000081</td><td>AL-BASIR</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Darungan RT.002 RW.009 Panti</td><td>SHM</td><td>20</td><td>12</td><td>1980</td><td>20</td><td>-</td><td></td></tr>
+<tr><td>214</td><td>02.4.16.09.14.000082</td><td>AL-A&#x27;LAA</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Prapah RT.001 RW.016 Panti</td><td>SHM</td><td>77</td><td>54</td><td>1967</td><td>75</td><td>-</td><td></td></tr>
+<tr><td>215</td><td>02.4.16.09.14.000083</td><td>AL-HASANAH</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Gebang Langkap RT.002 RW.012 Panti</td><td>SHM</td><td>42</td><td>30</td><td>2002</td><td>20</td><td>-</td><td></td></tr>
+<tr><td>216</td><td>02.4.16.09.14.000084</td><td>AN-NAWAWI</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Gebang Langkap RT.001 RW.011</td><td>SHM</td><td>24</td><td>20</td><td>1950</td><td>25</td><td>-</td><td></td></tr>
+<tr><td>217</td><td>02.4.16.09.14.000085</td><td>AL-HIDAYAH</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Gebang Langkap RT.001 RW.011 Panti</td><td>SHM</td><td>36</td><td>28</td><td>2012</td><td>25</td><td>-</td><td></td></tr>
+<tr><td>218</td><td>02.4.16.09.14.000086</td><td>AL-BAROKAH</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Gebang Langkap RT.001 RW.011 Panti</td><td>SHM</td><td>30</td><td>12</td><td>2013</td><td>20</td><td>-</td><td></td></tr>
+<tr><td>219</td><td>02.4.16.09.14.000087</td><td>AL-IKHLASH</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Gebang Langkap RT.002 RW.011 Panti</td><td>SHM</td><td>40</td><td>30</td><td>2006</td><td>30</td><td>-</td><td></td></tr>
+<tr><td>220</td><td>02.4.16.09.14.000088</td><td>AL-FURQON</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Gebang Langkap RT.001 RW.011 Panti</td><td>SHM</td><td>35</td><td>20</td><td>1984</td><td>20</td><td>-</td><td></td></tr>
+<tr><td>221</td><td>02.4.16.09.14.000089</td><td>AL-USTADI</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Gebang Langkap RT.001 RW.011 Panti</td><td>SHM</td><td>24</td><td>24</td><td>1950</td><td>30</td><td>-</td><td></td></tr>
+<tr><td>222</td><td>02.4.16.09.14.000090</td><td>BAITUL MUTTAQIN</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Gebang Langkap RT.001 RW.011 Panti</td><td>SHM</td><td>24</td><td>12</td><td>2006</td><td>20</td><td>-</td><td></td></tr>
+<tr><td>223</td><td>02.4.16.09.14.000092</td><td>AL-AMIN</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Gebang Langkap RT.001 RW.013 Panti</td><td>SHM</td><td>15</td><td>9</td><td>1985</td><td>15</td><td>-</td><td></td></tr>
+<tr><td>224</td><td>02.4.16.09.14.000093</td><td>AL-MU&#x27;AWWANAH</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Gebang Langkap RT.001 RW.012 Panti</td><td>SHM</td><td>40</td><td>20</td><td>2006</td><td>25</td><td>-</td><td></td></tr>
+<tr><td>225</td><td>02.4.16.09.14.000094</td><td>AL-GUFRON</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Darungan RT.001 RW.008 Panti</td><td>SHM</td><td>40</td><td>25</td><td>1995</td><td>40</td><td>-</td><td></td></tr>
+<tr><td>226</td><td>02.4.16.09.14.000095</td><td>AL-KAUTSAR</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Darungan Panti</td><td>SHM</td><td>56</td><td>30</td><td>2005</td><td>30</td><td>81400000000</td><td></td></tr>
+<tr><td>227</td><td>02.4.16.09.14.000502</td><td>HIDAYATUL MUBATDIIN</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Panti Krajan RT.002 RW.004</td><td>SHM</td><td>70</td><td>63</td><td>1950</td><td>90</td><td>-</td><td></td></tr>
+<tr><td>228</td><td>02.4.16.09.14.000097</td><td>AL-BAROKAH</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Dusun Wonolangu RT.001 RW.020</td><td>SHM</td><td>70</td><td>45</td><td>1993</td><td>50</td><td>-</td><td></td></tr>
+<tr><td>229</td><td>02.4.16.09.14.000098</td><td>AL-HIKMAH</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Wonolangu RT.001 RW.020 Panti</td><td>SHM</td><td>45</td><td>45</td><td>1976</td><td>50</td><td>-</td><td></td></tr>
+<tr><td>230</td><td>02.4.16.09.14.000099</td><td>AR-ROHMAN</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Wonolangu RT.001 RW.020 Panti</td><td>SHM</td><td>28</td><td>20</td><td>1962</td><td>25</td><td>-</td><td></td></tr>
+<tr><td>231</td><td>02.4.16.09.14.000100</td><td>DARUL IHYA</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Wonolangu RT.001 RW.020 Panti</td><td>SHM</td><td>105</td><td>40</td><td>2007</td><td>40</td><td>85100000000</td><td></td></tr>
+<tr><td>232</td><td>02.4.16.09.14.000101</td><td>AL-IKHWAN</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Wonolangu RT.001 RW.020 Panti</td><td>SHM</td><td>24</td><td>20</td><td>2013</td><td>20</td><td>-</td><td></td></tr>
+<tr><td>233</td><td>02.4.16.09.14.000102</td><td>AL-AMIN</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Wonolangu RT.001 RW.020 Panti</td><td>SHM</td><td>48</td><td>28</td><td>2005</td><td>30</td><td>-</td><td></td></tr>
+<tr><td>234</td><td>02.4.16.09.14.000103</td><td>AL-BAROKAH</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Wonolangu RT.001 RW.020 Panti</td><td>SHM</td><td>48</td><td>24</td><td>2004</td><td>25</td><td>-</td><td></td></tr>
+<tr><td>235</td><td>02.4.16.09.14.000104</td><td>AN-NAHL</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Wonolangu RT.002 RW.020 Panti</td><td>SHM</td><td>24</td><td>24</td><td>1970</td><td>25</td><td>-</td><td></td></tr>
+<tr><td>236</td><td>02.4.16.09.14.000105</td><td>AN-NUR</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Wonolangu RT.002 RW.020 Panti</td><td>SHM</td><td>48</td><td>30</td><td>1989</td><td>30</td><td>-</td><td></td></tr>
+<tr><td>237</td><td>02.4.16.09.14.000106</td><td>NURUS SOLAWAH</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Wonolangu RT.002 RW.021 Panti</td><td>SHM</td><td>35</td><td>35</td><td>1970</td><td>20</td><td>-</td><td></td></tr>
+<tr><td>238</td><td>02.4.16.09.14.000107</td><td>AL-IKHLAS</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Wonolangu RT.002 RW.021 Panti</td><td>Wakaf</td><td>48</td><td>48</td><td>1980</td><td>30</td><td>8120000000</td><td></td></tr>
+<tr><td>239</td><td>02.4.16.09.14.000108</td><td>AR-ROHMAN</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Wonolangu RT.002 RW 021 Panti</td><td>SHM</td><td>24</td><td>15</td><td>2014</td><td>20</td><td>-</td><td></td></tr>
+<tr><td>240</td><td>02.4.16.09.14.000109</td><td>NURUL FALAH</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Wonolangu RT.002 RW.022 Panti</td><td>SHM</td><td>28</td><td>24</td><td>1997</td><td>40</td><td>-</td><td></td></tr>
+<tr><td>241</td><td>02.4.16.09.14.000110</td><td>AL-MASTURI</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Wonolangu RT.002 RW.022 Panti</td><td>SHM</td><td>150</td><td>72</td><td>1987</td><td>75</td><td>85100000000</td><td></td></tr>
+<tr><td>242</td><td>02.4.16.09.14.000111</td><td>AL-MASKURI I</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Wonolangu RT.001 RW.022 Panti</td><td>SHM</td><td>24</td><td>12</td><td>1990</td><td>20</td><td>-</td><td></td></tr>
+<tr><td>243</td><td>02.4.16.09.14.000112</td><td>AL-IKHLAS</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Wonolangu RT.001 RW 022 Panti</td><td>SHM</td><td>30</td><td>20</td><td>1965</td><td>20</td><td>-</td><td></td></tr>
+<tr><td>244</td><td>02.4.16.09.14.000113</td><td>AT-TANWIR</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Wonolangu RT.004 RW.022 Panti</td><td>Wakaf</td><td>150</td><td>63</td><td>2005</td><td>70</td><td>82400000000</td><td></td></tr>
+<tr><td>245</td><td>02.4.16.09.14.000114</td><td>AL-IKHLAS</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Panti Krajan RT.001 RW.005</td><td>SHM</td><td>40</td><td>24</td><td>1990</td><td>50</td><td>81200000000</td><td></td></tr>
+<tr><td>246</td><td>02.4.16.09.14.000115</td><td>AN-NUR</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Panti Krajan RT.001 RW.005 Panti</td><td>SHM</td><td>63</td><td>20</td><td>1980</td><td>20</td><td>-</td><td></td></tr>
+<tr><td>247</td><td>02.4.16.09.14.000116</td><td>AL-MU&#x27;IN</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Panti Krajan RT.003 RW.004</td><td>SHM</td><td>18</td><td>10</td><td>1945</td><td>20</td><td>-</td><td></td></tr>
+<tr><td>248</td><td>02.4.16.09.14.000117</td><td>AL-IKHLAS</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Krajan Selatan RT.003 RW.002 Panti</td><td>SHM</td><td>56</td><td>20</td><td>1992</td><td>40</td><td>-</td><td></td></tr>
+<tr><td>249</td><td>02.4.16.09.14.000118</td><td>AL-MUHAJIRI</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Darungan RT.002 RW.009 Panti</td><td>SHM</td><td>20</td><td>20</td><td>1990</td><td>30</td><td>-</td><td></td></tr>
+<tr><td>250</td><td>02.4.16.09.14.000501</td><td>MAMBAUL KHOIROT</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Jalan H. Agus Salim 90 Krajan Panti</td><td>Wakaf</td><td>200</td><td>80</td><td>2006</td><td>100</td><td>82300000000</td><td></td></tr>
+<tr><td>251</td><td>02.4.16.09.14.000120</td><td>AL-IKHLAS</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Darungan RT.002 RW.009 Panti</td><td>SHM</td><td>20</td><td>20</td><td>2013</td><td>20</td><td>-</td><td></td></tr>
+<tr><td>252</td><td>02.4.16.09.14.000124</td><td>AL-HIKMAH</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Wonolangu Maduraan Panti</td><td>SHM</td><td>24</td><td>15</td><td>1996</td><td>20</td><td>-</td><td></td></tr>
+<tr><td>253</td><td>02.4.16.09.14.000121</td><td>AR-ROHMAH</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Darungan RT.002 RW.007 Panti</td><td>SHM</td><td>35</td><td>20</td><td>2009</td><td>20</td><td>-</td><td></td></tr>
+<tr><td>254</td><td>02.4.16.09.14.000122</td><td>SA&#x27;ADAH</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Darungan RT.002 RW.009 Panti</td><td>SHM</td><td>30</td><td>20</td><td>2000</td><td>20</td><td>-</td><td></td></tr>
+<tr><td>255</td><td>02.4.16.09.14.000123</td><td>AD-DHUHa</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Darungan RT.002 RW.009 Panti</td><td>Wakaf</td><td>28</td><td>28</td><td>1970</td><td>20</td><td>-</td><td></td></tr>
+<tr><td>256</td><td>02.4.16.09.14.000125</td><td>AL-AMIN</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Krajan Tamingan RT.002 RW.001 Panti</td><td>SHM</td><td>48</td><td>30</td><td>1997</td><td>30</td><td>-</td><td></td></tr>
+<tr><td>257</td><td>02.4.16.09.14.000126</td><td>AL-KHOIROT</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Krajan Tamingan RT.002 RW.001 Panti</td><td>SHM</td><td>40</td><td>35</td><td>1970</td><td>30</td><td>-</td><td></td></tr>
+<tr><td>258</td><td>02.4.16.09.14.000127</td><td>AL-HIDAYAH</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Krajan Tamingan RT.002 RW.001 Panti</td><td>SHM</td><td>24</td><td>12</td><td>1985</td><td>20</td><td>-</td><td></td></tr>
+<tr><td>259</td><td>02.4.16.09.14.000128</td><td>AR-ROHIM</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Krajan Tamengan RT.002 RW.001 Panti</td><td>SHM</td><td>24</td><td>24</td><td>1990</td><td>20</td><td>-</td><td></td></tr>
+<tr><td>260</td><td>02.4.16.09.14.000129</td><td>DARUL MUTTAQIN</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Krajan Tamengan RT.002 RW.001 Panti</td><td>SHM</td><td>50</td><td>35</td><td>1965</td><td>30</td><td>-</td><td></td></tr>
+<tr><td>261</td><td>02.4.16.09.14.000131</td><td>NURUL JANNAH</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Krajan Tamingan RT.001 Panti</td><td>SHM</td><td>54</td><td>40</td><td>1967</td><td>20</td><td>-</td><td></td></tr>
+<tr><td>262</td><td>02.4.16.09.14.000132</td><td>AL-BAROKAH</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Krajan Tamingan RT.001 RW.001 Panti</td><td>SHM</td><td>35</td><td>24</td><td>2006</td><td>25</td><td>85100000000</td><td></td></tr>
+<tr><td>263</td><td>02.4.16.09.14.000133</td><td>AL-AMIN</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Krajan Tamingan RT.001 RW.001 Panti</td><td>SHM</td><td>28</td><td>15</td><td>1970</td><td>20</td><td>-</td><td></td></tr>
+<tr><td>264</td><td>02.4.16.09.14.000134</td><td>AL-HIDAYAH</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Krajan Tamingan RT.001 RW.001 Panti</td><td>SHM</td><td>30</td><td>16</td><td>1970</td><td>20</td><td>-</td><td></td></tr>
+<tr><td>265</td><td>02.4.16.09.14.000135</td><td>USSISA&#x27; ALAT TAQWA</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Krajan Tamingan RT.001 RW.001 Panti</td><td>SHM</td><td>49</td><td>20</td><td>1990</td><td>25</td><td>-</td><td></td></tr>
+<tr><td>266</td><td>02.4.16.09.14.000136</td><td>AR-ROHMAH</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Dusun Krajan Tamingan RT.001 RW.001 Panti</td><td>SHM</td><td>42</td><td>20</td><td>1990</td><td>25</td><td>-</td><td></td></tr>
+<tr><td>267</td><td>02.4.16.09.14.000137</td><td>AL-IKHLAS</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Dusun Krajan Selatan Panti</td><td>SHM</td><td>54</td><td>28</td><td>2014</td><td>50</td><td>81900000000</td><td></td></tr>
+<tr><td>268</td><td>02.4.16.09.14.000138</td><td>NURUL HIDAYAH</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Panti Krajan Selatan</td><td>SHM</td><td>120</td><td>112</td><td>1957</td><td>46</td><td>-</td><td></td></tr>
+<tr><td>269</td><td>02.4.16.09.14.000139</td><td>BABUSSALAM</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Wonolangu Panti</td><td>SHM</td><td>150</td><td>48</td><td>1987</td><td>30</td><td>-</td><td></td></tr>
+<tr><td>270</td><td>02.4.16.09.14.000140</td><td>BAITUR ROHIM</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Wonolangu RT.002 RW.021 Panti</td><td>SHM</td><td>24</td><td>24</td><td>2010</td><td>30</td><td>-</td><td></td></tr>
+<tr><td>271</td><td>02.4.16.09.14.000141</td><td>AL-IKHLAS</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Wonolangu RT.003 RW.022</td><td>SHM</td><td>24</td><td>24</td><td>1970</td><td>20</td><td>-</td><td></td></tr>
+<tr><td>272</td><td>02.4.16.09.14.000142</td><td>AL-HASAN</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Wonolangu RT.003 RW.022</td><td>SHM</td><td>45</td><td>40</td><td>1950</td><td>20</td><td>-</td><td></td></tr>
+<tr><td>273</td><td>02.4.16.09.14.000143</td><td>AL-IMAN</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Wonolangu Panti</td><td>SHM</td><td>36</td><td>36</td><td>1997</td><td>30</td><td>81400000000</td><td></td></tr>
+<tr><td>274</td><td>02.4.16.09.14.000144</td><td>AL-IKHLAS</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Darungan RT.002 RW.008 Panti</td><td>SHM</td><td>56</td><td>20</td><td>2000</td><td>30</td><td>-</td><td></td></tr>
+<tr><td>275</td><td>02.4.16.09.14.000145</td><td>AL-IMAN</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Panti Krajan RT.001 RW.005</td><td>SHM</td><td>150</td><td>36</td><td>1989</td><td>75</td><td>81400000000</td><td></td></tr>
+<tr><td>276</td><td>02.4.16.09.14.000146</td><td>AL-IMAM</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Panti Krajan RT.001 RW.004</td><td>SHM</td><td>56</td><td>30</td><td>2003</td><td>30</td><td>-</td><td></td></tr>
+<tr><td>277</td><td>02.4.16.09.14.000147</td><td>AL-MUBAROK</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Darungan Panti</td><td>Wakaf</td><td>54</td><td>20</td><td>2000</td><td>40</td><td>-</td><td></td></tr>
+<tr><td>278</td><td>02.4.16.09.14.000148</td><td>NURUL FALAH</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Panti Krajan RT.002 RW.005</td><td>Wakaf</td><td>45</td><td>35</td><td>1975</td><td>30</td><td>81400000000</td><td></td></tr>
+<tr><td>279</td><td>02.4.16.09.14.000149</td><td>AL-HIKMAH</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Darungan RT.002 RW.007 Panti</td><td>SHM</td><td>120</td><td>30</td><td>1982</td><td>30</td><td>85100000000</td><td></td></tr>
+<tr><td>280</td><td>02.4.16.09.14.000150</td><td>AR-ROHMAN</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Darungan RT.002 RW.007 Panti</td><td>SHM</td><td>36</td><td>20</td><td>2002</td><td>40</td><td>82100000000</td><td></td></tr>
+<tr><td>281</td><td>02.4.16.09.14.000151</td><td>AR-ROHMAH</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Darungan RT.002 RW.009 Panti</td><td>SHM</td><td>24</td><td>20</td><td>2000</td><td>30</td><td>-</td><td></td></tr>
+<tr><td>282</td><td>02.4.16.09.14.000152</td><td>AL-HIDAYAH</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Darungan Panti</td><td>SHM</td><td>70</td><td>30</td><td>2001</td><td>30</td><td>-</td><td></td></tr>
+<tr><td>283</td><td>02.4.16.09.14.000153</td><td>AL-MIZAN</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Darungan RT.001 RW.008 Panti</td><td>SHM</td><td>108</td><td>35</td><td>1980</td><td>50</td><td>85200000000</td><td></td></tr>
+<tr><td>284</td><td>02.4.16.09.14.000154</td><td>AL-AZIZIYAH</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Panti Prapah RT.002 RW.018</td><td>Wakaf</td><td>72</td><td>72</td><td>2004</td><td>60</td><td>81300000000</td><td></td></tr>
+<tr><td>285</td><td>02.4.16.09.14.000155</td><td>SALAFIYAH SYAFIIYAH AL-AZIZIYAH</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Gebang Utara RT.001 RW.014 Panti</td><td>Wakaf</td><td>96</td><td>96</td><td>2004</td><td>70</td><td>81200000000</td><td></td></tr>
+<tr><td>286</td><td>02.4.16.09.14.000156</td><td>AL-IKHLASH</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Panti Prapah</td><td>SHM</td><td>54</td><td>54</td><td>1970</td><td>40</td><td>-</td><td></td></tr>
+<tr><td>287</td><td>02.4.16.09.14.000157</td><td>AN-NAHL</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Prapah RT.002 RW.016 Panti</td><td>Wakaf</td><td>84</td><td>84</td><td>1980</td><td>50</td><td>-</td><td></td></tr>
+<tr><td>288</td><td>02.4.16.09.14.000159</td><td>BAITUR ROHMAN</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Panti Krajan RT.002 RW.005</td><td>SHM</td><td>80</td><td>56</td><td>1996</td><td>50</td><td>85200000000</td><td></td></tr>
+<tr><td>289</td><td>02.4.16.09.14.000160</td><td>AS-SALAM</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Krajan RT.001 RW.003 Panti</td><td>SHM</td><td>40</td><td>40</td><td>1976</td><td>30</td><td>-</td><td></td></tr>
+<tr><td>290</td><td>02.4.16.09.14.000161</td><td>BAITUR ROHIM</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Krajan RT.002 RW.003 Panti</td><td>SHM</td><td>56</td><td>56</td><td>1975</td><td>0</td><td>-</td><td></td></tr>
+<tr><td>291</td><td>02.4.16.09.14.000162</td><td>AL-IKHSAN</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Krajan RT.001 RW.003 Panti</td><td>SHM</td><td>40</td><td>40</td><td>1991</td><td>60</td><td>-</td><td></td></tr>
+<tr><td>292</td><td>02.4.16.09.14.000163</td><td>AL-IKHLAS</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Krajan RT.001 RW.003 Panti</td><td>SHM</td><td>35</td><td>35</td><td>1990</td><td>60</td><td>-</td><td></td></tr>
+<tr><td>293</td><td>02.4.16.09.14.000164</td><td>AL-GHOFUR</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Panti Krajan RT.001 RW.002</td><td>Wakaf</td><td>1000</td><td>224</td><td>2010</td><td>200</td><td>8120000000</td><td></td></tr>
+<tr><td>294</td><td>02.4.16.09.14.000165</td><td>AL-MAGFIROH</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Krajan Selatan RT.003 RW.005 Panti</td><td>SHM</td><td>54</td><td>54</td><td>2006</td><td>30</td><td>82200000000</td><td></td></tr>
+<tr><td>295</td><td>02.4.16.09.14.000166</td><td>AL-HIDAYAH</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Gebang Langkap RT.003 RW.012 Panti</td><td>SHM</td><td>48</td><td>24</td><td>2000</td><td>30</td><td>-</td><td></td></tr>
+<tr><td>296</td><td>02.4.16.09.14.000500</td><td>NURUL HIDAYAH AL-JADID</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Darungan Panti RT.002 RW.010</td><td>SHM</td><td>50</td><td>50</td><td>1999</td><td>60</td><td>81200000000</td><td></td></tr>
+<tr><td>297</td><td>02.4.16.09.14.000168</td><td>AL-AMIN</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Gebang Langkap RT.003 RW.012</td><td>SHM</td><td>12</td><td>12</td><td>1977</td><td>20</td><td>-</td><td></td></tr>
+<tr><td>298</td><td>02.4.16.09.14.000170</td><td>NURUL JANNAH</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Gebang langkap RT.003 RW.012 Panti Jember</td><td>SHM</td><td>30</td><td>24</td><td>1990</td><td>30</td><td>-</td><td></td></tr>
+<tr><td>299</td><td>02.4.16.09.14.000171</td><td>AR-ROYAN</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Gebang Langkap RT.003 RW.012 Panti</td><td>SHM</td><td>20</td><td>15</td><td>2005</td><td>20</td><td>-</td><td></td></tr>
+<tr><td>300</td><td>02.4.16.09.14.000172</td><td>NURUL YAQIN</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Darungan Panti</td><td>SHM</td><td>63</td><td>35</td><td>2000</td><td>25</td><td>-</td><td></td></tr>
+<tr><td>301</td><td>02.4.16.09.14.000173</td><td>AL-KHAIRIYAH</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Gebang Langkap RT.002 RW.012 Panti</td><td>SHM</td><td>12</td><td>12</td><td>1985</td><td>20</td><td>-</td><td></td></tr>
+<tr><td>302</td><td>02.4.16.09.14.000174</td><td>AN-NUR</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Gebang Langkap RT.002 RW.012 Panti</td><td>SHM</td><td>24</td><td>20</td><td>2001</td><td>25</td><td>-</td><td></td></tr>
+<tr><td>303</td><td>02.4.16.09.14.000175</td><td>AL-IKHLAS</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Darungan Panti RT.002 RW.010 Panti</td><td>SHM</td><td>35</td><td>12</td><td>1972</td><td>20</td><td>-</td><td></td></tr>
+<tr><td>304</td><td>02.4.16.09.14.000176</td><td>AN-NUR</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Darungan Panti RT.002 RW.010 Panti</td><td>Wakaf</td><td>35</td><td>24</td><td>2002</td><td>20</td><td>87700000000</td><td></td></tr>
+<tr><td>305</td><td>02.4.16.09.14.000499</td><td>AR-ROHIM</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>SMP Panti</td><td>SHM</td><td>150</td><td>70</td><td>1989</td><td>50</td><td>-</td><td></td></tr>
+<tr><td>306</td><td>02.4.16.09.14.000178</td><td>AL-ILYAS</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Darungan Panti RT.002 RW.010</td><td>SHM</td><td>48</td><td>24</td><td>1999</td><td>20</td><td>-</td><td></td></tr>
+<tr><td>307</td><td>02.4.16.09.14.000498</td><td>AL-MUSLIM</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Polsek Panti</td><td>SHM</td><td>150</td><td>48</td><td>2007</td><td>30</td><td>-</td><td></td></tr>
+<tr><td>308</td><td>02.4.16.09.14.000497</td><td>AL-KAUSAR</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Kemiri Tenggiling</td><td>Wakaf</td><td>45</td><td>45</td><td>1991</td><td>25</td><td></td><td></td></tr>
+<tr><td>309</td><td>02.4.16.09.14.000496</td><td>AL-FALAH</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Kemiri Danci</td><td>SHM</td><td>42</td><td>42</td><td>1990</td><td>25</td><td>-</td><td></td></tr>
+<tr><td>310</td><td>02.4.16.09.14.000495</td><td>AL-HIDAYAH</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Kemiri Kantong</td><td>Wakaf</td><td>35</td><td>35</td><td>2006</td><td>27</td><td>-</td><td></td></tr>
+<tr><td>311</td><td>02.4.16.09.14.000494</td><td>NURUL ISLAM</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Kemiri Danci</td><td>SHM</td><td>45</td><td>45</td><td>1975</td><td>30</td><td>-</td><td></td></tr>
+<tr><td>312</td><td>02.4.16.09.14.000493</td><td>TARBIYATUS SIBYAN</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Kemiri Tenggiling</td><td>Wakaf</td><td>90</td><td>90</td><td>1996</td><td>25</td><td>-</td><td></td></tr>
+<tr><td>313</td><td>02.4.16.09.14.000492</td><td>NURUL HASAN</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Kemiri Tenggiling</td><td>Wakaf</td><td>90</td><td>90</td><td>1980</td><td>30</td><td>-</td><td></td></tr>
+<tr><td>314</td><td>02.4.16.09.14.000491</td><td>AL-KAROMAH</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Kemiri Kantong I</td><td>SHM</td><td>72</td><td>72</td><td>1980</td><td>35</td><td>-</td><td></td></tr>
+<tr><td>315</td><td>02.4.16.09.14.000490</td><td>AL-HASAN</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Kemiri Kantong II</td><td>SHM</td><td>150</td><td>150</td><td>2013</td><td>90</td><td>-</td><td></td></tr>
+<tr><td>316</td><td>02.4.16.09.14.000489</td><td>AL-FURQON</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Kemuning</td><td>Wakaf</td><td>63</td><td>54</td><td>1992</td><td>30</td><td>-</td><td></td></tr>
+<tr><td>317</td><td>02.4.16.09.14.000488</td><td>AL-AMANAH</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Kemiri Kantong III</td><td>Wakaf</td><td>45</td><td>45</td><td>1975</td><td>30</td><td>-</td><td></td></tr>
+<tr><td>318</td><td>02.4.16.09.14.000190</td><td>AN-NUR</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Badean kulon RT.016 RW.004</td><td>SHM</td><td>35</td><td>24</td><td>1980</td><td>25</td><td></td><td></td></tr>
+<tr><td>319</td><td>02.4.16.09.14.000241</td><td>AL-MA&#x27;RUF</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Jalan Bringin Kuning RT.004 RW.016 Badean Kulon</td><td>SHM</td><td>54</td><td>40</td><td>2012</td><td>25</td><td>822000000</td><td></td></tr>
+<tr><td>320</td><td>02.4.16.09.14.000235</td><td>ILMIYAH</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Jalan.Andong Sari RT.002 RW.016 Badean Kulon</td><td>Wakaf</td><td>35</td><td>24</td><td>1970</td><td>50</td><td>85100000000</td><td></td></tr>
+<tr><td>321</td><td>02.4.16.09.14.000482</td><td>AL-BAROKAH</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Jalan.kampus Dusunkasian RT.005 RW.011 Serut</td><td>Wakaf</td><td>54</td><td>30</td><td>1975</td><td>400</td><td>82300000000</td><td></td></tr>
+<tr><td>322</td><td>02.4.16.09.14.000483</td><td>MUSHOLLA AL-IKHLAS</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Jalan Kapuas Dusun Kasian RT.001 RW.013 Serut</td><td>SHM</td><td>648</td><td>50</td><td>1978</td><td>50</td><td>81900000000</td><td></td></tr>
+<tr><td>323</td><td>02.4.16.09.14.000484</td><td>BAITUL ASYFIYAK</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Jalan Mahakam karanganom Utara RT.006 RW.010</td><td>SHM</td><td>10</td><td>63</td><td>1945</td><td>40</td><td>85700000000</td><td></td></tr>
+<tr><td>324</td><td>02.4.16.09.14.000487</td><td>SYAFI&#x27;IYAH SUJAIYAH</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Panti Jember Serut Panti Jember</td><td>SHM</td><td>70</td><td>24</td><td>2003</td><td>40</td><td>85300000000</td><td></td></tr>
+<tr><td>325</td><td>02.4.16.09.14.000476</td><td>JAM&#x27;IYATUL MUBTIDI&#x27;IN</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>alan Andong Sari RT.004 RW.016</td><td>SHM</td><td>112</td><td>91</td><td>1980</td><td>100</td><td>85300000000</td><td></td></tr>
+<tr><td>326</td><td>02.4.16.09.14.000253</td><td>SYAMSUN</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Jalan Andong Sari RT.001 RW.016 Badean Kulon Serut</td><td>SHM</td><td>24</td><td>24</td><td>1985</td><td>30</td><td>82300000000</td><td></td></tr>
+<tr><td>327</td><td>02.4.16.09.14.000322</td><td>DARUS SHOLAH</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Cempaka Pakis</td><td>SHM</td><td>200</td><td>96</td><td>1975</td><td>50</td><td></td><td></td></tr>
+<tr><td>328</td><td>02.4.16.09.14.000030</td><td>AL-BAROKAH</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Darungan Panti RT.002 RW.010</td><td>SHM</td><td>26</td><td>22</td><td>1997</td><td>30</td><td>-</td><td></td></tr>
+<tr><td>329</td><td>02.4.16.09.14.000029</td><td>AL-HIDAYAH</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>RT 007 RW 003 Dusun Mencek, Serut</td><td>SHM</td><td>250</td><td>90</td><td>1963</td><td>55</td><td>85100000000</td><td></td></tr>
+<tr><td>330</td><td>02.4.16.09.14.000032</td><td>NURUL IMAN</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Gebang Utara RT.004 RW.15 Panti</td><td>SHM</td><td>20</td><td>16</td><td>2010</td><td>20</td><td>-</td><td></td></tr>
+<tr><td>331</td><td>02.4.16.09.14.000033</td><td>AL-FARUQ</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Gebang Utara RT.004 RW.015 Panti</td><td>SHM</td><td>30</td><td>16</td><td>1982</td><td>20</td><td>-</td><td></td></tr>
+<tr><td>332</td><td>02.4.16.09.14.000034</td><td>AN-NISA</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Gebang Utara RT.003 RW.015 Panti</td><td>SHM</td><td>40</td><td>40</td><td>1970</td><td>20</td><td>-</td><td></td></tr>
+<tr><td>333</td><td>02.4.16.09.14.000035</td><td>AL-ULUM</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Gebang Utara RT.002 RW.015 Panti</td><td>SHM</td><td>24</td><td>12</td><td>2013</td><td>15</td><td>-</td><td></td></tr>
+<tr><td>334</td><td>02.4.16.09.14.000036</td><td>AL-AZHAR</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Gebang Utara RT.002 RW.015 Panti</td><td>SHM</td><td>36</td><td>36</td><td>2011</td><td>20</td><td>-</td><td></td></tr>
+<tr><td>335</td><td>02.4.16.09.14.000074</td><td>NURUL YAKIN</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Panti Krajan RT.002 RW.004</td><td>SHM</td><td>90</td><td>28</td><td>2003</td><td>30</td><td>-</td><td></td></tr>
+<tr><td>336</td><td>02.4.16.09.14.000038</td><td>AL-BAROKAH</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Gebang Utara RT.001 RW.015 Panti</td><td>Wakaf</td><td>35</td><td>22</td><td>2011</td><td>20</td><td>-</td><td></td></tr>
+<tr><td>337</td><td>02.4.16.09.14.000039</td><td>NURUL HUDA</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Gebang Utara RT.003 RW.014 Panti</td><td>SHM</td><td>42</td><td>30</td><td>1962</td><td>30</td><td>-</td><td></td></tr>
+<tr><td>338</td><td>02.4.16.09.14.000040</td><td>MIFTAHUL JANNAH</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Gebang Utara RT.002 RW.015 Panti</td><td>SHM</td><td>42</td><td>20</td><td>1990</td><td>25</td><td>-</td><td></td></tr>
+<tr><td>339</td><td>02.4.16.09.14.000041</td><td>AL-HIKMAH</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Gebang Utara RT.003 RW.014 Panti</td><td>SHM</td><td>35</td><td>24</td><td>2011</td><td>20</td><td>-</td><td></td></tr>
+<tr><td>340</td><td>02.4.16.09.14.000042</td><td>AL-HADHORI</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Gebang Utara RT.003 RW.014 Panti</td><td>SHM</td><td>35</td><td>20</td><td>2001</td><td>20</td><td>85100000000</td><td></td></tr>
+<tr><td>341</td><td>02.4.16.09.14.000048</td><td>AL-AHSAN</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Prapah RT.001 RW.016 Panti</td><td>SHM</td><td>60</td><td>24</td><td>2006</td><td>25</td><td>-</td><td></td></tr>
+<tr><td>342</td><td>02.4.16.09.14.000044</td><td>DARUS SALAM</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Gebang Utara RT.003 RW.014 Panti</td><td>Wakaf</td><td>160</td><td>54</td><td>1961</td><td>60</td><td>82100000000</td><td></td></tr>
+<tr><td>343</td><td>02.4.16.09.14.000045</td><td>AL-HIKMAH</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Prapah RT.001 RW.018 Panti</td><td>SHM</td><td>32</td><td>32</td><td>1982</td><td>30</td><td>-</td><td></td></tr>
+<tr><td>344</td><td>02.4.16.09.14.000046</td><td>AL-IKHLASH</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Prapah RT.001 RW.018 Panti</td><td>SHM</td><td>24</td><td>15</td><td>1982</td><td>20</td><td>-</td><td></td></tr>
+<tr><td>345</td><td>02.4.16.09.14.000049</td><td>NURUL YAQIN</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Prapah RT.002 RT.016 Panti</td><td>SHM</td><td>35</td><td>35</td><td>1980</td><td>25</td><td>-</td><td></td></tr>
+<tr><td>346</td><td>02.4.16.09.14.000051</td><td>AR-ROHMAN</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Gebang Langkap RT.001 RW.012</td><td>SHM</td><td>30</td><td>20</td><td>1995</td><td>20</td><td>-</td><td></td></tr>
+<tr><td>347</td><td>02.4.16.09.14.000052</td><td>AR-ROHMAN</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Gebang Langkap RT.001 RW.012</td><td>SHM</td><td>30</td><td>20</td><td>1995</td><td>20</td><td>-</td><td></td></tr>
+<tr><td>348</td><td>02.4.16.09.14.000053</td><td>NURUL HUDA</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Gebang Langkap RT.001 RW.012</td><td>SHM</td><td>24</td><td>16</td><td>1995</td><td>20</td><td>-</td><td></td></tr>
+<tr><td>349</td><td>02.4.16.09.14.000054</td><td>AR-ROHMAN</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Gebang Langkap RT.001 RW.012 Panti</td><td>SHM</td><td>35</td><td>20</td><td>1996</td><td>20</td><td>-</td><td></td></tr>
+<tr><td>350</td><td>02.4.16.09.14.000055</td><td>MADINATUL ULUM</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Gebang Langkap RT.003 RW.012</td><td>SHM</td><td>18</td><td>15</td><td>1960</td><td>20</td><td>-</td><td></td></tr>
+<tr><td>351</td><td>02.4.16.09.14.000057</td><td>AL-JANNAH</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Gebang Langkap RT.003 RW.013</td><td>SHM</td><td>24</td><td>24</td><td>2014</td><td>20</td><td>-</td><td></td></tr>
+<tr><td>352</td><td>02.4.16.09.14.000058</td><td>AL-HUDA</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Gebang Langkap RT.001 RW.013</td><td>SHM</td><td>15</td><td>12</td><td>2005</td><td>20</td><td>-</td><td></td></tr>
+<tr><td>353</td><td>02.4.16.09.14.000059</td><td>AL-HIKMAH</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Gebang Langkap RT.001 RW.013 Panti</td><td>SHM</td><td>35</td><td>20</td><td>1988</td><td>20</td><td>-</td><td></td></tr>
+<tr><td>354</td><td>02.4.16.09.14.000060</td><td>AN-NUR</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Gebang Langkap RT.001 RW.013</td><td>SHM</td><td>42</td><td>20</td><td>1997</td><td>20</td><td>-</td><td></td></tr>
+<tr><td>355</td><td>02.4.16.09.14.000061</td><td>NURUL HUDA</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Gebang Langkap RT.001 RW.013</td><td>SHM</td><td>20</td><td>17</td><td>1975</td><td>20</td><td>-</td><td></td></tr>
+<tr><td>356</td><td>02.4.16.09.14.000063</td><td>AL-BAROKAH</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Gebang Langkap RT.001 RW.013</td><td>SHM</td><td>30</td><td>20</td><td>2001</td><td>20</td><td>-</td><td></td></tr>
+<tr><td>357</td><td>02.4.16.09.14.000066</td><td>NURUL YAQIN</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Gebang Langkap RT.002 RW.011 Panti</td><td>SHM</td><td>24</td><td>20</td><td>2002</td><td>20</td><td>-</td><td></td></tr>
+<tr><td>358</td><td>02.4.16.09.14.000067</td><td>AL-AZIZ</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Gebang Langkap RT.001 RW.012 Panti</td><td>SHM</td><td>20</td><td>12</td><td>2010</td><td>15</td><td>-</td><td></td></tr>
+<tr><td>359</td><td>02.4.16.09.14.000068</td><td>AL-ALIF</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Gebang Langkap RT.001 RW.012</td><td>SHM</td><td>54</td><td>35</td><td>1960</td><td>30</td><td>-</td><td></td></tr>
+<tr><td>360</td><td>02.4.16.09.14.000056</td><td>NURUS SYAFA&#x27;AH</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Gebang Langkap RT.003 RW.013</td><td>SHM</td><td>36</td><td>28</td><td>2004</td><td>20</td><td>-</td><td></td></tr>
+<tr><td>361</td><td>02.4.16.09.14.000069</td><td>NURUL AMAL</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Gebang Langkap RT.003 RW.012</td><td>SHM</td><td>30</td><td>24</td><td>1980</td><td>20</td><td>-</td><td></td></tr>
+<tr><td>362</td><td>02.4.16.09.14.000028</td><td>RIYADUS SHOLIHIN</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Jalan PB. Sudirman Gang pemuda RT.007 RW.003</td><td>SHM</td><td>42</td><td>35</td><td>1965</td><td>16</td><td>85200000000</td><td></td></tr>
+<tr><td>363</td><td>02.4.16.09.14.000073</td><td>AR-ROHMAN</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Gebang Utara RT.004 RW.015 Panti</td><td>SHM</td><td>24</td><td>12</td><td>1980</td><td>20</td><td>-</td><td></td></tr>
+<tr><td>364</td><td>02.4.16.09.14.000474</td><td>AN-NUR</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Dusun Krajan Panti</td><td>SHM</td><td>88</td><td>48</td><td>1998</td><td>30</td><td>85800000000</td><td></td></tr>
+<tr><td>365</td><td>02.4.16.09.14.000047</td><td>AN-NUR</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Prapah Panti</td><td>SHM</td><td>24</td><td>15</td><td>2015</td><td>0</td><td>-</td><td></td></tr>
+<tr><td>366</td><td>02.4.16.09.14.000070</td><td>DURRIYATURROJAK</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Prapah RT.001 RW.017 Panti</td><td>SHM</td><td>35</td><td>35</td><td>1987</td><td>30</td><td>-</td><td></td></tr>
+<tr><td>367</td><td>02.4.16.09.14.000037</td><td>ZAINUR ROHMAN</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Gebang Utara Panti</td><td>SHM</td><td>120</td><td>48</td><td>2012</td><td>30</td><td>-</td><td></td></tr>
+<tr><td>368</td><td>02.4.16.09.14.000031</td><td>AN-NUR</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Gebang Utara Panti</td><td>SHM</td><td>24</td><td>24</td><td>1990</td><td>20</td><td>-</td><td></td></tr>
+<tr><td>369</td><td>02.4.16.09.14.000006</td><td>AL-IKHLAS</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Jalan Kapuas Dusun Kasiyan RT.001 RW.013 Serut</td><td>SHM</td><td>698</td><td>50</td><td>1978</td><td>50</td><td>81900000000</td><td></td></tr>
+<tr><td>370</td><td>02.4.16.09.14.000007</td><td>AN-NUR</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Mencek Serut RT.002 RW.003</td><td>SHM</td><td>80</td><td>42</td><td>1985</td><td>20</td><td>85200000000</td><td></td></tr>
+<tr><td>371</td><td>02.4.16.09.14.000465</td><td>AL- BAROKAH</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Jalan Kapuas Dusun Kasian RT.005 RW.011 Serut</td><td>Wakaf</td><td>54</td><td>30</td><td>1975</td><td>400</td><td>82300000000</td><td></td></tr>
+<tr><td>372</td><td>02.4.16.09.14.000009</td><td>MAMBAUL ISLAH</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Jalan Mahakam RT.006 RW.010 Karanganom, Serut</td><td>Wakaf</td><td>280</td><td>35</td><td>1993</td><td>40</td><td>86600000000</td><td></td></tr>
+<tr><td>373</td><td>02.4.16.09.14.000010</td><td>DARUS SHOLAH</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Jalan Kapuas RT.002 RW.011 Kasian, Serut</td><td>Wakaf</td><td>54</td><td>42</td><td>1970</td><td>50</td><td>85100000000</td><td></td></tr>
+<tr><td>374</td><td>02.4.16.09.14.000466</td><td>AL-GHUFRON</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Jalan PB Sudirman RT.001 RW.002 Serut</td><td>Wakaf</td><td>210</td><td>48</td><td>1970</td><td>70</td><td>85100000000</td><td></td></tr>
+<tr><td>375</td><td>02.4.16.09.14.000467</td><td>AL-MUSTAQIM</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>RT.003 RW.002 Dusun Mencek Desa Serut</td><td>SHM</td><td>60</td><td>25</td><td>1999</td><td>30</td><td>85800000000</td><td></td></tr>
+<tr><td>376</td><td>02.4.16.09.14.000014</td><td>AL-KOSIMI</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Jalan PB sudirman RT.002 RW.002 Mencek Serut</td><td>SHM</td><td>35</td><td>20</td><td>1980</td><td>70</td><td>85200000000</td><td></td></tr>
+<tr><td>377</td><td>02.4.16.09.14.000015</td><td>AL-HUSAIN</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Jalan PB Sudirman RT.002 RW.003 Mencek barat, Serut</td><td>SHM</td><td>150</td><td>54</td><td>2000</td><td>100</td><td>85300000000</td><td></td></tr>
+<tr><td>378</td><td>02.4.16.09.14.000016</td><td>AS-SYAFI&#x27;I</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Jalan Mahakam RT.004 RW.010 Karanganom, Serut</td><td>Wakaf</td><td>150</td><td>42</td><td>1960</td><td>45</td><td>85300000000</td><td></td></tr>
+<tr><td>379</td><td>02.4.16.09.14.000017</td><td>NURUL ISLAM</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Jalan. PB. Sudirman RT.002 RW.001 Mencek</td><td>Wakaf</td><td>100</td><td>40</td><td>1927</td><td>50</td><td>85100000000</td><td></td></tr>
+<tr><td>380</td><td>02.4.16.09.14.000018</td><td>AL-MISRO&#x27;I</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>RT.001 RW.008 Dusun Krajan</td><td>SHM</td><td>80</td><td>42</td><td>1965</td><td>60</td><td>82300000000</td><td></td></tr>
+<tr><td>381</td><td>02.4.16.09.14.000020</td><td>HAROMAIN</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Gang Pemuda RT.003 RW.003 Mencek, Serut</td><td>SHM</td><td>40</td><td>28</td><td>1967</td><td>40</td><td>85100000000</td><td></td></tr>
+<tr><td>382</td><td>02.4.16.09.14.000021</td><td>AL-HIDAYAH</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Gang Pemuda RT.004 RW.003 Mencek, Serut</td><td>Wakaf</td><td>120</td><td>120</td><td>1993</td><td>60</td><td>82200000000</td><td></td></tr>
+<tr><td>383</td><td>02.4.16.09.14.000023</td><td>NURUL IMAN</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Gang Pemuda RT.007 RW.003 Mencek, Serut</td><td>SHM</td><td>3525</td><td>40</td><td>1997</td><td>20</td><td>82300000000</td><td></td></tr>
+<tr><td>384</td><td>02.4.16.09.14.000024</td><td>PAK UM</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Jalan Mahakam RT.004 RW.010 Karang Anom, Serut</td><td>SHM</td><td>24</td><td>24</td><td>1980</td><td>20</td><td>85200000000</td><td></td></tr>
+<tr><td>385</td><td>02.4.16.09.14.000025</td><td>AL-HIDAYAH</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Jalan. PB. Sudirman RT.003 RW.003, Mencek Serut</td><td>SHM</td><td>54</td><td>80</td><td>1960</td><td>20</td><td>85300000000</td><td></td></tr>
+<tr><td>386</td><td>02.4.16.09.14.000469</td><td>MIFTAHUL ULUM</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Jalan Mahakam RT.005 RW.009 Karang Anom, Serut</td><td>SHM</td><td>129</td><td>100</td><td>1991</td><td>120</td><td>85700000000</td><td></td></tr>
+<tr><td>387</td><td>02.4.16.09.14.000470</td><td>AN-NUR</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>RT.002 RW.004 Glintongan, Serut</td><td>SHM</td><td>48</td><td>40</td><td>2000</td><td>40</td><td>82300000000</td><td></td></tr>
+<tr><td>388</td><td>02.4.16.09.14.000012</td><td>BAITUR ROHMAN</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Dusun Tenggiling Desa Serut</td><td>SHM</td><td>60</td><td>45</td><td>1990</td><td>60</td><td>85300000000</td><td></td></tr>
+<tr><td>389</td><td>02.4.16.09.14.000376</td><td>P.IS</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Dusun Plalangan Desa Glgagahwero</td><td>SHM</td><td>120</td><td>48</td><td>1980</td><td>37</td><td></td><td></td></tr>
+<tr><td>390</td><td>02.4.16.09.14.000422</td><td>AN-NURONIYAH</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Kemuningsari Lor RT.006 RW.004</td><td>SHM</td><td>65</td><td>30</td><td>2003</td><td>50</td><td>81300000000</td><td></td></tr>
+<tr><td>391</td><td>02.4.16.09.14.000503</td><td>AN-NUR</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Dusun Kemuningsari Lor RT. 006 RW. 004 Desa Kemuningsari Lor</td><td>SHM</td><td>172</td><td>72</td><td>2005</td><td>60</td><td>82300000000</td><td></td></tr>
+<tr><td>392</td><td>02.4.16.09.14.000452</td><td>BAITUL MA&#x27;WA</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Dusun Glundengan RT. 001 RW. 005 Desa Suci</td><td>SHM</td><td>70</td><td>38</td><td>2015</td><td>50</td><td>82200000000</td><td></td></tr>
+<tr><td>393</td><td>02.4.16.09.14.000506</td><td>AL-IKHLAS</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Perumahan</td><td>Dusun Wonolangu RT. 001 RW. 021 Desa Panti</td><td>Wakaf</td><td>327</td><td>70</td><td>1991</td><td>100</td><td>85300000000</td><td>ponpesalikjlaspanti@gmail.com</td></tr>
+<tr><td>394</td><td>02.3.16.09.14.000504</td><td>AL-KAWTSAR</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Pendidikan</td><td>Dusun Sumbersari RT 001 RW 008 Kemuning Lor</td><td>Wakaf</td><td>100</td><td>70</td><td>1980</td><td>50</td><td>85300000000</td><td></td></tr>
+<tr><td>395</td><td>02.3.16.09.14.000505</td><td>ANNURIYAH</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Pendidikan</td><td>Jl. Bringin Kuning RT. 003 RW. 019 Dusun Badean Desa Serut</td><td>Wakaf</td><td>55</td><td>42</td><td>1980</td><td>50</td><td>82300000000</td><td></td></tr>
+<tr><td>396</td><td>02.3.16.09.14.000507</td><td>RAUDLATUL ULUM</td><td>JAWA TIMUR</td><td>KAB. JEMBER</td><td>Panti</td><td>Mushalla Pendidikan</td><td>Persimen Dusun Kasian RT. 003 RW. 014 Desa Serut</td><td>Wakaf</td><td>900</td><td>700</td><td>1994</td><td>500</td><td>8230000000</td><td></td></tr></tbody>
+      </table>
+    </div>
+    <div class="row-count" id="cntMushalla">Menampilkan 396 dari 396 data</div>
+  </div>
+</div>
+
+<!-- ===== NON MUSLIM ===== -->
+<div id="page-nonmuslim" class="page">
+  <div class="card">
+    <h2>⛩️ Tempat Ibadah Non Muslim <span class="badge">1 Data</span></h2>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th>No</th><th>Nama Tempat Ibadah</th><th>Agama</th><th>Alamat</th></tr></thead>
+        <tbody><tr><td>1</td><td>Klenteng Pay Lien San</td><td>Budha</td><td>Dusun Karangasem Timur, Desa Glagahweri, Kec. Panti</td></tr></tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- ===== INPUT FORM ===== -->
+<div id="page-input" class="page">
+  <fieldset disabled style="border: none; padding: 0; margin: 0; cursor: not-allowed;">
+  <div class="card">
+    <h2>📝 Form Input Tempat Ibadah</h2>
+    <p class="section-title">Pilih Kategori</p>
+    <div class="form-group" style="max-width:300px">
+      <label>Jenis Tempat Ibadah</label>
+      <select id="jenisSelect" onchange="toggleForm()">
+        <option value="masjid">Masjid</option>
+        <option value="mushalla">Mushalla</option>
+        <option value="nonmuslim">Non Muslim</option>
+      </select>
+    </div>
+
+    <div id="formMuslim">
+      <p class="section-title">Data Identitas</p>
+      <div class="form-grid">
+        <div class="form-group"><label>ID Tempat Ibadah</label><input placeholder="Contoh: 01.4.16.09.14.000xxx"></div>
+        <div class="form-group"><label>Nama</label><input placeholder="Nama Masjid/Mushalla"></div>
+        <div class="form-group"><label>Provinsi</label><input value="JAWA TIMUR" readonly></div>
+        <div class="form-group"><label>Kabupaten</label><input value="KAB. JEMBER" readonly></div>
+        <div class="form-group"><label>Kecamatan</label><input value="Panti" readonly></div>
+        <div class="form-group"><label>Tipologi</label>
+          <select>
+            <option>Masjid Jami</option>
+            <option>Masjid di Tempat Publik</option>
+            <option>Mushalla Perumahan</option>
+          </select>
+        </div>
+      </div>
+      <p class="section-title">Data Fisik</p>
+      <div class="form-grid">
+        <div class="form-group"><label>Alamat Lengkap</label><input placeholder="Dusun, RT/RW, Desa"></div>
+        <div class="form-group"><label>Status Tanah</label>
+          <select><option>Wakaf</option><option>SHM</option><option>Girik</option><option>Lainnya</option></select>
+        </div>
+        <div class="form-group"><label>Luas Tanah (m²)</label><input type="number" placeholder="0"></div>
+        <div class="form-group"><label>Luas Bangunan (m²)</label><input type="number" placeholder="0"></div>
+        <div class="form-group"><label>Tahun Berdiri</label><input type="number" placeholder="2024"></div>
+        <div class="form-group"><label>Jumlah SDM</label><input type="number" placeholder="0"></div>
+      </div>
+      <p class="section-title">Kontak & Lokasi</p>
+      <div class="form-grid">
+        <div class="form-group"><label>No. Telp/HP</label><input placeholder="08xx-xxxx-xxxx"></div>
+        <div class="form-group"><label>Email</label><input type="email" placeholder="email@example.com"></div>
+        <div class="form-group"><label>Latitude</label><input placeholder="-8.xxxxx"></div>
+        <div class="form-group"><label>Longitude</label><input placeholder="113.xxxxx"></div>
+      </div>
+    </div>
+
+    <div id="formNonMuslim" style="display:none">
+      <p class="section-title">Data Tempat Ibadah Non Muslim</p>
+      <div class="form-grid">
+        <div class="form-group"><label>Nama Tempat Ibadah</label><input placeholder="Contoh: Klenteng, Gereja, Pura"></div>
+        <div class="form-group"><label>Agama</label>
+          <select><option>Buddha</option><option>Kristen</option><option>Katolik</option><option>Hindu</option><option>Konghucu</option></select>
+        </div>
+        <div class="form-group"><label>Alamat Lengkap</label><input placeholder="Dusun, Desa, Kecamatan"></div>
+      </div>
+    </div>
+
+    <div style="margin-top:20px;display:flex;gap:10px">
+      <button class="btn">💾 Simpan Data</button>
+      <button class="btn" style="background:#64748b">🔄 Reset Form</button>
+    </div>
+  </div>
+</div>
+
+<!-- ===== DASHBOARD ===== -->
+<div id="page-dashboard" class="page">
+  <div class="stats">
+    <div class="stat"><div class="icon">🕌</div><h3>108</h3><p>Masjid</p></div>
+    <div class="stat"><div class="icon">🕍</div><h3>396</h3><p>Mushalla</p></div>
+    <div class="stat"><div class="icon">⛩️</div><h3>1</h3><p>Non Muslim</p></div>
+    <div class="stat"><div class="icon">📍</div><h3>505</h3><p>Total</p></div>
+  </div>
+
+  <div class="dash-grid">
+    <div class="card">
+      <h2>📊 Komposisi Tempat Ibadah</h2>
+      <div style="margin-top:12px">
+        <div class="bar-label">🕌 Masjid (108)</div>
+        <div class="bar-track"><div class="bar-fill" style="width:21.4%"></div></div>
+        <div class="bar-val">21.4%</div>
+        <div class="bar-label" style="margin-top:12px">🕍 Mushalla (396)</div>
+        <div class="bar-track"><div class="bar-fill" style="width:78.4%;background:#0f766e"></div></div>
+        <div class="bar-val">78.4%</div>
+        <div class="bar-label" style="margin-top:12px">⛩️ Non Muslim (1)</div>
+        <div class="bar-track"><div class="bar-fill" style="width:0.2%;background:#94a3b8"></div></div>
+        <div class="bar-val">0.2%</div>
+      </div>
+    </div>
+    <div class="card">
+      <h2>🗺️ Sebaran Per Desa</h2>
+      <div style="margin-top:12px;font-size:13px;color:#475569">
+        <p>Data tempat ibadah tersebar di seluruh desa/kelurahan di Kecamatan Panti, meliputi:</p>
+        <ul style="margin:10px 0 0 16px;line-height:1.9">
+          <li>Desa Serut</li>
+          <li>Desa Panti</li>
+          <li>Desa Suci</li>
+          <li>Desa Kemiri</li>
+          <li>Desa Glagahwero</li>
+          <li>Desa Kemuningsari Lor</li>
+          <li>Desa Pakis</li>
+          <li>Desa Kemuningsari Kidul</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>📋 Ringkasan Status Tanah</h2>
+    <div style="margin-top:12px;display:flex;gap:16px;flex-wrap:wrap">
+      <div style="flex:1;min-width:120px;text-align:center;padding:14px;background:#f0fdf4;border-radius:10px">
+        <div style="font-size:24px;font-weight:700;color:#075f3f">Wakaf</div>
+        <div style="font-size:13px;color:#64748b;margin-top:4px">Mayoritas</div>
+      </div>
+      <div style="flex:1;min-width:120px;text-align:center;padding:14px;background:#f0fdf4;border-radius:10px">
+        <div style="font-size:24px;font-weight:700;color:#075f3f">SHM</div>
+        <div style="font-size:13px;color:#64748b;margin-top:4px">Sebagian</div>
+      </div>
+      <div style="flex:1;min-width:120px;text-align:center;padding:14px;background:#f0fdf4;border-radius:10px">
+        <div style="font-size:24px;font-weight:700;color:#075f3f">Girik</div>
+        <div style="font-size:13px;color:#64748b;margin-top:4px">Minoritas</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+function showPage(id, btn) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('nav button').forEach(b => b.classList.remove('active'));
+  document.getElementById('page-' + id).classList.add('active');
+  btn.classList.add('active');
+}
+
+function filterTable(inputId, tableId, countId) {
+  const val = document.getElementById(inputId).value.toLowerCase();
+  const rows = document.querySelectorAll('#' + tableId + ' tbody tr');
+  let visible = 0;
+  rows.forEach(r => {
+    const show = r.textContent.toLowerCase().includes(val);
+    r.style.display = show ? '' : 'none';
+    if (show) visible++;
+  });
+  const total = rows.length;
+  document.getElementById(countId).textContent =
+    `Menampilkan ${visible} dari ${total} data`;
+}
+
+function toggleForm() {
+  const v = document.getElementById('jenisSelect').value;
+  document.getElementById('formMuslim').style.display = v === 'nonmuslim' ? 'none' : '';
+  document.getElementById('formNonMuslim').style.display = v === 'nonmuslim' ? '' : 'none';
+}
+</script>
+</body></html>
